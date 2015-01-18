@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
-		8EDFB7D01A6B6BBA000AD00A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CF1A6B6BBA000AD00A /* ViewController.m */; };
-		8EDFB7D31A6B6BBA000AD00A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7D11A6B6BBA000AD00A /* Main.storyboard */; };
 		8EDFB7D51A6B6BBA000AD00A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */; };
 		8EDFB7D81A6B6BBA000AD00A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7D61A6B6BBA000AD00A /* LaunchScreen.xib */; };
 		8EDFB7E41A6B6BBA000AD00A /* SoundBoardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7E31A6B6BBA000AD00A /* SoundBoardTests.m */; };
+		8EDFB7F01A6B6BFE000AD00A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */; };
+		8EDFB7F11A6B6BFE000AD00A /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,14 +32,14 @@
 		8EDFB7C91A6B6BBA000AD00A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8EDFB7CB1A6B6BBA000AD00A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8EDFB7CE1A6B6BBA000AD00A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8EDFB7CF1A6B6BBA000AD00A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		8EDFB7D21A6B6BBA000AD00A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8EDFB7D71A6B6BBA000AD00A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8EDFB7DD1A6B6BBA000AD00A /* SoundBoardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundBoardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDFB7E21A6B6BBA000AD00A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EDFB7E31A6B6BBA000AD00A /* SoundBoardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundBoardTests.m; sourceTree = "<group>"; };
+		8EDFB7ED1A6B6BFE000AD00A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = SoundBoard/HomeViewController.h; sourceTree = "<group>"; };
+		8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = SoundBoard/HomeViewController.m; sourceTree = "<group>"; };
+		8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = SoundBoard/HomeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +63,9 @@
 		8EDFB7BB1A6B6BBA000AD00A = {
 			isa = PBXGroup;
 			children = (
+				8EDFB7ED1A6B6BFE000AD00A /* HomeViewController.h */,
+				8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */,
+				8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */,
 				8EDFB7C61A6B6BBA000AD00A /* SoundBoard */,
 				8EDFB7E01A6B6BBA000AD00A /* SoundBoardTests */,
 				8EDFB7C51A6B6BBA000AD00A /* Products */,
@@ -83,9 +86,6 @@
 			children = (
 				8EDFB7CB1A6B6BBA000AD00A /* AppDelegate.h */,
 				8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */,
-				8EDFB7CE1A6B6BBA000AD00A /* ViewController.h */,
-				8EDFB7CF1A6B6BBA000AD00A /* ViewController.m */,
-				8EDFB7D11A6B6BBA000AD00A /* Main.storyboard */,
 				8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */,
 				8EDFB7D61A6B6BBA000AD00A /* LaunchScreen.xib */,
 				8EDFB7C71A6B6BBA000AD00A /* Supporting Files */,
@@ -199,9 +199,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EDFB7D31A6B6BBA000AD00A /* Main.storyboard in Resources */,
 				8EDFB7D81A6B6BBA000AD00A /* LaunchScreen.xib in Resources */,
 				8EDFB7D51A6B6BBA000AD00A /* Images.xcassets in Resources */,
+				8EDFB7F11A6B6BFE000AD00A /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,9 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8EDFB7D01A6B6BBA000AD00A /* ViewController.m in Sources */,
 				8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */,
 				8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */,
+				8EDFB7F01A6B6BFE000AD00A /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,14 +244,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8EDFB7D11A6B6BBA000AD00A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8EDFB7D21A6B6BBA000AD00A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		8EDFB7D61A6B6BBA000AD00A /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
