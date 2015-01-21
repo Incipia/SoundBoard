@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5BF89A0E1A704FE700B9824E /* CATextLayer+SetLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */; };
 		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
@@ -51,6 +52,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5BF89A0C1A704FE700B9824E /* CATextLayer+SetLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATextLayer+SetLetter.h"; sourceTree = "<group>"; };
+		5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATextLayer+SetLetter.m"; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		8EDFB7C41A6B6BBA000AD00A /* SoundBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +170,8 @@
 				8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */,
 				8E7662C81A701D4F006410E7 /* LetterView.h */,
 				8E7662C91A701D4F006410E7 /* LetterView.m */,
+				5BF89A0C1A704FE700B9824E /* CATextLayer+SetLetter.h */,
+				5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */,
 				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
 			);
 			path = CustomKeyboard;
@@ -336,6 +341,7 @@
 			files = (
 				8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
+				5BF89A0E1A704FE700B9824E /* CATextLayer+SetLetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
