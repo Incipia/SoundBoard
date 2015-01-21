@@ -8,6 +8,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface CATextLayer_SetLetter : CATextLayer
+@interface CATextLayer (SetLetter)
+
+- (void)setLetterForKeyboard:(NSString*)letter;
 
 @end
