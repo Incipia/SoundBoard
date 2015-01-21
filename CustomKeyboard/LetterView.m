@@ -38,10 +38,9 @@
 #pragma mark - Setup
 - (void)setupLetterLayerWithLetter:(NSString*)letter
 {
-   self.letterLayer = [CATextLayer layer];
-   self.letterLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-   
-   [self.letterLayer setLetterForKeyboard:letter];
+   self.letterLayer = [CATextLayer layerWithLetter:letter];
+   self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+
    [self.layer addSublayer:self.letterLayer];
 }
 

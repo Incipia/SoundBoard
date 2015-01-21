@@ -10,6 +10,6 @@
 
 @interface CATextLayer (SetLetter)
 
-- (void)setLetterForKeyboard:(NSString*)letter;
++ (instancetype)layerWithLetter:(NSString*)letter;
 
 @end

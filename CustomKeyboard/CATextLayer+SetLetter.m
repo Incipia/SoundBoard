@@ -11,7 +11,25 @@
 
 @implementation CATextLayer (SetLetter)
 
-- (void)setLetterForKeyboard:(NSString *)letter
+#pragma mark - Public
++ (instancetype)layerWithLetter:(NSString *)letter
+{
+   CATextLayer* textLayer = [CATextLayer layer];
+   
+   [textLayer setLetter:letter];
+   [textLayer updateFrame];
+   
+   return textLayer;
+}
+
+#pragma mark - Private
+- (void)updateFrame
+{
+   CGSize letterSize = [((NSAttributedString*)self.string) size];
+   self.frame = CGRectMake(0, 0, letterSize.width, letterSize.height);
+}
+
+- (void)setLetter:(NSString *)letter
 {
    NSDictionary* letterAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:22.f]};
