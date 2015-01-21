@@ -61,15 +61,26 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
    CGPoint touchLoction = [touches.anyObject locationInView:self.view];
-   
+   LetterView* targetLetterView = [self hitTestLetterViewsWithPoint:touchLoction];
+   if (targetLetterView != nil)
+   {
+      [self.textDocumentProxy insertText:targetLetterView.letter];
+   }
+}
+
+#pragma mark - Helper
+- (LetterView*)hitTestLetterViewsWithPoint:(CGPoint)point
+{
+   LetterView* targetLetterView = nil;
    for (LetterView* letterView in self.letterViews)
    {
-      if (CGRectContainsPoint(letterView.frame, touchLoction))
+      if (CGRectContainsPoint(letterView.frame, point))
       {
-         [self.textDocumentProxy insertText:letterView.letter];
+         targetLetterView = letterView;
          break;
       }
    }
+   return targetLetterView;
 }
 
 #pragma mark - UITextInput Delegate
