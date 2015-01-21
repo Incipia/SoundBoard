@@ -7,11 +7,10 @@
 //
 
 #import "LetterView.h"
+#import "CATextLayer+SetLetter.h"
 
 @interface LetterView ()
-
 @property (nonatomic) CATextLayer* letterLayer;
-
 @end
 
 @implementation LetterView
@@ -21,6 +20,7 @@
 {
    if (self = [super initWithFrame:frame])
    {
+      self.letter = letter;
       [self setupLetterLayerWithLetter:letter];
 
       // temporary?
@@ -39,15 +39,9 @@
 - (void)setupLetterLayerWithLetter:(NSString*)letter
 {
    self.letterLayer = [CATextLayer layer];
-
    self.letterLayer.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
-   self.letterLayer.fontSize = 20.f;
-   self.letterLayer.string = letter;
-   self.letterLayer.alignmentMode = kCAAlignmentCenter;
-
-   self.letterLayer.foregroundColor = [UIColor blackColor].CGColor;
-   self.letterLayer.backgroundColor = [UIColor whiteColor].CGColor;
-
+   
+   [self.letterLayer setLetterForKeyboard:letter];
    [self.layer addSublayer:self.letterLayer];
 }
 
