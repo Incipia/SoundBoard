@@ -16,15 +16,21 @@
 @implementation LetterView
 
 #pragma mark - Init
-- (instancetype)initWithLetter:(NSString*)letter Frame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
    if (self = [super initWithFrame:frame])
    {
+      self.backgroundColor = [UIColor whiteColor];
+   }
+   return self;
+}
+
+- (instancetype)initWithLetter:(NSString*)letter frame:(CGRect)frame
+{
+   if (self = [self initWithFrame:frame])
+   {
       self.letter = letter;
       [self setupLetterLayerWithLetter:letter];
-
-      // temporary?
-      self.backgroundColor = [UIColor whiteColor];
    }
    return self;
 }
@@ -32,7 +38,7 @@
 #pragma mark - Class Init
 + (instancetype)viewWithLetter:(NSString *)letter frame:(CGRect)frame
 {
-   return [[LetterView alloc] initWithLetter:letter Frame:frame];
+   return [[LetterView alloc] initWithLetter:letter frame:frame];
 }
 
 #pragma mark - Setup
