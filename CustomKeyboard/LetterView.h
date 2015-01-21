@@ -10,4 +10,6 @@
 
 @interface LetterView : UIView
 
++ (instancetype)viewWithLetter:(NSString*)letter frame:(CGRect)frame;
+
 @end
