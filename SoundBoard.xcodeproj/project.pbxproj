@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
 		8EDFB7D51A6B6BBA000AD00A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */; };
@@ -14,6 +15,8 @@
 		8EDFB7E41A6B6BBA000AD00A /* SoundBoardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7E31A6B6BBA000AD00A /* SoundBoardTests.m */; };
 		8EDFB7F01A6B6BFE000AD00A /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */; };
 		8EDFB7F11A6B6BFE000AD00A /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */; };
+		8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */; };
+		8EDFB7FF1A6B6E9F000AD00A /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,9 +27,32 @@
 			remoteGlobalIDString = 8EDFB7C31A6B6BBA000AD00A;
 			remoteInfo = SoundBoard;
 		};
+		8EDFB7FD1A6B6E9F000AD00A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8EDFB7BC1A6B6BBA000AD00A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EDFB7F51A6B6E9F000AD00A;
+			remoteInfo = CustomKeyboard;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8EDFB8031A6B6E9F000AD00A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8EDFB7FF1A6B6E9F000AD00A /* CustomKeyboard.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
+		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		8EDFB7C41A6B6BBA000AD00A /* SoundBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDFB7C81A6B6BBA000AD00A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EDFB7C91A6B6BBA000AD00A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +66,11 @@
 		8EDFB7ED1A6B6BFE000AD00A /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HomeViewController.h; path = SoundBoard/HomeViewController.h; sourceTree = "<group>"; };
 		8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HomeViewController.m; path = SoundBoard/HomeViewController.m; sourceTree = "<group>"; };
 		8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HomeViewController.xib; path = SoundBoard/HomeViewController.xib; sourceTree = "<group>"; };
+		8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CustomKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EDFB7F91A6B6E9F000AD00A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
+		8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SoundBoard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +88,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EDFB7F31A6B6E9F000AD00A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -68,6 +106,7 @@
 				8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */,
 				8EDFB7C61A6B6BBA000AD00A /* SoundBoard */,
 				8EDFB7E01A6B6BBA000AD00A /* SoundBoardTests */,
+				8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */,
 				8EDFB7C51A6B6BBA000AD00A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,6 +116,7 @@
 			children = (
 				8EDFB7C41A6B6BBA000AD00A /* SoundBoard.app */,
 				8EDFB7DD1A6B6BBA000AD00A /* SoundBoardTests.xctest */,
+				8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -84,6 +124,7 @@
 		8EDFB7C61A6B6BBA000AD00A /* SoundBoard */ = {
 			isa = PBXGroup;
 			children = (
+				8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */,
 				8EDFB7CB1A6B6BBA000AD00A /* AppDelegate.h */,
 				8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */,
 				8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */,
@@ -119,6 +160,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */,
+				8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */,
+				8E7662C81A701D4F006410E7 /* LetterView.h */,
+				8E7662C91A701D4F006410E7 /* LetterView.m */,
+				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
+			);
+			path = CustomKeyboard;
+			sourceTree = "<group>";
+		};
+		8EDFB7F81A6B6E9F000AD00A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8EDFB7F91A6B6E9F000AD00A /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,10 +190,12 @@
 				8EDFB7C01A6B6BBA000AD00A /* Sources */,
 				8EDFB7C11A6B6BBA000AD00A /* Frameworks */,
 				8EDFB7C21A6B6BBA000AD00A /* Resources */,
+				8EDFB8031A6B6E9F000AD00A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8EDFB7FE1A6B6E9F000AD00A /* PBXTargetDependency */,
 			);
 			name = SoundBoard;
 			productName = SoundBoard;
@@ -157,6 +220,23 @@
 			productReference = 8EDFB7DD1A6B6BBA000AD00A /* SoundBoardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8EDFB7F51A6B6E9F000AD00A /* CustomKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EDFB8001A6B6E9F000AD00A /* Build configuration list for PBXNativeTarget "CustomKeyboard" */;
+			buildPhases = (
+				8EDFB7F21A6B6E9F000AD00A /* Sources */,
+				8EDFB7F31A6B6E9F000AD00A /* Frameworks */,
+				8EDFB7F41A6B6E9F000AD00A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CustomKeyboard;
+			productName = CustomKeyboard;
+			productReference = 8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -168,10 +248,19 @@
 				TargetAttributes = {
 					8EDFB7C31A6B6BBA000AD00A = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = 49BYD5B64K;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					8EDFB7DC1A6B6BBA000AD00A = {
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = 8EDFB7C31A6B6BBA000AD00A;
+					};
+					8EDFB7F51A6B6E9F000AD00A = {
+						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
@@ -190,6 +279,7 @@
 			targets = (
 				8EDFB7C31A6B6BBA000AD00A /* SoundBoard */,
 				8EDFB7DC1A6B6BBA000AD00A /* SoundBoardTests */,
+				8EDFB7F51A6B6E9F000AD00A /* CustomKeyboard */,
 			);
 		};
 /* End PBXProject section */
@@ -206,6 +296,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8EDFB7DB1A6B6BBA000AD00A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8EDFB7F41A6B6E9F000AD00A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -233,6 +330,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8EDFB7F21A6B6E9F000AD00A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */,
+				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -240,6 +346,11 @@
 			isa = PBXTargetDependency;
 			target = 8EDFB7C31A6B6BBA000AD00A /* SoundBoard */;
 			targetProxy = 8EDFB7DE1A6B6BBA000AD00A /* PBXContainerItemProxy */;
+		};
+		8EDFB7FE1A6B6E9F000AD00A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EDFB7F51A6B6E9F000AD00A /* CustomKeyboard */;
+			targetProxy = 8EDFB7FD1A6B6E9F000AD00A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -337,9 +448,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SoundBoard/SoundBoard.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SoundBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -347,9 +462,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SoundBoard/SoundBoard.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SoundBoard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -387,6 +506,30 @@
 			};
 			name = Release;
 		};
+		8EDFB8011A6B6E9F000AD00A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8EDFB8021A6B6E9F000AD00A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = CustomKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -406,6 +549,7 @@
 				8EDFB7E91A6B6BBA000AD00A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8EDFB7EA1A6B6BBA000AD00A /* Build configuration list for PBXNativeTarget "SoundBoardTests" */ = {
 			isa = XCConfigurationList;
@@ -414,6 +558,16 @@
 				8EDFB7EC1A6B6BBA000AD00A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8EDFB8001A6B6E9F000AD00A /* Build configuration list for PBXNativeTarget "CustomKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EDFB8011A6B6E9F000AD00A /* Debug */,
+				8EDFB8021A6B6E9F000AD00A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
