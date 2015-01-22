@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5BF89A0E1A704FE700B9824E /* CATextLayer+SetLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */; };
 		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
+		8E7662D01A70B9F4006410E7 /* AutoLayoutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662CF1A70B9F4006410E7 /* AutoLayoutView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
 		8EDFB7D51A6B6BBA000AD00A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7D41A6B6BBA000AD00A /* Images.xcassets */; };
@@ -56,6 +57,8 @@
 		5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATextLayer+SetLetter.m"; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
+		8E7662CE1A70B9F4006410E7 /* AutoLayoutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutView.h; sourceTree = "<group>"; };
+		8E7662CF1A70B9F4006410E7 /* AutoLayoutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutView.m; sourceTree = "<group>"; };
 		8EDFB7C41A6B6BBA000AD00A /* SoundBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EDFB7C81A6B6BBA000AD00A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EDFB7C91A6B6BBA000AD00A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,6 +130,8 @@
 		8EDFB7C61A6B6BBA000AD00A /* SoundBoard */ = {
 			isa = PBXGroup;
 			children = (
+				8E7662CE1A70B9F4006410E7 /* AutoLayoutView.h */,
+				8E7662CF1A70B9F4006410E7 /* AutoLayoutView.m */,
 				8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */,
 				8EDFB7CB1A6B6BBA000AD00A /* AppDelegate.h */,
 				8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */,
@@ -324,6 +329,7 @@
 				8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */,
 				8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */,
 				8EDFB7F01A6B6BFE000AD00A /* HomeViewController.m in Sources */,
+				8E7662D01A70B9F4006410E7 /* AutoLayoutView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

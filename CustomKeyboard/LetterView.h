@@ -12,6 +12,9 @@
 
 + (instancetype)viewWithLetter:(NSString*)letter frame:(CGRect)frame;
 
+- (void)giveFocus;
+- (void)removeFocus;
+
 @property (nonatomic, copy) NSString* letter;
 
 @end
