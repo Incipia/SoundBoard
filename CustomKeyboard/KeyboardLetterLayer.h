@@ -10,4 +10,6 @@
 
 @interface KeyboardLetterLayer : CATextLayer
 
++ (instancetype)layerWithLetter:(NSString*)letter;
+
 @end

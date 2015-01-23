@@ -7,10 +7,10 @@
 //
 
 #import "LetterView.h"
-#import "CATextLayer+SetLetter.h"
+#import "KeyboardLetterLayer.h"
 
 @interface LetterView ()
-@property (nonatomic) CATextLayer* letterLayer;
+@property (nonatomic) KeyboardLetterLayer* letterLayer;
 @end
 
 @implementation LetterView
@@ -44,7 +44,7 @@
 #pragma mark - Setup
 - (void)setupLetterLayerWithLetter:(NSString*)letter
 {
-   self.letterLayer = [CATextLayer layerWithLetter:letter];
+   self.letterLayer = [KeyboardLetterLayer layerWithLetter:letter];
    self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
    [self.layer addSublayer:self.letterLayer];
