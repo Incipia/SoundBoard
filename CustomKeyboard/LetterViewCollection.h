@@ -14,5 +14,7 @@
 - (void)updateFrame:(CGRect)frame;
 
 @property (nonatomic, readonly) NSArray* letterViews;
+@property (nonatomic, readonly) CGFloat generatedCharacterWidth;
+@property (nonatomic, readonly) NSUInteger characterCount;
 
 @end

@@ -70,4 +70,22 @@
    [self updateLetterViewFrames];
 }
 
+#pragma mark - Property Overrides
+- (NSArray*)letterViews
+{
+   return [NSArray arrayWithArray:self.mutableLetterViewArray];
+}
+
+- (CGFloat)generatedCharacterWidth
+{
+   CGFloat characterWidth = CGRectGetWidth(self.frame) / self.mutableLetterViewArray.count;
+   return isnan(characterWidth) ? 0 : characterWidth;
+}
+
+- (NSUInteger)characterCount
+{
+   NSUInteger count = self.mutableLetterViewArray.count;
+   return isnan(count) ? 0 : count;
+}
+
 @end

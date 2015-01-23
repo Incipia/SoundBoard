@@ -10,9 +10,6 @@
 #import "LetterViewCollection.h"
 #import "KeyboardKeysUtility.h"
 
-static const int s_topRowLetterCount = 10;
-static const int s_middleRowLetterCount = 9;
-static const int s_bottomRowLetterCount = 7;
 static const int s_totalKeyRows = 4;
 
 @interface KeyboardKeysController ()
@@ -71,9 +68,9 @@ static const int s_totalKeyRows = 4;
    CGFloat topLetterRowWidth = CGRectGetWidth(self.view.bounds);
    int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
 
-   CGFloat characterWidth = topLetterRowWidth / s_topRowLetterCount;
-   CGFloat middleLetterRowWidth = s_middleRowLetterCount*characterWidth;
-   CGFloat bottomLetterRowWidth = s_bottomRowLetterCount*characterWidth;
+   CGFloat characterWidth = self.topLettersContainer.generatedCharacterWidth;
+   CGFloat middleLetterRowWidth = self.middleLettersContainer.characterCount*characterWidth;
+   CGFloat bottomLetterRowWidth = self.bottomLettersContainer.characterCount*characterWidth;
 
    CGFloat letterRowWidths[] = {topLetterRowWidth, middleLetterRowWidth, bottomLetterRowWidth};
    NSUInteger letterRowWidthIndex = 0;
