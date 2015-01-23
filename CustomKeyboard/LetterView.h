@@ -14,6 +14,7 @@
 
 - (void)giveFocus;
 - (void)removeFocus;
+- (void)updateFrame:(CGRect)frame;
 
 @property (nonatomic, copy) NSString* letter;
 

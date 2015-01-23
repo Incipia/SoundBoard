@@ -59,4 +59,10 @@
 {
 }
 
+- (void)updateFrame:(CGRect)frame
+{
+   self.frame = frame;
+   self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+}
+
 @end
