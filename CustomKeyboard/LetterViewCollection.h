@@ -10,4 +10,9 @@
 
 @interface LetterViewCollection : UIView
 
++ (instancetype)collectionWithCharacterArray:(NSArray*)array;
+- (void)updateFrame:(CGRect)frame;
+
+@property (nonatomic, readonly) NSArray* letterViews;
+
 @end
