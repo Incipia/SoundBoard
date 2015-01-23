@@ -9,7 +9,6 @@
 #import "KeyboardViewController.h"
 #import "KeyboardAuxiliaryController.h"
 #import "KeyboardKeysController.h"
-#import "LetterView.h"
 
 static const CGFloat s_auxViewHeightPercentage = .2f;
 

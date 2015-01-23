@@ -30,6 +30,7 @@ static const int s_totalKeyRows = 4;
 {
    if (self = [super init])
    {
+      [self setupLetterRowViews];
    }
    return self;
 }
@@ -38,6 +39,12 @@ static const int s_totalKeyRows = 4;
 + (instancetype)controller
 {
    return [[KeyboardKeysController alloc] init];
+}
+
+#pragma mark - Lifecycle
+- (void)viewDidLayoutSubviews
+{
+   [self updateContainerViewFrames];
 }
 
 #pragma mark - Setup
@@ -56,18 +63,6 @@ static const int s_totalKeyRows = 4;
    {
       [self.view addSubview:letterRowView];
    }
-}
-
-#pragma mark - Lifecycle
-- (void)viewDidLoad
-{
-   [super viewDidLoad];
-   [self setupLetterRowViews];
-}
-
-- (void)viewDidLayoutSubviews
-{
-   [self updateContainerViewFrames];
 }
 
 #pragma mark - Update
