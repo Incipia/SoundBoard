@@ -11,6 +11,7 @@
 
 @interface LetterView ()
 @property (nonatomic) KeyboardLetterLayer* letterLayer;
+@property (nonatomic) CALayer* backgroundLayer;
 @end
 
 @implementation LetterView
@@ -20,7 +21,10 @@
 {
    if (self = [super initWithFrame:frame])
    {
-      self.backgroundColor = [UIColor whiteColor];
+      self.backgroundLayer = [CALayer layer];
+      self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
+      
+      [self.layer addSublayer:self.backgroundLayer];
    }
    return self;
 }
@@ -62,6 +66,7 @@
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
+   self.backgroundLayer.frame = CGRectInset(self.bounds, 1, 1);
    self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
