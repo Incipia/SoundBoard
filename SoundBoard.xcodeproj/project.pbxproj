@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5BF89A0E1A704FE700B9824E /* CATextLayer+SetLetter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */; };
+		5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */; };
 		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
@@ -56,8 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5BF89A0C1A704FE700B9824E /* CATextLayer+SetLetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATextLayer+SetLetter.h"; sourceTree = "<group>"; };
-		5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATextLayer+SetLetter.m"; sourceTree = "<group>"; };
+		5B2534601A72BC3000384E69 /* KeyboardLetterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardLetterLayer.h; sourceTree = "<group>"; };
+		5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardLetterLayer.m; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -190,8 +190,8 @@
 				8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */,
 				8E7662C81A701D4F006410E7 /* LetterView.h */,
 				8E7662C91A701D4F006410E7 /* LetterView.m */,
-				5BF89A0C1A704FE700B9824E /* CATextLayer+SetLetter.h */,
-				5BF89A0D1A704FE700B9824E /* CATextLayer+SetLetter.m */,
+				5B2534601A72BC3000384E69 /* KeyboardLetterLayer.h */,
+				5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */,
 				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
 			);
 			path = CustomKeyboard;
@@ -363,8 +363,8 @@
 				8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */,
 				8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
-				5BF89A0E1A704FE700B9824E /* CATextLayer+SetLetter.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
+				5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */,
 				8E7662E81A72212A006410E7 /* LetterViewCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
