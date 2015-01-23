@@ -8,6 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSUInteger, KeyboardMode)
+{
+   KeyboardModeLetters,
+   KeyboardModeNumbers,
+   KeyboardModeSymbols
+};
+
+typedef NS_ENUM(NSUInteger, KeyboardRow)
+{
+   KeyboardRowTop,
+   KeyboardRowMiddle,
+   KeyboardRowBottom
+};
+
 @interface KeyboardKeysUtility : NSObject
+
++ (NSArray*)characterArrayForMode:(KeyboardMode)mode row:(KeyboardRow)row;
 
 @end
