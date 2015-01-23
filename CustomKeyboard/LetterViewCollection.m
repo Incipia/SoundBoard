@@ -7,15 +7,67 @@
 //
 
 #import "LetterViewCollection.h"
+#import "LetterView.h"
+
+@interface LetterViewCollection ()
+
+@property (nonatomic) NSArray* characterArray;
+@property (nonatomic) NSMutableArray* mutableLetterViewArray;
+
+@end
 
 @implementation LetterViewCollection
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark - Init
+- (instancetype)initWithCharacterArray:(NSArray*)array
+{
+   if (self = [super init])
+   {
+      self.characterArray = array;
+      self.mutableLetterViewArray = [NSMutableArray array];
+
+      [self setupLetterViews];
+   }
+   return self;
 }
-*/
+
+#pragma mark - Class Init
++ (instancetype)collectionWithCharacterArray:(NSArray*)array
+{
+   return [[LetterViewCollection alloc] initWithCharacterArray:array];
+}
+
+#pragma mark - Setup
+- (void)setupLetterViews
+{
+   for (NSString* letter in self.characterArray)
+   {
+      LetterView* letterView = [LetterView viewWithLetter:letter frame:CGRectZero];
+
+      [self.mutableLetterViewArray addObject:letterView];
+      [self addSubview:letterView];
+   }
+}
+
+#pragma mark - Update
+- (void)updateLetterViewFrames
+{
+   CGFloat letterViewWidth = CGRectGetWidth(self.bounds) / self.characterArray.count;
+   CGFloat letterViewHeight = CGRectGetHeight(self.bounds);
+   CGRect currentLetterViewFrame = CGRectMake(0, 0, letterViewWidth, letterViewHeight);
+
+   for (LetterView* letterView in self.mutableLetterViewArray)
+   {
+      [letterView updateFrame:currentLetterViewFrame];
+      currentLetterViewFrame.origin.x += letterViewWidth;
+   }
+}
+
+#pragma mark - Public
+- (void)updateFrame:(CGRect)frame
+{
+   self.frame = frame;
+   [self updateLetterViewFrames];
+}
 
 @end
