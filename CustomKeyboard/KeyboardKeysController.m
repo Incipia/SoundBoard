@@ -7,7 +7,6 @@
 //
 
 #import "KeyboardKeysController.h"
-#import "LetterView.h"
 
 @interface KeyboardKeysController ()
 @property (nonatomic) UIView* topLettersContainer;
