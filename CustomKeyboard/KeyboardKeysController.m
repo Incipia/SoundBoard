@@ -91,7 +91,6 @@ static const int s_totalKeyRows = 4;
       CGRect letterCollectionFrame = CGRectMake(xPosition, currentYPosition, currentLetterRowWidth, letterRowHeight);
 
       [letterCollection updateFrame:letterCollectionFrame];
-
       currentYPosition += letterRowHeight;
    }
 }
