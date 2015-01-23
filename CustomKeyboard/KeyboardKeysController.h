@@ -10,4 +10,6 @@
 
 @interface KeyboardKeysController : UIViewController
 
++ (instancetype)controller;
+
 @end
