@@ -72,8 +72,8 @@ static const int s_totalKeyRows = 4;
    int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
 
    CGFloat characterWidth = topLetterRowWidth / s_topRowLetterCount;
-   CGFloat middleLetterRowWidth = s_middleRowLetterCount * characterWidth;
-   CGFloat bottomLetterRowWidth = s_bottomRowLetterCount * characterWidth;
+   CGFloat middleLetterRowWidth = s_middleRowLetterCount*characterWidth;
+   CGFloat bottomLetterRowWidth = s_bottomRowLetterCount*characterWidth;
 
    CGFloat letterRowWidths[] = {topLetterRowWidth, middleLetterRowWidth, bottomLetterRowWidth};
    NSUInteger letterRowWidthIndex = 0;
@@ -82,7 +82,7 @@ static const int s_totalKeyRows = 4;
    for (LetterViewCollection* letterCollection in self.containerViews)
    {
       CGFloat currentLetterRowWidth = letterRowWidths[letterRowWidthIndex++];
-      CGFloat xPosition = CGRectGetMidX(self.view.bounds) - (currentLetterRowWidth * .5);
+      CGFloat xPosition = CGRectGetMidX(self.view.bounds) - (currentLetterRowWidth*.5);
       CGRect letterCollectionFrame = CGRectMake(xPosition, currentYPosition, currentLetterRowWidth, letterRowHeight);
 
       [letterCollection updateFrame:letterCollectionFrame];
