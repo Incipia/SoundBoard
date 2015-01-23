@@ -16,26 +16,31 @@
 {
    KeyboardLetterLayer* layer = [KeyboardLetterLayer layer];
    
-   layer.actions = @{@"position" : [NSNull null]};
+   [layer setupProperties];
    [layer setLetter:letter];
    [layer updateFrame];
    
    return layer;
 }
 
-#pragma mark - Private
+#pragma mark - Setup
+- (void)setupProperties
+{
+   self.actions = @{@"position" : [NSNull null]};
+   self.alignmentMode = kCAAlignmentCenter;
+   self.contentsScale = [UIScreen mainScreen].scale;
+}
+
 - (void)setLetter:(NSString *)letter
 {
    NSDictionary* letterAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:22.f]};
    
    NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:letter attributes:letterAttributes];
-   
    self.string = attributedLetter;
-   self.alignmentMode = kCAAlignmentCenter;
-   self.contentsScale = [UIScreen mainScreen].scale;
 }
 
+#pragma mark - Update
 - (void)updateFrame
 {
    CGSize letterSize = [((NSAttributedString*)self.string) size];
