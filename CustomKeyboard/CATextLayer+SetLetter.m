@@ -23,22 +23,22 @@
 }
 
 #pragma mark - Private
-- (void)updateFrame
-{
-   CGSize letterSize = [((NSAttributedString*)self.string) size];
-   self.frame = CGRectMake(0, 0, letterSize.width, letterSize.height);
-}
-
 - (void)setLetter:(NSString *)letter
 {
    NSDictionary* letterAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:22.f]};
-   
+
    NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:letter attributes:letterAttributes];
-   
+
    self.string = attributedLetter;
    self.alignmentMode = kCAAlignmentCenter;
    self.contentsScale = [UIScreen mainScreen].scale;
+}
+
+- (void)updateFrame
+{
+   CGSize letterSize = [((NSAttributedString*)self.string) size];
+   self.frame = CGRectMake(0, 0, letterSize.width, letterSize.height);
 }
 
 @end
