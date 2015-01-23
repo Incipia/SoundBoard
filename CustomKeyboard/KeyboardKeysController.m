@@ -7,11 +7,18 @@
 //
 
 #import "KeyboardKeysController.h"
+#import "LetterViewCollection.h"
+#import "KeyboardKeysUtility.h"
+
+static const int s_topRowLetterCount = 10;
+static const int s_middleRowLetterCount = 9;
+static const int s_bottomRowLetterCount = 7;
+static const int s_totalKeyRows = 4;
 
 @interface KeyboardKeysController ()
-@property (nonatomic) UIView* topLettersContainer;
-@property (nonatomic) UIView* middleLettersContainer;
-@property (nonatomic) UIView* bottomLettersContainer;
+@property (nonatomic) LetterViewCollection* topLettersContainer;
+@property (nonatomic) LetterViewCollection* middleLettersContainer;
+@property (nonatomic) LetterViewCollection* bottomLettersContainer;
 @property (nonatomic) UIView* bottomKeysContainer;
 @property (nonatomic, readonly) NSArray* containerViews;
 @end
@@ -34,16 +41,20 @@
 }
 
 #pragma mark - Setup
-- (void)setupContainerViews
+- (void)setupLetterRowViews
 {
-   self.topLettersContainer = [UIView new];
-   self.middleLettersContainer = [UIView new];
-   self.bottomLettersContainer = [UIView new];
-   self.bottomKeysContainer = [UIView new];
+   NSArray* topLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowTop];
+   self.topLettersContainer = [LetterViewCollection collectionWithCharacterArray:topLetters];
 
-   for (UIView* containerView in self.containerViews)
+   NSArray* middleLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowMiddle];
+   self.middleLettersContainer = [LetterViewCollection collectionWithCharacterArray:middleLetters];
+
+   NSArray* bottomLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowBottom];
+   self.bottomLettersContainer = [LetterViewCollection collectionWithCharacterArray:bottomLetters];
+
+   for (LetterViewCollection* letterRowView in self.containerViews)
    {
-      [self.view addSubview:containerView];
+      [self.view addSubview:letterRowView];
    }
 }
 
@@ -51,7 +62,7 @@
 - (void)viewDidLoad
 {
    [super viewDidLoad];
-   [self setupContainerViews];
+   [self setupLetterRowViews];
 }
 
 - (void)viewDidLayoutSubviews
@@ -62,21 +73,33 @@
 #pragma mark - Update
 - (void)updateContainerViewFrames
 {
-   CGFloat containerViewWidth = CGRectGetWidth(self.view.bounds);
-   CGFloat containerViewHeight = CGRectGetHeight(self.view.bounds) / self.containerViews.count;
-   CGRect currentContainerViewFrame = CGRectMake(0, 0, containerViewWidth, containerViewHeight);
+   CGFloat topLetterRowWidth = CGRectGetWidth(self.view.bounds);
+   int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
 
-   for (UIView* containerView in self.containerViews)
+   CGFloat characterWidth = topLetterRowWidth / s_topRowLetterCount;
+   CGFloat middleLetterRowWidth = s_middleRowLetterCount * characterWidth;
+   CGFloat bottomLetterRowWidth = s_bottomRowLetterCount * characterWidth;
+
+   CGFloat letterRowWidths[] = {topLetterRowWidth, middleLetterRowWidth, bottomLetterRowWidth};
+   NSUInteger letterRowWidthIndex = 0;
+   NSUInteger currentYPosition = 0;
+
+   for (LetterViewCollection* letterCollection in self.containerViews)
    {
-      containerView.frame = currentContainerViewFrame;
-      currentContainerViewFrame.origin.y += containerViewHeight;
+      CGFloat currentLetterRowWidth = letterRowWidths[letterRowWidthIndex++];
+      CGFloat xPosition = CGRectGetMidX(self.view.bounds) - (currentLetterRowWidth * .5);
+      CGRect letterCollectionFrame = CGRectMake(xPosition, currentYPosition, currentLetterRowWidth, letterRowHeight);
+
+      [letterCollection updateFrame:letterCollectionFrame];
+
+      currentYPosition += letterRowHeight;
    }
 }
 
 #pragma mark - Property Overrides
 - (NSArray*)containerViews
 {
-   return @[self.topLettersContainer, self.middleLettersContainer, self.bottomLettersContainer, self.bottomKeysContainer];
+   return @[self.topLettersContainer, self.middleLettersContainer, self.bottomLettersContainer];
 }
 
 @end
