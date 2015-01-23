@@ -7,7 +7,7 @@
 //
 
 #import "KeyboardViewController.h"
-#import "KeyboardAuxilaryController.h"
+#import "KeyboardAuxiliaryController.h"
 #import "KeyboardKeysController.h"
 #import "LetterView.h"
 
@@ -15,7 +15,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @interface KeyboardViewController ()
 
-@property (nonatomic) KeyboardAuxilaryController* auxController;
+@property (nonatomic) KeyboardAuxiliaryController* auxController;
 @property (nonatomic) KeyboardKeysController* keysController;
 
 @end
@@ -37,7 +37,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 #pragma mark - Setup
 - (void)setupControllers
 {
-   self.auxController = [KeyboardAuxilaryController controller];
+   self.auxController = [KeyboardAuxiliaryController controller];
    [self.view addSubview:self.auxController.view];
 
    self.keysController = [KeyboardKeysController controller];

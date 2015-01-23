@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardAuxilaryController : UIViewController
+@interface KeyboardAuxiliaryController : UIViewController
 
 + (instancetype)controller;
 

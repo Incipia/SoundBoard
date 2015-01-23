@@ -6,12 +6,12 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "KeyboardAuxilaryController.h"
+#import "KeyboardAuxiliaryController.h"
 
-@interface KeyboardAuxilaryController ()
+@interface KeyboardAuxiliaryController ()
 @end
 
-@implementation KeyboardAuxilaryController
+@implementation KeyboardAuxiliaryController
 
 #pragma mark - Init
 - (instancetype)init
@@ -25,7 +25,7 @@
 #pragma mark - Class Init
 + (instancetype)controller
 {
-   return [[KeyboardAuxilaryController alloc] init];
+   return [[KeyboardAuxiliaryController alloc] init];
 }
 
 - (void)viewDidLoad
