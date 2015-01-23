@@ -7,29 +7,16 @@
 //
 
 #import "KeyboardViewController.h"
+#import "KeyboardAuxilaryController.h"
+#import "KeyboardKeysController.h"
 #import "LetterView.h"
 
-static const CGFloat s_topContainerWidth = 30.f;
-static const CGFloat s_containerViewHeight = 40.f;
-static const CGFloat s_verticalMargin = 4.f;
-static const CGFloat s_horizontalMargin = 4.f;
-static const CGFloat s_horizontalKeyPadding = 2.f;
-
-static CGFloat _nextYPositionForContainer(CGFloat fromYPosition)
-{
-   return fromYPosition - s_containerViewHeight - s_verticalMargin;
-}
+static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @interface KeyboardViewController ()
 
-@property (nonatomic) UIView* topContainer;
-@property (nonatomic) UIView* topRowLettersContainer;
-@property (nonatomic) UIView* middleRowLettersContainer;
-@property (nonatomic) UIView* bottomRowLettersContainer;
-@property (nonatomic) UIView* bottomRowKeysContainer;
-@property (nonatomic, readonly) NSArray* containerViewArray;
-
-@property (nonatomic) NSMutableArray* letterViews;
+@property (nonatomic) KeyboardAuxilaryController* auxController;
+@property (nonatomic) KeyboardKeysController* keysController;
 
 @end
 
@@ -39,100 +26,42 @@ static CGFloat _nextYPositionForContainer(CGFloat fromYPosition)
 - (void)viewDidLoad
 {
    [super viewDidLoad];
-
-   [self setupLetterContainerViews];
-
-   self.letterViews = [NSMutableArray array];
+   [self setupControllers];
 }
 
 - (void)viewDidLayoutSubviews
 {
-   [self updateContainerViewFrames];
+   [self updateControllerViewFrames];
 }
 
 #pragma mark - Setup
-- (void)setupLetterContainerViews
+- (void)setupControllers
 {
-   self.topContainer = [UIView new];
-   self.topRowLettersContainer = [UIView new];
-   self.middleRowLettersContainer = [UIView new];
-   self.bottomRowLettersContainer = [UIView new];
-   self.bottomRowKeysContainer = [UIView new];
+   self.auxController = [KeyboardAuxilaryController controller];
+   [self.view addSubview:self.auxController.view];
 
-   for (UIView* containerView in self.containerViewArray)
-   {
-      containerView.backgroundColor = [UIColor colorWithRed:.4 green:.4 blue:1 alpha:.8];
-      [self.inputView addSubview:containerView];
-   }
+   self.keysController = [KeyboardKeysController controller];
+   [self.view addSubview:self.keysController.view];
 }
 
-- (void)setupTopRowKeys
+#pragma mark - Update
+- (void)updateControllerViewFrames
 {
-   NSArray* topRowKeyArray = @[@"Q", @"W", @"E", @"R", @"T", @"Y", @"U", @"I", @"O", @"P"];
-
-   CGFloat buttonWidth = (CGRectGetWidth([UIScreen mainScreen].bounds) - ((topRowKeyArray.count + 1) * s_horizontalKeyPadding)) / topRowKeyArray.count;
-
-   CGFloat currentButtonXPosition = s_horizontalKeyPadding;
-   CGFloat buttonYPosition = s_horizontalKeyPadding + 40.f;
-   CGRect currentLetterFrame = CGRectMake(currentButtonXPosition, buttonYPosition, buttonWidth, 40.f);
-
-   for (NSString* keyLetter in topRowKeyArray)
-   {
-      LetterView* letterView = [LetterView viewWithLetter:keyLetter frame:currentLetterFrame];
-      
-      [self.letterViews addObject:letterView];
-      [self.view addSubview:letterView];
-      
-      currentLetterFrame.origin.x += buttonWidth + s_horizontalKeyPadding;
-   }
+   [self updateAuxViewFrame];
+   [self updateKeysViewFrame];
 }
 
-- (void)updateContainerViewFrames
+- (void)updateAuxViewFrame
 {
-   CGRect topContainerRect = CGRectMake(0, 0, CGRectGetWidth([UIScreen mainScreen].bounds), s_topContainerWidth);
-   self.topContainer.frame = topContainerRect;
+   CGFloat containerViewHeight = CGRectGetHeight(self.view.bounds) * s_auxViewHeightPercentage;
+   self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), containerViewHeight);
 }
 
-#pragma mark - Touch Events
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)updateKeysViewFrame
 {
-   CGPoint touchLoction = [touches.anyObject locationInView:self.view];
-   [self hitTestLetterViewsWithPoint:touchLoction block:^(LetterView *letterView)
-    {
-       [letterView giveFocus];
-    }];
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   CGPoint touchLoction = [touches.anyObject locationInView:self.view];
-   [self hitTestLetterViewsWithPoint:touchLoction block:^(LetterView *letterView)
-   {
-      [self.textDocumentProxy insertText:letterView.letter];
-   }];
-}
-
-#pragma mark - Property Overrides
-- (NSArray*)containerViewArray
-{
-   return @[self.topContainer, self.bottomRowKeysContainer, self.bottomRowLettersContainer, self.middleRowLettersContainer, self.topRowLettersContainer];
-}
-
-#pragma mark - Helper
-- (void)hitTestLetterViewsWithPoint:(CGPoint)point block:(void (^)(LetterView* letterView))block
-{
-   for (LetterView* letterView in self.letterViews)
-   {
-      if (CGRectContainsPoint(letterView.frame, point) && block != nil)
-      {
-         block(letterView);
-         return;
-      }
-   }
+   CGFloat keysViewHeight = CGRectGetHeight(self.view.bounds) * (1 - s_auxViewHeightPercentage);
+   CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
+   self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.view.bounds), keysViewHeight);
 }
 
 #pragma mark - UITextInput Delegate
