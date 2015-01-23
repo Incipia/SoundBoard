@@ -9,6 +9,7 @@
 #import "KeyboardAuxiliaryController.h"
 
 @interface KeyboardAuxiliaryController ()
+@property (nonatomic) UILabel* temporaryLabel;
 @end
 
 @implementation KeyboardAuxiliaryController
@@ -18,6 +19,7 @@
 {
    if (self = [super init])
    {
+      [self setupTemporaryLabel];
    }
    return self;
 }
@@ -28,10 +30,26 @@
    return [[KeyboardAuxiliaryController alloc] init];
 }
 
-- (void)viewDidLoad
+#pragma mark - Setup
+- (void)setupTemporaryLabel
 {
-   [super viewDidLoad];
-   self.view.backgroundColor = [UIColor redColor];
+   self.temporaryLabel = [[UILabel alloc] init];
+   
+   NSDictionary* labelAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
+                                     NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12.f]};
+   
+   NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:@"[Auxiliary View]" attributes:labelAttributes];
+   self.temporaryLabel.attributedText = attributedLetter;
+   self.temporaryLabel.textAlignment = NSTextAlignmentCenter;
+   self.temporaryLabel.backgroundColor = [UIColor colorWithRed:.6 green:.6 blue:1 alpha:.5];
+   
+   [self.view addSubview:self.temporaryLabel];
+}
+
+#pragma mark - Lifecycle
+- (void)viewDidLayoutSubviews
+{
+   self.temporaryLabel.frame = self.view.bounds;
 }
 
 @end
