@@ -50,4 +50,13 @@
    [self.layer addSublayer:self.letterLayer];
 }
 
+#pragma mark - Public
+- (void)giveFocus
+{
+}
+
+- (void)removeFocus
+{
+}
+
 @end
