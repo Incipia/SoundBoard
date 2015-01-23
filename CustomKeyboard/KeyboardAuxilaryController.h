@@ -10,4 +10,6 @@
 
 @interface KeyboardAuxilaryController : UIViewController
 
++ (instancetype)controller;
+
 @end
