@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardTypedefs.h"
 
 @interface KeyboardKeysController : UIViewController
 
-+ (instancetype)controller;
++ (instancetype)controllerWithMode:(KeyboardMode)mode;
+- (void)updateMode:(KeyboardMode)mode;
+
+@property (nonatomic, readonly) KeyboardMode mode;
 
 @end

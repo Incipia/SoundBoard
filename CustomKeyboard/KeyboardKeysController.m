@@ -8,13 +8,13 @@
 
 #import "KeyboardKeysController.h"
 #import "KeyViewCollection.h"
-#import "KeyboardKeysUtility.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
 #import "LetterNumberKeyController.h"
 #import "NextKeyboardKeyController.h"
 #import "SpacebarKeyController.h"
 #import "ReturnKeyController.h"
+#import "KeyViewCollectionCreator.h"
 
 static const int s_totalKeyRows = 4;
 
@@ -43,13 +43,16 @@ static const int s_totalKeyRows = 4;
 @property (nonatomic, readonly) NSArray* numberKeysCollectionArray;
 @property (nonatomic, readonly) NSArray* symbolKeysCollectionArray;
 @property (nonatomic, readonly) NSArray* allKeyCollectionsArray;
+@property (nonatomic, readonly) NSArray* functionalKeyControllers;
+
+@property (nonatomic) KeyboardMode mode;
 
 @end
 
 @implementation KeyboardKeysController
 
 #pragma mark - Init
-- (instancetype)init
+- (instancetype)initWithMode:(KeyboardMode)mode
 {
    if (self = [super init])
    {
@@ -60,23 +63,15 @@ static const int s_totalKeyRows = 4;
       [self setupPunctuationKeysCollection];
       [self addKeyCollectionsAsSubviews];
       
-      for (KeyViewCollection* collection in self.numberKeysCollectionArray)
-      {
-         collection.hidden = YES;
-      }
-      for (KeyViewCollection* collection in self.symbolKeysCollectionArray)
-      {
-         collection.hidden = YES;
-      }
-      self.punctuationKeysCollection.hidden = YES;
+      [self updateMode:mode];
    }
    return self;
 }
 
 #pragma mark - Class Init
-+ (instancetype)controller
++ (instancetype)controllerWithMode:(KeyboardMode)mode
 {
-   return [[KeyboardKeysController alloc] init];
+   return [[KeyboardKeysController alloc] initWithMode:mode];
 }
 
 #pragma mark - Lifecycle
@@ -92,38 +87,26 @@ static const int s_totalKeyRows = 4;
 #pragma mark - Setup
 - (void)setupLetterKeyCollections
 {
-   NSArray* topLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowTop];
-   self.topLetterKeysCollection = [KeyViewCollection collectionWithCharacterArray:topLetters];
-
-   NSArray* middleLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowMiddle];
-   self.middleLetterKeysCollection = [KeyViewCollection collectionWithCharacterArray:middleLetters];
-
-   NSArray* bottomLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowBottom];
-   self.bottomLetterKeysCollection = [KeyViewCollection collectionWithCharacterArray:bottomLetters];
+   self.topLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowTop];
+   self.middleLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowMiddle];
+   self.bottomLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowBottom];
 }
 
 - (void)setupNumberKeysCollections
 {
-   NSArray* topNumberKeys = [KeyboardKeysUtility characterArrayForMode:KeyboardModeNumbers row:KeyboardRowTop];
-   self.topNumberKeysCollection = [KeyViewCollection collectionWithCharacterArray:topNumberKeys];
-   
-   NSArray* middleNumberKeys = [KeyboardKeysUtility characterArrayForMode:KeyboardModeNumbers row:KeyboardRowMiddle];
-   self.middleNumberKeysCollection = [KeyViewCollection collectionWithCharacterArray:middleNumberKeys];
+   self.topNumberKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeNumbers row:KeyboardRowTop];
+   self.middleNumberKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeNumbers row:KeyboardRowMiddle];
 }
 
 - (void)setupSymbolKeysCollections
 {
-   NSArray* topSymbolKeys = [KeyboardKeysUtility characterArrayForMode:KeyboardModeSymbols row:KeyboardRowTop];
-   self.topSymbolKeysCollection = [KeyViewCollection collectionWithCharacterArray:topSymbolKeys];
-   
-   NSArray* middleSymbolKeys = [KeyboardKeysUtility characterArrayForMode:KeyboardModeSymbols row:KeyboardRowMiddle];
-   self.middleSymbolKeysCollection = [KeyViewCollection collectionWithCharacterArray:middleSymbolKeys];
+   self.topSymbolKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeSymbols row:KeyboardRowTop];
+   self.middleSymbolKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeSymbols row:KeyboardRowMiddle];
 }
 
 - (void)setupPunctuationKeysCollection
 {
-   NSArray* punctuationKeys = [KeyboardKeysUtility characterArrayForMode:KeyboardModeSymbols row:KeyboardRowBottom];
-   self.punctuationKeysCollection = [KeyViewCollection collectionWithCharacterArray:punctuationKeys];
+   self.punctuationKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeSymbols row:KeyboardRowBottom];
 }
 
 - (void)addKeyCollectionsAsSubviews
@@ -137,22 +120,16 @@ static const int s_totalKeyRows = 4;
 - (void)setupFunctionalKeyControllers
 {
    self.deleteController = [DeleteKeyController controller];
-   [self.view addSubview:self.deleteController.view];
-   
    self.shiftSymbolsController = [ShiftSymbolsKeyController controller];
-   [self.view addSubview:self.shiftSymbolsController.view];
-   
    self.letterNumberController = [LetterNumberKeyController controller];
-   [self.view addSubview:self.letterNumberController.view];
-   
    self.nextKeyboardController = [NextKeyboardKeyController controller];
-   [self.view addSubview:self.nextKeyboardController.view];
-   
    self.spacebarKeyController = [SpacebarKeyController controller];
-   [self.view addSubview:self.spacebarKeyController.view];
-   
    self.returnKeyController = [ReturnKeyController controller];
-   [self.view addSubview:self.returnKeyController.view];
+   
+   for (FunctionalKeyController* controller in self.functionalKeyControllers)
+   {
+      [self.view addSubview:controller.view];
+   }
 }
 
 #pragma mark - Update
@@ -161,7 +138,7 @@ static const int s_totalKeyRows = 4;
    CGFloat topLetterRowWidth = CGRectGetWidth(self.view.bounds);
    int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
 
-   CGFloat characterWidth = self.topLetterKeysCollection.generatedKeyWidth;
+   CGFloat characterWidth = self.topLetterKeysCollection.keyWidth;
    CGFloat middleLetterRowWidth = self.middleLetterKeysCollection.characterCount*characterWidth;
    CGFloat bottomLetterRowWidth = self.bottomLetterKeysCollection.characterCount*characterWidth;
 
@@ -185,11 +162,11 @@ static const int s_totalKeyRows = 4;
    int numberRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
    NSUInteger currentYPosition = 0;
    
-   for (KeyViewCollection* letterCollection in self.numberKeysCollectionArray)
+   for (KeyViewCollection* numberCollection in self.numberKeysCollectionArray)
    {
       CGRect numberCollectionFrame = CGRectMake(0, currentYPosition, CGRectGetWidth(self.view.bounds), numberRowHeight);
       
-      [letterCollection updateFrame:numberCollectionFrame];
+      [numberCollection updateFrame:numberCollectionFrame];
       currentYPosition += numberRowHeight;
    }
 }
@@ -199,11 +176,11 @@ static const int s_totalKeyRows = 4;
    int symbolRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
    NSUInteger currentYPosition = 0;
    
-   for (KeyViewCollection* letterCollection in self.symbolKeysCollectionArray)
+   for (KeyViewCollection* symbolCollection in self.symbolKeysCollectionArray)
    {
       CGRect symbolCollectionFrame = CGRectMake(0, currentYPosition, CGRectGetWidth(self.view.bounds), symbolRowHeight);
       
-      [letterCollection updateFrame:symbolCollectionFrame];
+      [symbolCollection updateFrame:symbolCollectionFrame];
       currentYPosition += symbolRowHeight;
    }
 }
@@ -252,7 +229,7 @@ static const int s_totalKeyRows = 4;
 {
    CGFloat xPosition = 0;
    CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = (CGRectGetMinX(self.bottomLetterKeysCollection.frame) + self.bottomLetterKeysCollection.generatedKeyWidth) * .5;
+   CGFloat width = (CGRectGetMinX(self.bottomLetterKeysCollection.frame) + self.bottomLetterKeysCollection.keyWidth)*.5;
    CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
    
    [self.letterNumberController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
@@ -272,7 +249,7 @@ static const int s_totalKeyRows = 4;
 {
    CGFloat xPosition = CGRectGetMaxX(self.nextKeyboardController.view.frame);
    CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = self.bottomLetterKeysCollection.generatedKeyWidth * 5;
+   CGFloat width = self.bottomLetterKeysCollection.keyWidth * 5;
    CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
    
    [self.spacebarKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
@@ -311,6 +288,61 @@ static const int s_totalKeyRows = 4;
    allKeyCollections = [allKeyCollections arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
    allKeyCollections = [allKeyCollections arrayByAddingObject:self.punctuationKeysCollection];
    return allKeyCollections;
+}
+
+- (NSArray*)functionalKeyControllers
+{
+   return @[self.deleteController,
+            self.shiftSymbolsController,
+            self.letterNumberController,
+            self.nextKeyboardController,
+            self.spacebarKeyController,
+            self.returnKeyController];
+}
+
+#pragma mark - Public
+- (void)updateMode:(KeyboardMode)mode
+{
+   NSArray* keyCollectionsToHide = [NSArray array];
+   NSArray* keyCollectionsToShow = [NSArray array];
+   if (mode != self.mode)
+   {
+      self.mode = mode;
+      switch (mode)
+      {
+         case KeyboardModeLetters:
+            keyCollectionsToHide = [NSArray arrayWithArray:self.numberKeysCollectionArray];
+            keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
+            keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObject:self.punctuationKeysCollection];
+            keyCollectionsToShow = self.letterKeysCollectionArray;
+            break;
+            
+         case KeyboardModeNumbers:
+            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysCollectionArray];
+            keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
+            keyCollectionsToShow = [NSArray arrayWithArray:self.numberKeysCollectionArray];
+            keyCollectionsToShow = [keyCollectionsToShow arrayByAddingObject:self.punctuationKeysCollection];
+            break;
+            
+         case KeyboardModeSymbols:
+            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysCollectionArray];
+            keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.numberKeysCollectionArray];
+            keyCollectionsToShow = [NSArray arrayWithArray:self.symbolKeysCollectionArray];
+            keyCollectionsToShow = [keyCollectionsToShow arrayByAddingObject:self.punctuationKeysCollection];
+            break;
+            
+         default:
+            break;
+      }
+      for (KeyViewCollection* collection in keyCollectionsToHide)
+      {
+         collection.hidden = YES;
+      }
+      for (KeyViewCollection* collection in keyCollectionsToShow)
+      {
+         collection.hidden = NO;
+      }
+   }
 }
 
 @end
