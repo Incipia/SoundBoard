@@ -76,7 +76,7 @@
    return [NSArray arrayWithArray:self.mutableLetterViewArray];
 }
 
-- (CGFloat)generatedKeyWidth
+- (CGFloat)keyWidth
 {
    CGFloat characterWidth = CGRectGetWidth(self.frame) / self.mutableLetterViewArray.count;
    return isnan(characterWidth) ? 0 : characterWidth;

@@ -14,7 +14,7 @@
 - (void)updateFrame:(CGRect)frame;
 
 @property (nonatomic, readonly) NSArray* keyViews;
-@property (nonatomic, readonly) CGFloat generatedKeyWidth;
+@property (nonatomic, readonly) CGFloat keyWidth;
 @property (nonatomic, readonly) NSUInteger characterCount;
 
 @end
