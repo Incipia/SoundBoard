@@ -71,12 +71,12 @@
 }
 
 #pragma mark - Property Overrides
-- (NSArray*)letterViews
+- (NSArray*)keyViews
 {
    return [NSArray arrayWithArray:self.mutableLetterViewArray];
 }
 
-- (CGFloat)generatedCharacterWidth
+- (CGFloat)generatedKeyWidth
 {
    CGFloat characterWidth = CGRectGetWidth(self.frame) / self.mutableLetterViewArray.count;
    return isnan(characterWidth) ? 0 : characterWidth;

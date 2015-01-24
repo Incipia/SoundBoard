@@ -13,8 +13,8 @@
 + (instancetype)collectionWithCharacterArray:(NSArray*)array;
 - (void)updateFrame:(CGRect)frame;
 
-@property (nonatomic, readonly) NSArray* letterViews;
-@property (nonatomic, readonly) CGFloat generatedCharacterWidth;
+@property (nonatomic, readonly) NSArray* keyViews;
+@property (nonatomic, readonly) CGFloat generatedKeyWidth;
 @property (nonatomic, readonly) NSUInteger characterCount;
 
 @end

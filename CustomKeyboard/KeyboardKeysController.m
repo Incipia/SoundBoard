@@ -106,7 +106,7 @@ static const int s_totalKeyRows = 4;
    CGFloat topLetterRowWidth = CGRectGetWidth(self.view.bounds);
    int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
 
-   CGFloat characterWidth = self.topLettersContainer.generatedCharacterWidth;
+   CGFloat characterWidth = self.topLettersContainer.generatedKeyWidth;
    CGFloat middleLetterRowWidth = self.middleLettersContainer.characterCount*characterWidth;
    CGFloat bottomLetterRowWidth = self.bottomLettersContainer.characterCount*characterWidth;
 
@@ -159,7 +159,7 @@ static const int s_totalKeyRows = 4;
 {
    CGFloat xPosition = 0;
    CGFloat yPosition = CGRectGetMaxY(self.bottomLettersContainer.frame);
-   CGFloat width = (CGRectGetMinX(self.bottomLettersContainer.frame) + self.bottomLettersContainer.generatedCharacterWidth) * .5;
+   CGFloat width = (CGRectGetMinX(self.bottomLettersContainer.frame) + self.bottomLettersContainer.generatedKeyWidth) * .5;
    CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
    
    [self.letterNumberController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
@@ -179,7 +179,7 @@ static const int s_totalKeyRows = 4;
 {
    CGFloat xPosition = CGRectGetMaxX(self.nextKeyboardController.view.frame);
    CGFloat yPosition = CGRectGetMaxY(self.bottomLettersContainer.frame);
-   CGFloat width = self.bottomLettersContainer.generatedCharacterWidth * 5;
+   CGFloat width = self.bottomLettersContainer.generatedKeyWidth * 5;
    CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
    
    [self.spacebarKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
