@@ -10,8 +10,4 @@
 #import "FunctionalKeyController.h"
 
 @interface ShiftSymbolsKeyController : FunctionalKeyController
-
-//- (void)updateFrame:(CGRect)frame;
-- (void)updateWithMode:(KeyboardMode)mode;
-
 @end

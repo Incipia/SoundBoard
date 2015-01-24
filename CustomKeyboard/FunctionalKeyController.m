@@ -34,6 +34,7 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
+   // should be overridden!
 }
 
 #pragma mark - Update

@@ -10,10 +10,8 @@
 #import "KeyView.h"
 
 @interface KeyViewCollection ()
-
 @property (nonatomic) NSArray* characterArray;
 @property (nonatomic) NSMutableArray* mutableLetterViewArray;
-
 @end
 
 @implementation KeyViewCollection

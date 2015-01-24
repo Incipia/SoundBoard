@@ -13,10 +13,8 @@
 static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @interface KeyboardViewController ()
-
 @property (nonatomic) KeyboardAuxiliaryController* auxController;
 @property (nonatomic) KeyboardKeysController* keysController;
-
 @end
 
 @implementation KeyboardViewController

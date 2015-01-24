@@ -9,5 +9,4 @@
 #import "FunctionalKeyController.h"
 
 @interface ReturnKeyController : FunctionalKeyController
-
 @end

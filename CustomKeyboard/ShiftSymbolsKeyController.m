@@ -34,23 +34,4 @@
    self.shiftLetterView.hidden = NO;
 }
 
-#pragma mark - Public
-- (void)updateWithMode:(KeyboardMode)mode
-{
-   switch (mode)
-   {
-      case KeyboardModeLetters:
-         break;
-         
-      case KeyboardModeSymbols:
-         break;
-         
-      case KeyboardModeNumbers:
-         break;
-         
-      default:
-         break;
-   }
-}
-
 @end

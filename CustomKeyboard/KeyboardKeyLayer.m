@@ -42,7 +42,7 @@
    self.contentsScale = [UIScreen mainScreen].scale;
 }
 
-- (void)setLetter:(NSString *)letter fontSize:(CGFloat)fontSize
+- (void)setLetter:(NSString*)letter fontSize:(CGFloat)fontSize
 {
    NSDictionary* letterAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize]};
