@@ -9,13 +9,17 @@
 #import "KeyboardKeysController.h"
 #import "LetterViewCollection.h"
 #import "KeyboardKeysUtility.h"
+#import "DeleteKeyController.h"
 
 static const int s_totalKeyRows = 4;
 
 @interface KeyboardKeysController ()
+
 @property (nonatomic) LetterViewCollection* topLettersContainer;
 @property (nonatomic) LetterViewCollection* middleLettersContainer;
 @property (nonatomic) LetterViewCollection* bottomLettersContainer;
+@property (nonatomic) DeleteKeyController* deleteController;
+
 @property (nonatomic) UIView* bottomKeysContainer;
 @property (nonatomic, readonly) NSArray* containerViews;
 @end
@@ -28,6 +32,7 @@ static const int s_totalKeyRows = 4;
    if (self = [super init])
    {
       [self setupLetterRowViews];
+      [self setupFunctionalKeyViews];
    }
    return self;
 }
@@ -42,6 +47,7 @@ static const int s_totalKeyRows = 4;
 - (void)viewDidLayoutSubviews
 {
    [self updateContainerViewFrames];
+   [self updateFunctionalKeyFrames];
 }
 
 #pragma mark - Setup
@@ -60,6 +66,12 @@ static const int s_totalKeyRows = 4;
    {
       [self.view addSubview:letterRowView];
    }
+}
+
+- (void)setupFunctionalKeyViews
+{
+   self.deleteController = [DeleteKeyController controller];
+   [self.view addSubview:self.deleteController.view];
 }
 
 #pragma mark - Update
@@ -85,6 +97,16 @@ static const int s_totalKeyRows = 4;
       [letterCollection updateFrame:letterCollectionFrame];
       currentYPosition += letterRowHeight;
    }
+}
+
+- (void)updateFunctionalKeyFrames
+{
+   CGFloat xPosition = CGRectGetMaxX(self.bottomLettersContainer.frame);
+   CGFloat yPosition = CGRectGetMinY(self.bottomLettersContainer.frame);
+   CGFloat width = CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.bottomLettersContainer.frame);
+   CGFloat height = CGRectGetHeight(self.bottomLettersContainer.bounds);
+   
+   [self.deleteController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
 }
 
 #pragma mark - Property Overrides
