@@ -10,6 +10,7 @@
 #import "LetterViewCollection.h"
 #import "KeyboardKeysUtility.h"
 #import "DeleteKeyController.h"
+#import "ShiftSymbolsKeyController.h"
 
 static const int s_totalKeyRows = 4;
 
@@ -18,7 +19,9 @@ static const int s_totalKeyRows = 4;
 @property (nonatomic) LetterViewCollection* topLettersContainer;
 @property (nonatomic) LetterViewCollection* middleLettersContainer;
 @property (nonatomic) LetterViewCollection* bottomLettersContainer;
+
 @property (nonatomic) DeleteKeyController* deleteController;
+@property (nonatomic) ShiftSymbolsKeyController* shiftSymbolsController;
 
 @property (nonatomic) UIView* bottomKeysContainer;
 @property (nonatomic, readonly) NSArray* containerViews;
@@ -32,7 +35,7 @@ static const int s_totalKeyRows = 4;
    if (self = [super init])
    {
       [self setupLetterRowViews];
-      [self setupFunctionalKeyViews];
+      [self setupFunctionalKeyControllers];
    }
    return self;
 }
@@ -68,10 +71,13 @@ static const int s_totalKeyRows = 4;
    }
 }
 
-- (void)setupFunctionalKeyViews
+- (void)setupFunctionalKeyControllers
 {
    self.deleteController = [DeleteKeyController controller];
    [self.view addSubview:self.deleteController.view];
+   
+   self.shiftSymbolsController = [ShiftSymbolsKeyController controller];
+   [self.view addSubview:self.shiftSymbolsController.view];
 }
 
 #pragma mark - Update
@@ -101,12 +107,28 @@ static const int s_totalKeyRows = 4;
 
 - (void)updateFunctionalKeyFrames
 {
+   [self updateDeleteKeyFrame];
+   [self updateShiftSymbolKeyFrame];
+}
+
+- (void)updateDeleteKeyFrame
+{
    CGFloat xPosition = CGRectGetMaxX(self.bottomLettersContainer.frame);
    CGFloat yPosition = CGRectGetMinY(self.bottomLettersContainer.frame);
    CGFloat width = CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.bottomLettersContainer.frame);
    CGFloat height = CGRectGetHeight(self.bottomLettersContainer.bounds);
    
    [self.deleteController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+}
+
+- (void)updateShiftSymbolKeyFrame
+{
+   CGFloat xPosition = 0;
+   CGFloat yPosition = CGRectGetMinY(self.bottomLettersContainer.frame);
+   CGFloat width = CGRectGetMinX(self.bottomLettersContainer.frame);
+   CGFloat height = CGRectGetHeight(self.bottomLettersContainer.frame);
+   
+   [self.shiftSymbolsController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
 }
 
 #pragma mark - Property Overrides

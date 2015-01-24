@@ -34,7 +34,7 @@
 #pragma mark - Setup
 - (void)setupDeleteView
 {
-   self.deleteView = [LetterView viewWithLetter:@"del" fontSize:16.f frame:self.view.bounds];
+   self.deleteView = [LetterView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
    [self.view addSubview:self.deleteView];
 }
 
