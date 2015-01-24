@@ -56,7 +56,6 @@ static NSArray* _numberArray(KeyboardRow row)
 
 static NSArray* _symbolArray(KeyboardRow row)
 {
-   
    NSArray* characterArray = nil;
    switch (row)
    {
