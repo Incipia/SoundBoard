@@ -13,6 +13,7 @@
 		5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */; };
 		5B537E931A7341BA0006AEF8 /* LetterNumberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E921A7341BA0006AEF8 /* LetterNumberController.m */; };
 		5B537E961A7347410006AEF8 /* NextKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E951A7347410006AEF8 /* NextKeyboardController.m */; };
+		5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */; };
 		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
@@ -73,6 +74,8 @@
 		5B537E921A7341BA0006AEF8 /* LetterNumberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterNumberController.m; sourceTree = "<group>"; };
 		5B537E941A7347410006AEF8 /* NextKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextKeyboardController.h; sourceTree = "<group>"; };
 		5B537E951A7347410006AEF8 /* NextKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextKeyboardController.m; sourceTree = "<group>"; };
+		5B537E971A7348CB0006AEF8 /* SpacebarKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpacebarKeyController.h; sourceTree = "<group>"; };
+		5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpacebarKeyController.m; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 		5B537E901A73417F0006AEF8 /* Key Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5B537E971A7348CB0006AEF8 /* SpacebarKeyController.h */,
+				5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */,
 				5B537E941A7347410006AEF8 /* NextKeyboardController.h */,
 				5B537E951A7347410006AEF8 /* NextKeyboardController.m */,
 				5B537E911A7341BA0006AEF8 /* LetterNumberController.h */,
@@ -404,6 +409,7 @@
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
 				5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */,
 				8E7662E81A72212A006410E7 /* LetterViewCollection.m in Sources */,
+				5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,10 +20,7 @@
 {
    self.nextKeyboardKeyView = [LetterView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
    self.letterViewArray = @[self.nextKeyboardKeyView];
-   for (LetterView* letterView in self.letterViewArray)
-   {
-      [self.view addSubview:letterView];
-   }
+   [self.view addSubview:self.nextKeyboardKeyView];
 }
 
 @end
