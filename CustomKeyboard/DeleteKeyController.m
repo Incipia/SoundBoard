@@ -7,10 +7,10 @@
 //
 
 #import "DeleteKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface DeleteKeyController ()
-@property (nonatomic) LetterView* deleteView;
+@property (nonatomic) KeyView* deleteView;
 @end
 
 @implementation DeleteKeyController
@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
-   self.deleteView = [LetterView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
+   self.deleteView = [KeyView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
    self.letterViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];

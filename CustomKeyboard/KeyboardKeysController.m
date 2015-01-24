@@ -7,7 +7,7 @@
 //
 
 #import "KeyboardKeysController.h"
-#import "LetterViewCollection.h"
+#import "KeyViewCollection.h"
 #import "KeyboardKeysUtility.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
@@ -20,9 +20,9 @@ static const int s_totalKeyRows = 4;
 
 @interface KeyboardKeysController ()
 
-@property (nonatomic) LetterViewCollection* topLettersContainer;
-@property (nonatomic) LetterViewCollection* middleLettersContainer;
-@property (nonatomic) LetterViewCollection* bottomLettersContainer;
+@property (nonatomic) KeyViewCollection* topLettersContainer;
+@property (nonatomic) KeyViewCollection* middleLettersContainer;
+@property (nonatomic) KeyViewCollection* bottomLettersContainer;
 
 @property (nonatomic) DeleteKeyController* deleteController;
 @property (nonatomic) ShiftSymbolsKeyController* shiftSymbolsController;
@@ -65,15 +65,15 @@ static const int s_totalKeyRows = 4;
 - (void)setupLetterRowViews
 {
    NSArray* topLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowTop];
-   self.topLettersContainer = [LetterViewCollection collectionWithCharacterArray:topLetters];
+   self.topLettersContainer = [KeyViewCollection collectionWithCharacterArray:topLetters];
 
    NSArray* middleLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowMiddle];
-   self.middleLettersContainer = [LetterViewCollection collectionWithCharacterArray:middleLetters];
+   self.middleLettersContainer = [KeyViewCollection collectionWithCharacterArray:middleLetters];
 
    NSArray* bottomLetters = [KeyboardKeysUtility characterArrayForMode:KeyboardModeLetters row:KeyboardRowBottom];
-   self.bottomLettersContainer = [LetterViewCollection collectionWithCharacterArray:bottomLetters];
+   self.bottomLettersContainer = [KeyViewCollection collectionWithCharacterArray:bottomLetters];
 
-   for (LetterViewCollection* letterRowView in self.containerViews)
+   for (KeyViewCollection* letterRowView in self.containerViews)
    {
       [self.view addSubview:letterRowView];
    }
@@ -114,7 +114,7 @@ static const int s_totalKeyRows = 4;
    NSUInteger letterRowWidthIndex = 0;
    NSUInteger currentYPosition = 0;
 
-   for (LetterViewCollection* letterCollection in self.containerViews)
+   for (KeyViewCollection* letterCollection in self.containerViews)
    {
       CGFloat currentLetterRowWidth = letterRowWidths[letterRowWidthIndex++];
       CGFloat xPosition = CGRectGetMidX(self.view.bounds) - (currentLetterRowWidth*.5);

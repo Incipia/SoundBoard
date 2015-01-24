@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LetterViewCollection : UIView
+@interface KeyViewCollection : UIView
 
 + (instancetype)collectionWithCharacterArray:(NSArray*)array;
 - (void)updateFrame:(CGRect)frame;

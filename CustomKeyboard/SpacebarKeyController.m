@@ -7,10 +7,10 @@
 //
 
 #import "SpacebarKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface SpacebarKeyController ()
-@property (nonatomic) LetterView* spacebarKeyView;
+@property (nonatomic) KeyView* spacebarKeyView;
 @end
 
 @implementation SpacebarKeyController
@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
-   self.spacebarKeyView = [LetterView viewWithLetter:@"space" fontSize:14.f frame:CGRectZero];
+   self.spacebarKeyView = [KeyView viewWithLetter:@"space" fontSize:14.f frame:CGRectZero];
    self.letterViewArray = @[self.spacebarKeyView];
    [self.view addSubview:self.spacebarKeyView];
 }

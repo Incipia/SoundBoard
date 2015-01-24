@@ -7,12 +7,12 @@
 //
 
 #import "ShiftSymbolsKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface ShiftSymbolsKeyController ()
-@property (nonatomic) LetterView* shiftLetterView;
-@property (nonatomic) LetterView* symbolsLetterView;
-@property (nonatomic) LetterView* numbersLetterView;
+@property (nonatomic) KeyView* shiftLetterView;
+@property (nonatomic) KeyView* symbolsLetterView;
+@property (nonatomic) KeyView* numbersLetterView;
 @end
 
 @implementation ShiftSymbolsKeyController
@@ -20,12 +20,12 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
-   self.shiftLetterView = [LetterView viewWithLetter:@"shift" fontSize:14.f frame:CGRectZero];
-   self.symbolsLetterView = [LetterView viewWithLetter:@"#+=" fontSize:14.f frame:CGRectZero];
-   self.numbersLetterView = [LetterView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
+   self.shiftLetterView = [KeyView viewWithLetter:@"shift" fontSize:14.f frame:CGRectZero];
+   self.symbolsLetterView = [KeyView viewWithLetter:@"#+=" fontSize:14.f frame:CGRectZero];
+   self.numbersLetterView = [KeyView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
    
    self.letterViewArray = @[self.shiftLetterView, self.symbolsLetterView, self.numbersLetterView];
-   for (LetterView* letterView in self.letterViewArray)
+   for (KeyView* letterView in self.letterViewArray)
    {
       letterView.hidden = YES;
       [self.view addSubview:letterView];

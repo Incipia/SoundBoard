@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LetterView : UIView
+@interface KeyView : UIView
 
 + (instancetype)viewWithLetter:(NSString*)letter frame:(CGRect)frame;
 + (instancetype)viewWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame;

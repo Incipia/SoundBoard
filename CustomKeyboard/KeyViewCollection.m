@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "LetterViewCollection.h"
-#import "LetterView.h"
+#import "KeyViewCollection.h"
+#import "KeyView.h"
 
-@interface LetterViewCollection ()
+@interface KeyViewCollection ()
 
 @property (nonatomic) NSArray* characterArray;
 @property (nonatomic) NSMutableArray* mutableLetterViewArray;
 
 @end
 
-@implementation LetterViewCollection
+@implementation KeyViewCollection
 
 #pragma mark - Init
 - (instancetype)initWithCharacterArray:(NSArray*)array
@@ -34,7 +34,7 @@
 #pragma mark - Class Init
 + (instancetype)collectionWithCharacterArray:(NSArray*)array
 {
-   return [[LetterViewCollection alloc] initWithCharacterArray:array];
+   return [[KeyViewCollection alloc] initWithCharacterArray:array];
 }
 
 #pragma mark - Setup
@@ -42,7 +42,7 @@
 {
    for (NSString* letter in self.characterArray)
    {
-      LetterView* letterView = [LetterView viewWithLetter:letter frame:CGRectZero];
+      KeyView* letterView = [KeyView viewWithLetter:letter frame:CGRectZero];
 
       [self.mutableLetterViewArray addObject:letterView];
       [self addSubview:letterView];
@@ -56,7 +56,7 @@
    CGFloat letterViewHeight = CGRectGetHeight(self.bounds);
    CGRect currentLetterViewFrame = CGRectMake(0, 0, letterViewWidth, letterViewHeight);
 
-   for (LetterView* letterView in self.mutableLetterViewArray)
+   for (KeyView* letterView in self.mutableLetterViewArray)
    {
       [letterView updateFrame:currentLetterViewFrame];
       currentLetterViewFrame.origin.x += letterViewWidth;

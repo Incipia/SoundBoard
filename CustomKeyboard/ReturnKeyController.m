@@ -7,10 +7,10 @@
 //
 
 #import "ReturnKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface ReturnKeyController ()
-@property (nonatomic) LetterView* returnKeyView;
+@property (nonatomic) KeyView* returnKeyView;
 @end
 
 @implementation ReturnKeyController
@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
-   self.returnKeyView = [LetterView viewWithLetter:@"return" fontSize:14.f frame:CGRectZero];
+   self.returnKeyView = [KeyView viewWithLetter:@"return" fontSize:14.f frame:CGRectZero];
    self.letterViewArray = @[self.returnKeyView];
    [self.view addSubview:self.returnKeyView];
 }

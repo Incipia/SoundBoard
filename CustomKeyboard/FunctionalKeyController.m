@@ -7,7 +7,7 @@
 //
 
 #import "FunctionalKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface FunctionalKeyController ()
 @end
@@ -40,7 +40,7 @@
 - (void)updateLetterViewFrames:(CGRect)frame
 {
    CGRect letterViewFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-   for (LetterView* letterView in self.letterViewArray)
+   for (KeyView* letterView in self.letterViewArray)
    {
       [letterView updateFrame:letterViewFrame];
    }

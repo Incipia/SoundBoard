@@ -7,10 +7,10 @@
 //
 
 #import "NextKeyboardKeyController.h"
-#import "LetterView.h"
+#import "KeyView.h"
 
 @interface NextKeyboardKeyController ()
-@property (nonatomic) LetterView* nextKeyboardKeyView;
+@property (nonatomic) KeyView* nextKeyboardKeyView;
 @end
 
 @implementation NextKeyboardKeyController
@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupLetterViews
 {
-   self.nextKeyboardKeyView = [LetterView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
+   self.nextKeyboardKeyView = [KeyView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
    self.letterViewArray = @[self.nextKeyboardKeyView];
    [self.view addSubview:self.nextKeyboardKeyView];
 }

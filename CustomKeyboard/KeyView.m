@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "LetterView.h"
+#import "KeyView.h"
 #import "KeyboardLetterLayer.h"
 
-@interface LetterView ()
+@interface KeyView ()
 @property (nonatomic) KeyboardLetterLayer* letterLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @end
 
-@implementation LetterView
+@implementation KeyView
 
 #pragma mark - Init
 - (instancetype)initWithFrame:(CGRect)frame
@@ -42,12 +42,12 @@
 #pragma mark - Class Init
 + (instancetype)viewWithLetter:(NSString *)letter frame:(CGRect)frame
 {
-   return [[LetterView alloc] initWithLetter:letter fontSize:18.f frame:frame];
+   return [[KeyView alloc] initWithLetter:letter fontSize:18.f frame:frame];
 }
 
 + (instancetype)viewWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
-   return [[LetterView alloc] initWithLetter:letter fontSize:fontSize frame:frame];
+   return [[KeyView alloc] initWithLetter:letter fontSize:fontSize frame:frame];
 }
 
 #pragma mark - Setup
