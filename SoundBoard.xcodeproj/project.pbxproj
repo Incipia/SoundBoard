@@ -15,6 +15,7 @@
 		5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E951A7347410006AEF8 /* NextKeyboardKeyController.m */; };
 		5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */; };
 		5B537E9C1A734D4B0006AEF8 /* ReturnKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E9B1A734D4B0006AEF8 /* ReturnKeyController.m */; };
+		5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */; };
 		8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* KeyView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
@@ -79,6 +80,9 @@
 		5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpacebarKeyController.m; sourceTree = "<group>"; };
 		5B537E9A1A734D4B0006AEF8 /* ReturnKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnKeyController.h; sourceTree = "<group>"; };
 		5B537E9B1A734D4B0006AEF8 /* ReturnKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnKeyController.m; sourceTree = "<group>"; };
+		5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyViewCollectionCreator.h; sourceTree = "<group>"; };
+		5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyViewCollectionCreator.m; sourceTree = "<group>"; };
+		5BFB27911A73847600508C1F /* KeyboardTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardTypedefs.h; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* KeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* KeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -158,6 +162,9 @@
 		5B537E9D1A7351910006AEF8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */,
+				5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */,
+				5BFB27911A73847600508C1F /* KeyboardTypedefs.h */,
 				8E7662DA1A71FF43006410E7 /* KeyboardKeysUtility.h */,
 				8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */,
 			);
@@ -416,6 +423,7 @@
 				5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */,
 				8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */,
 				5B537E9C1A734D4B0006AEF8 /* ReturnKeyController.m in Sources */,
+				5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */,
 				8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */,
 				5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */,
 				5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */,
