@@ -7,7 +7,15 @@
 //
 
 #import "KeyViewCollectionCreator.h"
+#import "KeyViewCollection.h"
+#import "KeyboardKeysUtility.h"
 
 @implementation KeyViewCollectionCreator
+
++ (KeyViewCollection*)collectionForMode:(KeyboardMode)mode row:(KeyboardRow)row
+{
+   NSArray* array = [KeyboardKeysUtility characterArrayForMode:mode row:row];
+   return [KeyViewCollection collectionWithCharacterArray:array];
+}
 
 @end

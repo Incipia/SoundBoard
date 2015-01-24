@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyboardTypedefs.h"
 
+@class KeyViewCollection;
 @interface KeyViewCollectionCreator : NSObject
+
++ (KeyViewCollection*)collectionForMode:(KeyboardMode)mode row:(KeyboardRow)row;
 
 @end
