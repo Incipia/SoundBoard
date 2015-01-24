@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */; };
+		5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */; };
 		5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E881A73255C0006AEF8 /* DeleteKeyController.m */; };
 		5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */; };
 		5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */; };
@@ -63,8 +63,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5B2534601A72BC3000384E69 /* KeyboardLetterLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardLetterLayer.h; sourceTree = "<group>"; };
-		5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardLetterLayer.m; sourceTree = "<group>"; };
+		5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeyLayer.h; sourceTree = "<group>"; };
+		5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardKeyLayer.m; sourceTree = "<group>"; };
 		5B537E871A73255C0006AEF8 /* DeleteKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteKeyController.h; sourceTree = "<group>"; };
 		5B537E881A73255C0006AEF8 /* DeleteKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteKeyController.m; sourceTree = "<group>"; };
 		5B537E8A1A732BFA0006AEF8 /* ShiftSymbolsKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShiftSymbolsKeyController.h; sourceTree = "<group>"; };
@@ -155,6 +155,15 @@
 			name = "Key Controllers";
 			sourceTree = "<group>";
 		};
+		5B537E9D1A7351910006AEF8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8E7662DA1A71FF43006410E7 /* KeyboardKeysUtility.h */,
+				8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
 		8EDFB7BB1A6B6BBA000AD00A = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +229,7 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				5B537E9D1A7351910006AEF8 /* Utilities */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */,
 				8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */,
@@ -227,14 +237,12 @@
 				8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */,
 				8E7662E61A72212A006410E7 /* KeyViewCollection.h */,
 				8E7662E71A72212A006410E7 /* KeyViewCollection.m */,
-				8E7662DA1A71FF43006410E7 /* KeyboardKeysUtility.h */,
-				8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */,
 				8E7662D71A71F7BA006410E7 /* KeyboardAuxiliaryController.h */,
 				8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */,
 				8E7662C81A701D4F006410E7 /* KeyView.h */,
 				8E7662C91A701D4F006410E7 /* KeyView.m */,
-				5B2534601A72BC3000384E69 /* KeyboardLetterLayer.h */,
-				5B2534611A72BC3000384E69 /* KeyboardLetterLayer.m */,
+				5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */,
+				5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */,
 				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
 			);
 			path = CustomKeyboard;
@@ -413,7 +421,7 @@
 				5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
-				5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */,
+				5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */,
 				8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */,
 				5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */,
 			);

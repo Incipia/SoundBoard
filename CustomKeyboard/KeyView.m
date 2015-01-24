@@ -7,10 +7,10 @@
 //
 
 #import "KeyView.h"
-#import "KeyboardLetterLayer.h"
+#import "KeyboardKeyLayer.h"
 
 @interface KeyView ()
-@property (nonatomic) KeyboardLetterLayer* letterLayer;
+@property (nonatomic) KeyboardKeyLayer* letterLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @end
 
@@ -53,7 +53,7 @@
 #pragma mark - Setup
 - (void)setupLetterLayerWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize
 {
-   self.letterLayer = [KeyboardLetterLayer layerWithLetter:letter fontSize:fontSize];
+   self.letterLayer = [KeyboardKeyLayer layerWithLetter:letter fontSize:fontSize];
    self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
    [self.layer addSublayer:self.letterLayer];

@@ -8,7 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface KeyboardLetterLayer : CATextLayer
+@interface KeyboardKeyLayer : CATextLayer
 
 + (instancetype)layerWithLetter:(NSString*)letter;
 + (instancetype)layerWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize;

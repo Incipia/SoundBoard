@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "KeyboardLetterLayer.h"
+#import "KeyboardKeyLayer.h"
 @import UIKit;
 
-@implementation KeyboardLetterLayer
+@implementation KeyboardKeyLayer
 
 #pragma mark - Class Init
 + (instancetype)layerWithLetter:(NSString*)letter
 {
-   KeyboardLetterLayer* layer = [KeyboardLetterLayer layer];
+   KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
    
    [layer setupProperties];
    [layer setLetter:letter fontSize:22.f];
@@ -25,7 +25,7 @@
 
 + (instancetype)layerWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize
 {
-   KeyboardLetterLayer* layer = [KeyboardLetterLayer layer];
+   KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
    
    [layer setupProperties];
    [layer setLetter:letter fontSize:fontSize];
