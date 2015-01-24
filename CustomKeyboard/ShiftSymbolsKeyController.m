@@ -13,27 +13,9 @@
 @property (nonatomic) LetterView* shiftLetterView;
 @property (nonatomic) LetterView* symbolsLetterView;
 @property (nonatomic) LetterView* numbersLetterView;
-
-@property (nonatomic, readonly) NSArray* letterViewArray;
 @end
 
 @implementation ShiftSymbolsKeyController
-
-#pragma mark - Init
-- (instancetype)init
-{
-   if (self = [super init])
-   {
-      [self setupLetterViews];
-   }
-   return self;
-}
-
-#pragma mark - Class Init
-+ (instancetype)controller
-{
-   return [[ShiftSymbolsKeyController alloc] init];
-}
 
 #pragma mark - Setup
 - (void)setupLetterViews
@@ -41,6 +23,7 @@
    self.shiftLetterView = [LetterView viewWithLetter:@"shift" fontSize:14.f frame:CGRectZero];
    self.symbolsLetterView = [LetterView viewWithLetter:@"#+=" fontSize:14.f frame:CGRectZero];
    self.numbersLetterView = [LetterView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
+   self.letterViewArray = @[self.shiftLetterView, self.symbolsLetterView, self.numbersLetterView];
    
    for (LetterView* letterView in self.letterViewArray)
    {
@@ -52,16 +35,6 @@
 }
 
 #pragma mark - Public
-- (void)updateFrame:(CGRect)frame
-{
-   self.view.frame = frame;
-   CGRect letterViewFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-   for (LetterView* letterView in self.letterViewArray)
-   {
-      [letterView updateFrame:letterViewFrame];
-   }
-}
-
 - (void)updateWithMode:(KeyboardMode)mode
 {
    switch (mode)
@@ -78,12 +51,6 @@
       default:
          break;
    }
-}
-
-#pragma mark - Property Overrides
-- (NSArray*)letterViewArray
-{
-   return @[self.shiftLetterView, self.symbolsLetterView, self.numbersLetterView];
 }
 
 @end

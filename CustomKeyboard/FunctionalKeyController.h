@@ -10,4 +10,13 @@
 
 @interface FunctionalKeyController : UIViewController
 
++ (instancetype)controller;
+
+// Override!
+- (void)setupLetterViews;
+
+- (void)updateFrame:(CGRect)frame;
+
+@property (nonatomic) NSArray* letterViewArray;
+
 @end

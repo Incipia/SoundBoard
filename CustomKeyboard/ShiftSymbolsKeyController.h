@@ -6,14 +6,12 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "KeyboardKeysUtility.h"
+#import "FunctionalKeyController.h"
 
-@interface ShiftSymbolsKeyController : UIViewController
+@interface ShiftSymbolsKeyController : FunctionalKeyController
 
-+ (instancetype)controller;
-
-- (void)updateFrame:(CGRect)frame;
+//- (void)updateFrame:(CGRect)frame;
 - (void)updateWithMode:(KeyboardMode)mode;
 
 @end

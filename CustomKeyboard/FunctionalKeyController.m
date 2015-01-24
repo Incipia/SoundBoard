@@ -7,31 +7,50 @@
 //
 
 #import "FunctionalKeyController.h"
+#import "LetterView.h"
 
 @interface FunctionalKeyController ()
-
 @end
 
 @implementation FunctionalKeyController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+#pragma mark - Init
+- (instancetype)init
+{
+   if (self = [super init])
+   {
+      [self setupLetterViews];
+   }
+   return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Class Init
++ (instancetype)controller
+{
+   FunctionalKeyController* controller = [[[self class] alloc] init];
+   return controller;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Setup
+- (void)setupLetterViews
+{
 }
-*/
+
+#pragma mark - Update
+- (void)updateLetterViewFrames:(CGRect)frame
+{
+   CGRect letterViewFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+   for (LetterView* letterView in self.letterViewArray)
+   {
+      [letterView updateFrame:letterViewFrame];
+   }
+}
+
+#pragma mark - Public
+- (void)updateFrame:(CGRect)frame
+{
+   self.view.frame = frame;
+   [self updateLetterViewFrames:frame];
+}
 
 @end

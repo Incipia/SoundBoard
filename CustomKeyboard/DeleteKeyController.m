@@ -15,34 +15,13 @@
 
 @implementation DeleteKeyController
 
-#pragma mark - Init
-- (instancetype)init
-{
-   if (self = [super init])
-   {
-      [self setupDeleteView];
-   }
-   return self;
-}
-
-#pragma mark - Class Init
-+ (instancetype)controller
-{
-   return [[DeleteKeyController alloc] init];
-}
-
 #pragma mark - Setup
-- (void)setupDeleteView
+- (void)setupLetterViews
 {
    self.deleteView = [LetterView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
+   self.letterViewArray = @[self.deleteView];
+   
    [self.view addSubview:self.deleteView];
-}
-
-#pragma mark - Public
-- (void)updateFrame:(CGRect)frame
-{
-   self.view.frame = frame;
-   [self.deleteView updateFrame:CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame))];
 }
 
 @end
