@@ -9,5 +9,18 @@
 #ifndef SoundBoard_KeyboardTypedefs_h
 #define SoundBoard_KeyboardTypedefs_h
 
+typedef NS_ENUM(NSUInteger, KeyboardMode)
+{
+   KeyboardModeLetters = 1,
+   KeyboardModeNumbers,
+   KeyboardModeSymbols
+};
+
+typedef NS_ENUM(NSUInteger, KeyboardRow)
+{
+   KeyboardRowTop,
+   KeyboardRowMiddle,
+   KeyboardRowBottom
+};
 
 #endif
