@@ -33,12 +33,49 @@ static NSArray* _letterArray(KeyboardRow row)
 
 static NSArray* _numberArray(KeyboardRow row)
 {
-   return nil;
+   NSArray* characterArray = nil;
+   switch (row)
+   {
+      case KeyboardRowTop:
+         characterArray = @[@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"0"];
+         break;
+         
+      case KeyboardRowMiddle:
+         characterArray = @[@"-", @"/", @":", @";", @"(", @")", @"$", @"&", @"@", @"\""];
+         break;
+         
+      case KeyboardRowBottom:
+         characterArray = @[@".", @",", @"?", @"!", @"'"];
+         break;
+         
+      default:
+         break;
+   }
+   return characterArray;
 }
 
 static NSArray* _symbolArray(KeyboardRow row)
 {
-   return nil;
+   
+   NSArray* characterArray = nil;
+   switch (row)
+   {
+      case KeyboardRowTop:
+         characterArray = @[@"[", @"]", @"{", @"}", @"#", @"%", @"^", @"*", @"+", @"="];
+         break;
+         
+      case KeyboardRowMiddle:
+         characterArray = @[@"_", @"\\", @"|", @"~", @"<", @">", @"€", @"£", @"¥", @"•"];
+         break;
+         
+      case KeyboardRowBottom:
+         characterArray = @[@".", @",", @"?", @"!", @"'"];
+         break;
+         
+      default:
+         break;
+   }
+   return characterArray;
 }
 
 @implementation KeyboardKeysUtility
