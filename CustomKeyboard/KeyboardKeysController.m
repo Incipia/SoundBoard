@@ -56,12 +56,13 @@ static const int s_totalKeyRows = 4;
 {
    if (self = [super init])
    {
-      [self setupLetterKeyCollections];
-      [self setupFunctionalKeyControllers];
+      [self setupLetterKeysCollections];
       [self setupNumberKeysCollections];
       [self setupSymbolKeysCollections];
       [self setupPunctuationKeysCollection];
-      [self addKeyCollectionsAsSubviews];
+      [self addKeyCollectionSubviews];
+      
+      [self setupFunctionalKeyControllers];
       
       [self updateMode:mode];
    }
@@ -85,7 +86,7 @@ static const int s_totalKeyRows = 4;
 }
 
 #pragma mark - Setup
-- (void)setupLetterKeyCollections
+- (void)setupLetterKeysCollections
 {
    self.topLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowTop];
    self.middleLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowMiddle];
@@ -109,7 +110,7 @@ static const int s_totalKeyRows = 4;
    self.punctuationKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeSymbols row:KeyboardRowBottom];
 }
 
-- (void)addKeyCollectionsAsSubviews
+- (void)addKeyCollectionSubviews
 {
    for (KeyViewCollection* keyCollection in self.allKeyCollectionsArray)
    {
