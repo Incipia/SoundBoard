@@ -11,6 +11,8 @@
 		5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E881A73255C0006AEF8 /* DeleteKeyController.m */; };
 		5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */; };
 		5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */; };
+		5B537E931A7341BA0006AEF8 /* LetterNumberController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E921A7341BA0006AEF8 /* LetterNumberController.m */; };
+		5B537E961A7347410006AEF8 /* NextKeyboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E951A7347410006AEF8 /* NextKeyboardController.m */; };
 		8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* LetterView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
@@ -67,6 +69,10 @@
 		5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShiftSymbolsKeyController.m; sourceTree = "<group>"; };
 		5B537E8D1A7337F30006AEF8 /* FunctionalKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FunctionalKeyController.h; sourceTree = "<group>"; };
 		5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FunctionalKeyController.m; sourceTree = "<group>"; };
+		5B537E911A7341BA0006AEF8 /* LetterNumberController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterNumberController.h; sourceTree = "<group>"; };
+		5B537E921A7341BA0006AEF8 /* LetterNumberController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterNumberController.m; sourceTree = "<group>"; };
+		5B537E941A7347410006AEF8 /* NextKeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextKeyboardController.h; sourceTree = "<group>"; };
+		5B537E951A7347410006AEF8 /* NextKeyboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextKeyboardController.m; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* LetterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LetterView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* LetterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -122,6 +128,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B537E901A73417F0006AEF8 /* Key Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5B537E941A7347410006AEF8 /* NextKeyboardController.h */,
+				5B537E951A7347410006AEF8 /* NextKeyboardController.m */,
+				5B537E911A7341BA0006AEF8 /* LetterNumberController.h */,
+				5B537E921A7341BA0006AEF8 /* LetterNumberController.m */,
+				5B537E871A73255C0006AEF8 /* DeleteKeyController.h */,
+				5B537E881A73255C0006AEF8 /* DeleteKeyController.m */,
+				5B537E8D1A7337F30006AEF8 /* FunctionalKeyController.h */,
+				5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */,
+				5B537E8A1A732BFA0006AEF8 /* ShiftSymbolsKeyController.h */,
+				5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */,
+			);
+			name = "Key Controllers";
+			sourceTree = "<group>";
+		};
 		8EDFB7BB1A6B6BBA000AD00A = {
 			isa = PBXGroup;
 			children = (
@@ -187,16 +210,11 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */,
 				8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */,
 				8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */,
 				8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */,
-				5B537E871A73255C0006AEF8 /* DeleteKeyController.h */,
-				5B537E881A73255C0006AEF8 /* DeleteKeyController.m */,
-				5B537E8D1A7337F30006AEF8 /* FunctionalKeyController.h */,
-				5B537E8E1A7337F30006AEF8 /* FunctionalKeyController.m */,
-				5B537E8A1A732BFA0006AEF8 /* ShiftSymbolsKeyController.h */,
-				5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */,
 				8E7662E61A72212A006410E7 /* LetterViewCollection.h */,
 				8E7662E71A72212A006410E7 /* LetterViewCollection.m */,
 				8E7662DA1A71FF43006410E7 /* KeyboardKeysUtility.h */,
@@ -374,12 +392,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B537E931A7341BA0006AEF8 /* LetterNumberController.m in Sources */,
 				5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */,
 				8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */,
 				5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */,
 				8E7662CA1A701D4F006410E7 /* LetterView.m in Sources */,
 				8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */,
 				5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */,
+				5B537E961A7347410006AEF8 /* NextKeyboardController.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
 				5B2534621A72BC3000384E69 /* KeyboardLetterLayer.m in Sources */,

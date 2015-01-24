@@ -11,6 +11,8 @@
 #import "KeyboardKeysUtility.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
+#import "LetterNumberController.h"
+#import "NextKeyboardController.h"
 
 static const int s_totalKeyRows = 4;
 
@@ -22,8 +24,9 @@ static const int s_totalKeyRows = 4;
 
 @property (nonatomic) DeleteKeyController* deleteController;
 @property (nonatomic) ShiftSymbolsKeyController* shiftSymbolsController;
+@property (nonatomic) LetterNumberController* letterNumberController;
+@property (nonatomic) NextKeyboardController* nextKeyboardController;
 
-@property (nonatomic) UIView* bottomKeysContainer;
 @property (nonatomic, readonly) NSArray* containerViews;
 @end
 
@@ -78,6 +81,12 @@ static const int s_totalKeyRows = 4;
    
    self.shiftSymbolsController = [ShiftSymbolsKeyController controller];
    [self.view addSubview:self.shiftSymbolsController.view];
+   
+   self.letterNumberController = [LetterNumberController controller];
+   [self.view addSubview:self.letterNumberController.view];
+   
+   self.nextKeyboardController = [NextKeyboardController controller];
+   [self.view addSubview:self.nextKeyboardController.view];
 }
 
 #pragma mark - Update
@@ -109,6 +118,8 @@ static const int s_totalKeyRows = 4;
 {
    [self updateDeleteKeyFrame];
    [self updateShiftSymbolKeyFrame];
+   [self updateLetterNumberKeyFrame];
+   [self updateNextKeyboardKeyFrame];
 }
 
 - (void)updateDeleteKeyFrame
@@ -129,6 +140,26 @@ static const int s_totalKeyRows = 4;
    CGFloat height = CGRectGetHeight(self.bottomLettersContainer.frame);
    
    [self.shiftSymbolsController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+}
+
+- (void)updateLetterNumberKeyFrame
+{
+   CGFloat xPosition = 0;
+   CGFloat yPosition = CGRectGetMaxY(self.bottomLettersContainer.frame);
+   CGFloat width = (CGRectGetMinX(self.bottomLettersContainer.frame) + self.bottomLettersContainer.generatedCharacterWidth) * .5;
+   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
+   
+   [self.letterNumberController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+}
+
+- (void)updateNextKeyboardKeyFrame
+{
+   CGFloat xPosition = CGRectGetMaxX(self.letterNumberController.view.frame);
+   CGFloat yPosition = CGRectGetMaxY(self.bottomLettersContainer.frame);
+   CGFloat width = CGRectGetWidth(self.letterNumberController.view.frame);
+   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
+   
+   [self.nextKeyboardController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
 }
 
 #pragma mark - Property Overrides
