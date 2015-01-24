@@ -39,7 +39,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    self.auxController = [KeyboardAuxiliaryController controller];
    [self.view addSubview:self.auxController.view];
 
-   self.keysController = [KeyboardKeysController controller];
+   self.keysController = [KeyboardKeysController controllerWithMode:KeyboardModeLetters];
    [self.view addSubview:self.keysController.view];
 }
 
