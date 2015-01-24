@@ -11,9 +11,10 @@
 #import "KeyboardKeysUtility.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
-#import "LetterNumberController.h"
-#import "NextKeyboardController.h"
+#import "LetterNumberKeyController.h"
+#import "NextKeyboardKeyController.h"
 #import "SpacebarKeyController.h"
+#import "ReturnKeyController.h"
 
 static const int s_totalKeyRows = 4;
 
@@ -25,9 +26,10 @@ static const int s_totalKeyRows = 4;
 
 @property (nonatomic) DeleteKeyController* deleteController;
 @property (nonatomic) ShiftSymbolsKeyController* shiftSymbolsController;
-@property (nonatomic) LetterNumberController* letterNumberController;
-@property (nonatomic) NextKeyboardController* nextKeyboardController;
+@property (nonatomic) LetterNumberKeyController* letterNumberController;
+@property (nonatomic) NextKeyboardKeyController* nextKeyboardController;
 @property (nonatomic) SpacebarKeyController* spacebarKeyController;
+@property (nonatomic) ReturnKeyController* returnKeyController;
 
 @property (nonatomic, readonly) NSArray* containerViews;
 
@@ -85,14 +87,17 @@ static const int s_totalKeyRows = 4;
    self.shiftSymbolsController = [ShiftSymbolsKeyController controller];
    [self.view addSubview:self.shiftSymbolsController.view];
    
-   self.letterNumberController = [LetterNumberController controller];
+   self.letterNumberController = [LetterNumberKeyController controller];
    [self.view addSubview:self.letterNumberController.view];
    
-   self.nextKeyboardController = [NextKeyboardController controller];
+   self.nextKeyboardController = [NextKeyboardKeyController controller];
    [self.view addSubview:self.nextKeyboardController.view];
    
    self.spacebarKeyController = [SpacebarKeyController controller];
    [self.view addSubview:self.spacebarKeyController.view];
+   
+   self.returnKeyController = [ReturnKeyController controller];
+   [self.view addSubview:self.returnKeyController.view];
 }
 
 #pragma mark - Update
@@ -127,6 +132,7 @@ static const int s_totalKeyRows = 4;
    [self updateLetterNumberKeyFrame];
    [self updateNextKeyboardKeyFrame];
    [self updateSpacebarKeyFrame];
+   [self updateReturnKeyFrame];
 }
 
 - (void)updateDeleteKeyFrame
@@ -177,6 +183,16 @@ static const int s_totalKeyRows = 4;
    CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
    
    [self.spacebarKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+}
+
+- (void)updateReturnKeyFrame
+{
+   CGFloat xPosition = CGRectGetMaxX(self.spacebarKeyController.view.frame);
+   CGFloat yPosition = CGRectGetMaxY(self.bottomLettersContainer.frame);
+   CGFloat width = CGRectGetWidth(self.view.frame) - CGRectGetMaxX(self.spacebarKeyController.view.frame);
+   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
+   
+   [self.returnKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
 }
 
 #pragma mark - Property Overrides

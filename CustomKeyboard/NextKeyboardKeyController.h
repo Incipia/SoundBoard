@@ -8,6 +8,5 @@
 
 #import "FunctionalKeyController.h"
 
-@interface NextKeyboardController : FunctionalKeyController
-
+@interface NextKeyboardKeyController : FunctionalKeyController
 @end

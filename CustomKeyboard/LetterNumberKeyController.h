@@ -8,5 +8,5 @@
 
 #import "FunctionalKeyController.h"
 
-@interface LetterNumberController : FunctionalKeyController
+@interface LetterNumberKeyController : FunctionalKeyController
 @end

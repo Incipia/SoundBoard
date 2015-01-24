@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "LetterNumberController.h"
+#import "LetterNumberKeyController.h"
 #import "LetterView.h"
 
-@interface LetterNumberController ()
+@interface LetterNumberKeyController ()
 @property (nonatomic) LetterView* numbersKeyView;
 @property (nonatomic) LetterView* lettersKeyView;
 @end
 
-@implementation LetterNumberController
+@implementation LetterNumberKeyController
 
 #pragma mark - Setup
 - (void)setupLetterViews
