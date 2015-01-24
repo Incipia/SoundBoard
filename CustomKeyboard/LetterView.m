@@ -29,12 +29,12 @@
    return self;
 }
 
-- (instancetype)initWithLetter:(NSString*)letter frame:(CGRect)frame
+- (instancetype)initWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
    if (self = [self initWithFrame:frame])
    {
       self.letter = letter;
-      [self setupLetterLayerWithLetter:letter];
+      [self setupLetterLayerWithLetter:letter fontSize:fontSize];
    }
    return self;
 }
@@ -42,13 +42,18 @@
 #pragma mark - Class Init
 + (instancetype)viewWithLetter:(NSString *)letter frame:(CGRect)frame
 {
-   return [[LetterView alloc] initWithLetter:letter frame:frame];
+   return [[LetterView alloc] initWithLetter:letter fontSize:18.f frame:frame];
+}
+
++ (instancetype)viewWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame
+{
+   return [[LetterView alloc] initWithLetter:letter fontSize:fontSize frame:frame];
 }
 
 #pragma mark - Setup
-- (void)setupLetterLayerWithLetter:(NSString*)letter
+- (void)setupLetterLayerWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize
 {
-   self.letterLayer = [KeyboardLetterLayer layerWithLetter:letter];
+   self.letterLayer = [KeyboardLetterLayer layerWithLetter:letter fontSize:fontSize];
    self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
    [self.layer addSublayer:self.letterLayer];

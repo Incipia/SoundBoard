@@ -11,5 +11,8 @@
 @interface KeyboardLetterLayer : CATextLayer
 
 + (instancetype)layerWithLetter:(NSString*)letter;
++ (instancetype)layerWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize;
+
+- (void)updateFontSize:(CGFloat)fontSize;
 
 @end
