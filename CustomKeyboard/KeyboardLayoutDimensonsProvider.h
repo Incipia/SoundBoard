@@ -7,7 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyboardTypedefs.h"
+@import UIKit;
 
 @interface KeyboardLayoutDimensonsProvider : NSObject
+
++ (instancetype)dimensionsProviderWithInputViewFrame:(CGRect)frame;
+
+- (void)updateInputViewFrame:(CGRect)frame;
+- (CGRect)frameForKeyboardMode:(KeyboardMode)mode row:(KeyboardRow)row;
 
 @end
