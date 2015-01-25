@@ -15,6 +15,7 @@
 #import "SpacebarKeyController.h"
 #import "ReturnKeyController.h"
 #import "KeyViewCollectionCreator.h"
+#import "KeyboardLayoutDimensonsProvider.h"
 
 static const int s_totalKeyRows = 4;
 
@@ -45,6 +46,7 @@ static const int s_totalKeyRows = 4;
 @property (nonatomic, readonly) NSArray* allKeyCollectionsArray;
 @property (nonatomic, readonly) NSArray* functionalKeyControllers;
 
+@property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 @property (nonatomic) KeyboardMode mode;
 
 @end
@@ -63,6 +65,7 @@ static const int s_totalKeyRows = 4;
       [self addKeyCollectionSubviews];
       
       [self setupFunctionalKeyControllers];
+      [self setupDimensionsProvider];
       
       [self updateMode:mode];
    }
@@ -78,6 +81,8 @@ static const int s_totalKeyRows = 4;
 #pragma mark - Lifecycle
 - (void)viewDidLayoutSubviews
 {
+   [self.dimensionsProvider updateInputViewFrame:self.view.frame];
+   
    [self updateLetterKeyCollectionFrames];
    [self updateNumberKeyCollectionFrames];
    [self updateSymbolKeyCollectionFrames];
@@ -133,28 +138,20 @@ static const int s_totalKeyRows = 4;
    }
 }
 
+- (void)setupDimensionsProvider
+{
+   self.dimensionsProvider = [KeyboardLayoutDimensonsProvider dimensionsProviderWithInputViewFrame:self.view.frame];
+}
+
 #pragma mark - Update
 - (void)updateLetterKeyCollectionFrames
 {
-   CGFloat topLetterRowWidth = CGRectGetWidth(self.view.bounds);
-   int letterRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
-
-   CGFloat characterWidth = self.topLetterKeysCollection.keyWidth;
-   CGFloat middleLetterRowWidth = self.middleLetterKeysCollection.characterCount*characterWidth;
-   CGFloat bottomLetterRowWidth = self.bottomLetterKeysCollection.characterCount*characterWidth;
-
-   CGFloat letterRowWidths[] = {topLetterRowWidth, middleLetterRowWidth, bottomLetterRowWidth};
-   NSUInteger letterRowWidthIndex = 0;
-   NSUInteger currentYPosition = 0;
-
+   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
+   NSUInteger rowIndex = 0;
    for (KeyViewCollection* letterCollection in self.letterKeysCollectionArray)
    {
-      CGFloat currentLetterRowWidth = letterRowWidths[letterRowWidthIndex++];
-      CGFloat xPosition = CGRectGetMidX(self.view.bounds) - (currentLetterRowWidth*.5);
-      CGRect letterCollectionFrame = CGRectMake(xPosition, currentYPosition, currentLetterRowWidth, letterRowHeight);
-
-      [letterCollection updateFrame:letterCollectionFrame];
-      currentYPosition += letterRowHeight;
+      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:self.mode row:rows[rowIndex++]];
+      [letterCollection updateFrame:frame];
    }
 }
 
