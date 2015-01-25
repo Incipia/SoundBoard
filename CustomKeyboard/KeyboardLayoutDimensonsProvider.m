@@ -33,7 +33,7 @@ static CGRect _lettersFrame(KeyboardRow row, CGFloat letterKeyWidth, CGFloat key
       
       case KeyboardRowBottom:
          width = letterKeyWidth*NUM_LETTERS_IN_BOTTOM_ROW;
-         xPosition = letterKeyWidth;
+         xPosition = letterKeyWidth*1.5f;
          yPosition = keyHeight*2;
          break;
          
