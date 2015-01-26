@@ -17,8 +17,6 @@
 #import "KeyViewCollectionCreator.h"
 #import "KeyboardLayoutDimensonsProvider.h"
 
-static const int s_totalKeyRows = 4;
-
 @interface KeyboardKeysController ()
 
 @property (nonatomic) KeyViewCollection* topLetterKeysCollection;
@@ -150,47 +148,37 @@ static const int s_totalKeyRows = 4;
    NSUInteger rowIndex = 0;
    for (KeyViewCollection* letterCollection in self.letterKeysCollectionArray)
    {
-      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:self.mode row:rows[rowIndex++]];
+      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeLetters row:rows[rowIndex++]];
       [letterCollection updateFrame:frame];
    }
 }
 
 - (void)updateNumberKeyCollectionFrames
 {
-   int numberRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
-   NSUInteger currentYPosition = 0;
-   
+   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
+   NSUInteger rowIndex = 0;
    for (KeyViewCollection* numberCollection in self.numberKeysCollectionArray)
    {
-      CGRect numberCollectionFrame = CGRectMake(0, currentYPosition, CGRectGetWidth(self.view.bounds), numberRowHeight);
-      
-      [numberCollection updateFrame:numberCollectionFrame];
-      currentYPosition += numberRowHeight;
+      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeNumbers row:rows[rowIndex++]];
+      [numberCollection updateFrame:frame];
    }
 }
 
 - (void)updateSymbolKeyCollectionFrames
 {
-   int symbolRowHeight = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
-   NSUInteger currentYPosition = 0;
-   
+   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
+   NSUInteger rowIndex = 0;
    for (KeyViewCollection* symbolCollection in self.symbolKeysCollectionArray)
    {
-      CGRect symbolCollectionFrame = CGRectMake(0, currentYPosition, CGRectGetWidth(self.view.bounds), symbolRowHeight);
-      
-      [symbolCollection updateFrame:symbolCollectionFrame];
-      currentYPosition += symbolRowHeight;
+      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeSymbols row:rows[rowIndex++]];
+      [symbolCollection updateFrame:frame];
    }
 }
 
 - (void)updatePunctuationKeysCollectionFrame
 {
-   CGFloat xPosition = CGRectGetMaxX(self.shiftSymbolsController.view.frame);
-   CGFloat yPosition = CGRectGetMaxY(self.middleSymbolKeysCollection.frame);
-   CGFloat width = CGRectGetMinX(self.deleteController.view.frame) - CGRectGetMaxX(self.shiftSymbolsController.view.frame);
-   int height = CGRectGetHeight(self.view.bounds) / s_totalKeyRows;
-   
-   [self.punctuationKeysCollection updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect puncutationFrame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeNumbers row:KeyboardRowBottom];
+   [self.punctuationKeysCollection updateFrame:puncutationFrame];
 }
 
 - (void)updateFunctionalKeysFrames
@@ -205,62 +193,38 @@ static const int s_totalKeyRows = 4;
 
 - (void)updateDeleteKeyFrame
 {
-   CGFloat xPosition = CGRectGetMaxX(self.bottomLetterKeysCollection.frame);
-   CGFloat yPosition = CGRectGetMinY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(self.bottomLetterKeysCollection.frame);
-   CGFloat height = CGRectGetHeight(self.bottomLetterKeysCollection.bounds);
-   
-   [self.deleteController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect backspaceKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardBackspaceKey];
+   [self.deleteController updateFrame:backspaceKeyFrame];
 }
 
 - (void)updateShiftSymbolKeyFrame
 {
-   CGFloat xPosition = 0;
-   CGFloat yPosition = CGRectGetMinY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = CGRectGetMinX(self.bottomLetterKeysCollection.frame);
-   CGFloat height = CGRectGetHeight(self.bottomLetterKeysCollection.frame);
-   
-   [self.shiftSymbolsController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect shiftKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardShiftKey];
+   [self.shiftSymbolsController updateFrame:shiftKeyFrame];
 }
 
 - (void)updateLetterNumberKeyFrame
 {
-   CGFloat xPosition = 0;
-   CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = (CGRectGetMinX(self.bottomLetterKeysCollection.frame) + self.bottomLetterKeysCollection.keyWidth)*.5;
-   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
-   
-   [self.letterNumberController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect letterNumberKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardNumbersKey];
+   [self.letterNumberController updateFrame:letterNumberKeyFrame];
 }
 
 - (void)updateNextKeyboardKeyFrame
 {
-   CGFloat xPosition = CGRectGetMaxX(self.letterNumberController.view.frame);
-   CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = CGRectGetWidth(self.letterNumberController.view.frame);
-   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
-   
-   [self.nextKeyboardController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect nextKeyboardKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardNextKeyboardKey];
+   [self.nextKeyboardController updateFrame:nextKeyboardKeyFrame];
 }
 
 - (void)updateSpacebarKeyFrame
 {
-   CGFloat xPosition = CGRectGetMaxX(self.nextKeyboardController.view.frame);
-   CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = self.bottomLetterKeysCollection.keyWidth * 5;
-   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
-   
-   [self.spacebarKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect spacebarFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardSpacebarKey];
+   [self.spacebarKeyController updateFrame:spacebarFrame];
 }
 
 - (void)updateReturnKeyFrame
 {
-   CGFloat xPosition = CGRectGetMaxX(self.spacebarKeyController.view.frame);
-   CGFloat yPosition = CGRectGetMaxY(self.bottomLetterKeysCollection.frame);
-   CGFloat width = CGRectGetWidth(self.view.frame) - CGRectGetMaxX(self.spacebarKeyController.view.frame);
-   CGFloat height = CGRectGetHeight(self.view.frame) - yPosition;
-   
-   [self.returnKeyController updateFrame:CGRectMake(xPosition, yPosition, width, height)];
+   CGRect returnKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardReturnKey];
+   [self.returnKeyController updateFrame:returnKeyFrame];
 }
 
 #pragma mark - Property Overrides

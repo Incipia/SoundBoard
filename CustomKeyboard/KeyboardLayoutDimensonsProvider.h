@@ -16,5 +16,6 @@
 
 - (void)updateInputViewFrame:(CGRect)frame;
 - (CGRect)frameForKeyboardMode:(KeyboardMode)mode row:(KeyboardRow)row;
+- (CGRect)frameForKeyboardKeyType:(KeyboardFunctionalKeyType)type;
 
 @end

@@ -101,4 +101,10 @@ static NSArray* _symbolArray(KeyboardRow row)
    return characterArray;
 }
 
++ (NSUInteger)numKeysForMode:(KeyboardMode)mode row:(KeyboardRow)row
+{
+   NSUInteger numKeys = [KeyboardKeysUtility characterArrayForMode:mode row:row].count;
+   return isnan(numKeys) ? 0 : numKeys;
+}
+
 @end

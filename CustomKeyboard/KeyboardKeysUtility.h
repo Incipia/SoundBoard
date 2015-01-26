@@ -12,5 +12,6 @@
 @interface KeyboardKeysUtility : NSObject
 
 + (NSArray*)characterArrayForMode:(KeyboardMode)mode row:(KeyboardRow)row;
++ (NSUInteger)numKeysForMode:(KeyboardMode)mode row:(KeyboardRow)row;
 
 @end
