@@ -138,7 +138,7 @@
 
 - (void)setupDimensionsProvider
 {
-   self.dimensionsProvider = [KeyboardLayoutDimensonsProvider dimensionsProviderWithInputViewFrame:self.view.frame];
+   self.dimensionsProvider = [KeyboardLayoutDimensonsProvider dimensionsProvider];
 }
 
 #pragma mark - Update

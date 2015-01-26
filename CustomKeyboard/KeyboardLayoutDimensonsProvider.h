@@ -12,7 +12,7 @@
 
 @interface KeyboardLayoutDimensonsProvider : NSObject
 
-+ (instancetype)dimensionsProviderWithInputViewFrame:(CGRect)frame;
++ (instancetype)dimensionsProvider;
 
 - (void)updateInputViewFrame:(CGRect)frame;
 - (CGRect)frameForKeyboardMode:(KeyboardMode)mode row:(KeyboardRow)row;

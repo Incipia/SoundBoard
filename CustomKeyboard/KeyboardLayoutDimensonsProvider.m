@@ -142,10 +142,10 @@ static CGRect _spacebarKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFlo
 @implementation KeyboardLayoutDimensonsProvider
 
 #pragma mark - Class Init
-+ (instancetype)dimensionsProviderWithInputViewFrame:(CGRect)frame
++ (instancetype)dimensionsProvider
 {
    KeyboardLayoutDimensonsProvider* provider = [KeyboardLayoutDimensonsProvider new];
-   provider.inputViewFrame = frame;
+   provider.inputViewFrame = CGRectZero;
    
    return provider;
 }
