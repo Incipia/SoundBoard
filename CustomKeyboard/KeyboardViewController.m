@@ -50,13 +50,13 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 
 - (void)updateAuxViewFrame
 {
-   CGFloat containerViewHeight = CGRectGetHeight(self.view.bounds) * s_auxViewHeightPercentage;
+   CGFloat containerViewHeight = CGRectGetHeight(self.view.bounds)*s_auxViewHeightPercentage;
    self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), containerViewHeight);
 }
 
 - (void)updateKeysViewFrame
 {
-   CGFloat keysViewHeight = CGRectGetHeight(self.view.bounds) * (1 - s_auxViewHeightPercentage);
+   CGFloat keysViewHeight = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.auxController.view.bounds);
    CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
    self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.view.bounds), keysViewHeight);
 }

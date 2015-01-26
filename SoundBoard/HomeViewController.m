@@ -26,7 +26,7 @@
 #pragma mark - Class Methods
 + (instancetype)controller
 {
-   return [[self alloc] init];
+   return [[HomeViewController alloc] init];
 }
 
 @end
