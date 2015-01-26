@@ -16,7 +16,7 @@
 @implementation NextKeyboardKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.nextKeyboardKeyView = [KeyView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.nextKeyboardKeyView];

@@ -16,7 +16,7 @@
 @implementation SpacebarKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.spacebarKeyView = [KeyView viewWithLetter:@"space" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.spacebarKeyView];

@@ -18,7 +18,7 @@
 @implementation ShiftSymbolsKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.shiftLetterView = [KeyView viewWithLetter:@"shift" fontSize:14.f frame:CGRectZero];
    self.symbolsLetterView = [KeyView viewWithLetter:@"#+=" fontSize:14.f frame:CGRectZero];

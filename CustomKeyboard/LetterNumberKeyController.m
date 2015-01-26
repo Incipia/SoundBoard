@@ -17,7 +17,7 @@
 @implementation LetterNumberKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.numbersKeyView = [KeyView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
    self.lettersKeyView = [KeyView viewWithLetter:@"ABC" fontSize:14.f frame:CGRectZero];

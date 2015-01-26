@@ -16,7 +16,7 @@
 @implementation DeleteKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.deleteView = [KeyView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
    self.keyViewArray = @[self.deleteView];

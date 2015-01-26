@@ -16,7 +16,7 @@
 @implementation ReturnKeyController
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    self.returnKeyView = [KeyView viewWithLetter:@"return" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.returnKeyView];

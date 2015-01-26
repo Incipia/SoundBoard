@@ -19,7 +19,7 @@
 {
    if (self = [super init])
    {
-      [self setupLetterViews];
+      [self setupKeyViews];
    }
    return self;
 }
@@ -32,7 +32,7 @@
 }
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupKeyViews
 {
    // should be overridden!
 }

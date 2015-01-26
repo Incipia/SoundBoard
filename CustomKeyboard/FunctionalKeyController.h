@@ -13,7 +13,7 @@
 + (instancetype)controller;
 
 // Override!
-- (void)setupLetterViews;
+- (void)setupKeyViews;
 
 - (void)updateFrame:(CGRect)frame;
 
