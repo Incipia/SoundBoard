@@ -19,7 +19,7 @@
 - (void)setupLetterViews
 {
    self.returnKeyView = [KeyView viewWithLetter:@"return" fontSize:14.f frame:CGRectZero];
-   self.letterViewArray = @[self.returnKeyView];
+   self.keyViewArray = @[self.returnKeyView];
    [self.view addSubview:self.returnKeyView];
 }
 

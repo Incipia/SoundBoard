@@ -19,7 +19,7 @@
 - (void)setupLetterViews
 {
    self.deleteView = [KeyView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
-   self.letterViewArray = @[self.deleteView];
+   self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];
 }

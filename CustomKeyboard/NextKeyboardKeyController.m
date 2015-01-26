@@ -19,7 +19,7 @@
 - (void)setupLetterViews
 {
    self.nextKeyboardKeyView = [KeyView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
-   self.letterViewArray = @[self.nextKeyboardKeyView];
+   self.keyViewArray = @[self.nextKeyboardKeyView];
    [self.view addSubview:self.nextKeyboardKeyView];
 }
 

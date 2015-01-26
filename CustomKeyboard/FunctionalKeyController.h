@@ -17,6 +17,6 @@
 
 - (void)updateFrame:(CGRect)frame;
 
-@property (nonatomic) NSArray* letterViewArray;
+@property (nonatomic) NSArray* keyViewArray;
 
 @end

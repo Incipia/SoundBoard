@@ -22,8 +22,8 @@
    self.numbersKeyView = [KeyView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
    self.lettersKeyView = [KeyView viewWithLetter:@"ABC" fontSize:14.f frame:CGRectZero];
    
-   self.letterViewArray = @[self.numbersKeyView, self.lettersKeyView];
-   for (KeyView* letterView in self.letterViewArray)
+   self.keyViewArray = @[self.numbersKeyView, self.lettersKeyView];
+   for (KeyView* letterView in self.keyViewArray)
    {
       letterView.hidden = YES;
       [self.view addSubview:letterView];

@@ -41,7 +41,7 @@
 - (void)updateLetterViewFrames:(CGRect)frame
 {
    CGRect letterViewFrame = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
-   for (KeyView* letterView in self.letterViewArray)
+   for (KeyView* letterView in self.keyViewArray)
    {
       [letterView updateFrame:letterViewFrame];
    }

@@ -19,7 +19,7 @@
 - (void)setupLetterViews
 {
    self.spacebarKeyView = [KeyView viewWithLetter:@"space" fontSize:14.f frame:CGRectZero];
-   self.letterViewArray = @[self.spacebarKeyView];
+   self.keyViewArray = @[self.spacebarKeyView];
    [self.view addSubview:self.spacebarKeyView];
 }
 
