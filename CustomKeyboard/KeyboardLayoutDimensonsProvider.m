@@ -83,7 +83,7 @@ static CGRect _shiftKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFloat 
    return CGRectMake(0, yPosition, width, keyHeight);
 }
 
-static CGRect _backspaceKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFloat inputViewWidth)
+static CGRect _deleteKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFloat inputViewWidth)
 {
    CGFloat bottomLettersFrameWidth = CGRectGetWidth(_lettersFrame(KeyboardRowBottom, letterKeyWidth, keyHeight));
    CGFloat width = (inputViewWidth - bottomLettersFrameWidth)*.5f;
@@ -213,8 +213,8 @@ static CGRect _spacebarKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFlo
          frame = _nextKeyboardKeyFrame(self.letterKeyWidth, self.keyHeight, inputViewWidth);
          break;
          
-      case KeyboardBackspaceKey:
-         frame = _backspaceKeyFrame(self.letterKeyWidth, self.keyHeight, inputViewWidth);
+      case KeyboardDeleteKey:
+         frame = _deleteKeyFrame(self.letterKeyWidth, self.keyHeight, inputViewWidth);
          break;
          
       case KeyboardReturnKey:

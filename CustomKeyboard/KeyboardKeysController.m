@@ -155,7 +155,7 @@
 
 - (void)updateNumberKeyCollectionFrames
 {
-   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
+   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle};
    NSUInteger rowIndex = 0;
    for (KeyViewCollection* numberCollection in self.numberKeysCollectionArray)
    {
@@ -166,7 +166,7 @@
 
 - (void)updateSymbolKeyCollectionFrames
 {
-   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
+   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle};
    NSUInteger rowIndex = 0;
    for (KeyViewCollection* symbolCollection in self.symbolKeysCollectionArray)
    {
@@ -193,7 +193,7 @@
 
 - (void)updateDeleteKeyFrame
 {
-   CGRect backspaceKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardBackspaceKey];
+   CGRect backspaceKeyFrame = [self.dimensionsProvider frameForKeyboardKeyType:KeyboardDeleteKey];
    [self.deleteController updateFrame:backspaceKeyFrame];
 }
 

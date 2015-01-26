@@ -14,7 +14,7 @@ typedef NS_ENUM(NSUInteger, KeyboardFunctionalKeyType)
    KeyboardShiftKey,
    KeyboardNumbersKey,
    KeyboardNextKeyboardKey,
-   KeyboardBackspaceKey,
+   KeyboardDeleteKey,
    KeyboardReturnKey,
    KeyboardSpacebarKey
 };
