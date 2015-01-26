@@ -9,6 +9,16 @@
 #ifndef SoundBoard_KeyboardTypedefs_h
 #define SoundBoard_KeyboardTypedefs_h
 
+typedef NS_ENUM(NSUInteger, KeyboardFunctionalKeyType)
+{
+   KeyboardShiftKey,
+   KeyboardNumbersKey,
+   KeyboardNextKeyboardKey,
+   KeyboardBackspaceKey,
+   KeyboardReturnKey,
+   KeyboardSpacebarKey
+};
+
 typedef NS_ENUM(NSUInteger, KeyboardMode)
 {
    KeyboardModeLetters = 1,
