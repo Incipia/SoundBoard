@@ -97,7 +97,6 @@ static CGRect _numbersKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFloa
 {
    CGFloat spacebarKeyWidth = letterKeyWidth*NUM_LETTERS_OVER_SPACEBAR;
    CGFloat width = (inputViewWidth - spacebarKeyWidth)*.25f;
-   
    CGFloat xPosition = 0;
    CGFloat yPosition = keyHeight*3;
    
@@ -108,7 +107,6 @@ static CGRect _nextKeyboardKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, C
 {
    CGFloat spacebarKeyWidth = letterKeyWidth*NUM_LETTERS_OVER_SPACEBAR;
    CGFloat width = (inputViewWidth - spacebarKeyWidth)*.25f;
-   
    CGFloat xPosition = width;
    CGFloat yPosition = keyHeight*3;
    
@@ -119,7 +117,6 @@ static CGRect _returnKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFloat
 {
    CGFloat spacebarKeyWidth = letterKeyWidth*NUM_LETTERS_OVER_SPACEBAR;
    CGFloat width = (inputViewWidth - spacebarKeyWidth)*.5f;
-   
    CGFloat xPosition = inputViewWidth - width;
    CGFloat yPosition = keyHeight*3;
    
