@@ -65,11 +65,4 @@
    [mutableString addAttribute:attribute value:value range:NSRangeFromString(mutableString.string)];
 }
 
-#pragma mark - Public
-- (void)updateFontSize:(CGFloat)fontSize
-{
-   UIFont* font = [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize];
-   [self updateStringAttribute:NSFontAttributeName withValue:font];
-}
-
 @end
