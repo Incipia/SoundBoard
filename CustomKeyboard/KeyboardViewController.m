@@ -9,13 +9,14 @@
 #import "KeyboardViewController.h"
 #import "KeyboardAuxiliaryController.h"
 #import "KeyboardKeysController.h"
-#import "KeyboardTouchEventManager.h"
+#import "KeyboardTouchEventHandler.h"
 
 static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @interface KeyboardViewController ()
 @property (nonatomic) KeyboardAuxiliaryController* auxController;
 @property (nonatomic) KeyboardKeysController* keysController;
+@property (nonatomic) KeyboardTouchEventHandler* touchEventHandler;
 @end
 
 @implementation KeyboardViewController
@@ -24,7 +25,9 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 - (void)viewDidLoad
 {
    [super viewDidLoad];
+   
    [self setupControllers];
+   [self setupTouchEventHandler];
 }
 
 - (void)viewDidLayoutSubviews
@@ -42,16 +45,25 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    [self.view addSubview:self.keysController.view];
 }
 
+- (void)setupTouchEventHandler
+{
+   self.touchEventHandler = [KeyboardTouchEventHandler handlerWithTextDocumentProxy:self.textDocumentProxy];
+   [self.view addSubview:self.touchEventHandler.view];
+   
+   self.keysController.keyboardMapListener = self.touchEventHandler;
+}
+
 #pragma mark - Update
 - (void)updateControllerViewFrames
 {
    [self updateAuxViewFrame];
    [self updateKeysViewFrame];
+   self.touchEventHandler.view.frame = self.keysController.view.frame;
 }
 
 - (void)updateAuxViewFrame
 {
-   CGFloat containerViewHeight = CGRectGetHeight(self.view.bounds)*s_auxViewHeightPercentage;
+   NSUInteger containerViewHeight = (int)CGRectGetHeight(self.view.bounds)*s_auxViewHeightPercentage;
    self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), containerViewHeight);
 }
 

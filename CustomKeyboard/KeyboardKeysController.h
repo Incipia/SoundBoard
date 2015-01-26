@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyboardTypedefs.h"
+#import "KeyboardMapUpdateListener.h"
 
 @interface KeyboardKeysController : UIViewController
 
@@ -15,5 +16,6 @@
 - (void)updateMode:(KeyboardMode)mode;
 
 @property (nonatomic, readonly) KeyboardMode mode;
+@property (nonatomic, weak) NSObject<KeyboardMapUpdateListener>* keyboardMapListener;
 
 @end

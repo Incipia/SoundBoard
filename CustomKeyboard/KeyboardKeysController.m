@@ -8,6 +8,7 @@
 
 #import "KeyboardKeysController.h"
 #import "KeyViewCollection.h"
+#import "KeyView.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
 #import "LetterNumberKeyController.h"
@@ -44,6 +45,7 @@
 @property (nonatomic, readonly) NSArray* allKeyCollectionsArray;
 @property (nonatomic, readonly) NSArray* functionalKeyControllers;
 
+@property (nonatomic) NSDictionary* keyFrameTextDictionary;
 @property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 @property (nonatomic) KeyboardMode mode;
 
@@ -86,6 +88,8 @@
    [self updateSymbolKeyCollectionFrames];
    [self updateFunctionalKeysFrames];
    [self updatePunctuationKeysCollectionFrame];
+   
+   [self updateKeyFrameTextDictionaryListener];
 }
 
 #pragma mark - Setup
@@ -227,6 +231,26 @@
    [self.returnKeyController updateFrame:returnKeyFrame];
 }
 
+#pragma mark - Helper
+- (void)updateKeyFrameTextDictionaryListener
+{
+   NSMutableDictionary* keyFrameTextDictionary = [NSMutableDictionary dictionary];
+   for (KeyViewCollection* collection in self.letterKeysCollectionArray)
+   {
+      for (KeyView* keyView in collection.keyViews)
+      {
+         NSLog(@"key: %@, frame: %@", keyView.letter, NSStringFromCGRect(keyView.frame));
+         NSValue* rectValue = [NSValue valueWithCGRect:[keyView convertRect:keyView.frame toView:self.view]];
+         keyFrameTextDictionary[rectValue] = keyView.letter;
+      }
+   }
+   
+   if (self.keyboardMapListener != nil)
+   {
+      [self.keyboardMapListener updateKeyboardMapDictionary:keyFrameTextDictionary];
+   }
+}
+
 #pragma mark - Property Overrides
 - (NSArray*)letterKeysCollectionArray
 {
@@ -304,6 +328,8 @@
       {
          collection.hidden = NO;
       }
+      
+      [self updateKeyFrameTextDictionaryListener];
    }
 }
 
