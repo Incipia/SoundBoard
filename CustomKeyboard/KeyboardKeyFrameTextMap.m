@@ -16,13 +16,20 @@
 
 @implementation KeyboardKeyFrameTextMap
 
+#pragma mark - Init
+- (instancetype)init
+{
+   if (self = [super init])
+   {
+      self.keyFrameTextDictionary = [NSMutableDictionary dictionary];
+   }
+   return self;
+}
+
 #pragma mark - Class Init
 + (instancetype)map
 {
-   KeyboardKeyFrameTextMap* map = [[self class] new];
-   map.keyFrameTextDictionary = [NSMutableDictionary dictionary];
-   
-   return map;
+   return [[KeyboardKeyFrameTextMap alloc] init];
 }
 
 #pragma mark - Helper
