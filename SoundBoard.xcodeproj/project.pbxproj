@@ -15,6 +15,7 @@
 		5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E951A7347410006AEF8 /* NextKeyboardKeyController.m */; };
 		5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */; };
 		5B537E9C1A734D4B0006AEF8 /* ReturnKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E9B1A734D4B0006AEF8 /* ReturnKeyController.m */; };
+		5BAF95111A771E7E00433B17 /* KeyboardKeyFrameTextMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF95101A771E7E00433B17 /* KeyboardKeyFrameTextMap.m */; };
 		5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */; };
 		5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27931A75725300508C1F /* KeyboardLayoutDimensonsProvider.m */; };
 		5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */; };
@@ -82,6 +83,8 @@
 		5B537E981A7348CB0006AEF8 /* SpacebarKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpacebarKeyController.m; sourceTree = "<group>"; };
 		5B537E9A1A734D4B0006AEF8 /* ReturnKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReturnKeyController.h; sourceTree = "<group>"; };
 		5B537E9B1A734D4B0006AEF8 /* ReturnKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReturnKeyController.m; sourceTree = "<group>"; };
+		5BAF950F1A771E7E00433B17 /* KeyboardKeyFrameTextMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeyFrameTextMap.h; sourceTree = "<group>"; };
+		5BAF95101A771E7E00433B17 /* KeyboardKeyFrameTextMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardKeyFrameTextMap.m; sourceTree = "<group>"; };
 		5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyViewCollectionCreator.h; sourceTree = "<group>"; };
 		5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyViewCollectionCreator.m; sourceTree = "<group>"; };
 		5BFB27911A73847600508C1F /* KeyboardTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardTypedefs.h; sourceTree = "<group>"; };
@@ -245,8 +248,10 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				5B537E9D1A7351910006AEF8 /* Utilities */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
+				5B537E9D1A7351910006AEF8 /* Utilities */,
+				5BAF950F1A771E7E00433B17 /* KeyboardKeyFrameTextMap.h */,
+				5BAF95101A771E7E00433B17 /* KeyboardKeyFrameTextMap.m */,
 				8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */,
 				8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */,
 				5BFB27981A76B8DB00508C1F /* KeyboardTouchEventHandler.h */,
@@ -429,6 +434,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BAF95111A771E7E00433B17 /* KeyboardKeyFrameTextMap.m in Sources */,
 				5B537E931A7341BA0006AEF8 /* LetterNumberKeyController.m in Sources */,
 				5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */,
 				5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */,
