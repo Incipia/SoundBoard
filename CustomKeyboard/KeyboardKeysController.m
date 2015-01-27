@@ -240,6 +240,11 @@
       [keyFrameTextMap addFramesForKeyViewCollection:collection];
    }
    
+   for (FunctionalKeyController* controller in self.functionalKeyControllers)
+   {
+      [keyFrameTextMap addFrameForKeyView:controller.keyViewArray[0]];
+   }
+   
    if (self.keyboardMapUpdater != nil)
    {
       [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:keyFrameTextMap];
