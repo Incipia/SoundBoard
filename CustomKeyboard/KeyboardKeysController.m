@@ -17,6 +17,7 @@
 #import "ReturnKeyController.h"
 #import "KeyViewCollectionCreator.h"
 #import "KeyboardLayoutDimensonsProvider.h"
+#import "KeyboardKeyFrameTextMap.h"
 
 @interface KeyboardKeysController ()
 
@@ -46,6 +47,7 @@
 @property (nonatomic, readonly) NSArray* functionalKeyControllers;
 
 @property (nonatomic) NSDictionary* keyFrameTextDictionary;
+@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 @property (nonatomic) KeyboardMode mode;
 
@@ -89,7 +91,7 @@
    [self updateFunctionalKeysFrames];
    [self updatePunctuationKeysCollectionFrame];
    
-   [self updateKeyFrameTextDictionaryListener];
+   [self updateKeyFrameTextDictionaryUpdater];
 }
 
 #pragma mark - Setup
@@ -232,22 +234,19 @@
 }
 
 #pragma mark - Helper
-- (void)updateKeyFrameTextDictionaryListener
+- (void)updateKeyFrameTextDictionaryUpdater
 {
-   NSMutableDictionary* keyFrameTextDictionary = [NSMutableDictionary dictionary];
+   KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
+   keyFrameTextMap.keyboardView = self.view;
+   
    for (KeyViewCollection* collection in self.letterKeysCollectionArray)
    {
-      for (KeyView* keyView in collection.keyViews)
-      {
-         NSLog(@"key: %@, frame: %@", keyView.letter, NSStringFromCGRect(keyView.frame));
-         NSValue* rectValue = [NSValue valueWithCGRect:[keyView convertRect:keyView.frame toView:self.view]];
-         keyFrameTextDictionary[rectValue] = keyView.letter;
-      }
+      [keyFrameTextMap addFramesForKeyViewCollection:collection];
    }
    
    if (self.keyboardMapListener != nil)
    {
-      [self.keyboardMapListener updateKeyboardMapDictionary:keyFrameTextDictionary];
+      [self.keyboardMapListener updateKeyboardKeyFrameTextMap:keyFrameTextMap];
    }
 }
 
@@ -329,7 +328,7 @@
          collection.hidden = NO;
       }
       
-      [self updateKeyFrameTextDictionaryListener];
+      [self updateKeyFrameTextDictionaryUpdater];
    }
 }
 

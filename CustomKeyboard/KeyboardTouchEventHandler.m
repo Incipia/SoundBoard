@@ -7,14 +7,17 @@
 //
 
 #import "KeyboardTouchEventHandler.h"
+#import "KeyboardKeyFrameTextMap.h"
 
 @interface KeyboardTouchEventHandler ()
 @property (nonatomic) NSDictionary* keyboardKeyFrameTextMap;
+@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) id<UITextDocumentProxy> textProxy;
 @end
 
 @implementation KeyboardTouchEventHandler
 
+#pragma mark - Class Init
 + (instancetype)handlerWithTextDocumentProxy:(id<UITextDocumentProxy>)proxy
 {
    KeyboardTouchEventHandler* handler = [[[self class] alloc] init];
@@ -29,26 +32,20 @@
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:self.view];
    
-   for (NSValue* frameValue in self.keyboardKeyFrameTextMap.allKeys)
-   {
-      CGRect frame = [frameValue CGRectValue];
-      if (CGRectContainsPoint(frame, touchLocation))
+   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, NSString* string, BOOL *stop) {
+      if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
       {
-         NSString* text = self.keyboardKeyFrameTextMap[frameValue];
-         if (text != nil)
-         {
-            [self.textProxy insertText:text];
-            return;
-         }
+         // for now...
+         [self.textProxy insertText:string];
+         *stop = YES;
       }
-   }
+   }];
 }
 
 #pragma mark - KeyboardMapUpdateListener
-- (void)updateKeyboardMapDictionary:(NSDictionary*)dictionary
+- (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap
 {
-   self.keyboardKeyFrameTextMap = dictionary;
-   NSLog(@"keyFrameTextMap: %@", self.keyboardKeyFrameTextMap);
+   self.keyFrameTextMap = keyFrameTexMap;
 }
 
 @end

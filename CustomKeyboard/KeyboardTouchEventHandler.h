@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "KeyboardMapUpdateListener.h"
 
-@interface KeyboardTouchEventHandler : UIViewController <KeyboardMapUpdateListener>
+@interface KeyboardTouchEventHandler : UIViewController <KeyboardKeyFrameTextMapUpdater>
 
 + (instancetype)handlerWithTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
-- (void)updateKeyboardMapDictionary:(NSDictionary*)dictionary;
+- (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 
 @end

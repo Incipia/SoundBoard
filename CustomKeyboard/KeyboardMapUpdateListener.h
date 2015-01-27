@@ -10,10 +10,11 @@
 #define SoundBoard_KeyboardMapProviderProtocol_h
 
 @import UIKit;
+@class KeyboardKeyFrameTextMap;
 
-@protocol KeyboardMapUpdateListener <NSObject>
+@protocol KeyboardKeyFrameTextMapUpdater <NSObject>
 @required
-- (void)updateKeyboardMapDictionary:(NSDictionary*)dictionary;
+- (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 @end
 
 #endif
