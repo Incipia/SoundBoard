@@ -27,7 +27,7 @@
 }
 
 #pragma mark - Touch Events
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:self.view];
