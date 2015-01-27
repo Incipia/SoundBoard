@@ -23,7 +23,7 @@
    {
       self.backgroundLayer = [CALayer layer];
       self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
-      self.backgroundLayer.cornerRadius = 18.f;
+      self.backgroundLayer.cornerRadius = 12.f;
       self.backgroundLayer.shadowOpacity = .1;
       self.backgroundLayer.shadowOffset = CGSizeMake(0, -.5f);
       
