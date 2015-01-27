@@ -32,7 +32,8 @@
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:self.view];
    
-   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, NSString* string, BOOL *stop) {
+   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, NSString* string, BOOL *stop)
+    {
       if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
       {
          // for now...
