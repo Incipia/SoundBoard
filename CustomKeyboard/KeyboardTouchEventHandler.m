@@ -30,7 +30,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
    UITouch* touchEvent = touches.anyObject;
-   CGPoint touchLocation = [touchEvent locationInView:self.view];
+   CGPoint touchLocation = [touchEvent locationInView:nil];
    
    [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, NSString* string, BOOL *stop)
     {

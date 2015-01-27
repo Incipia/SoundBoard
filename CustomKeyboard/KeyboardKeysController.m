@@ -46,8 +46,6 @@
 @property (nonatomic, readonly) NSArray* allKeyCollectionsArray;
 @property (nonatomic, readonly) NSArray* functionalKeyControllers;
 
-@property (nonatomic) NSDictionary* keyFrameTextDictionary;
-@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 @property (nonatomic) KeyboardMode mode;
 
@@ -91,7 +89,7 @@
    [self updateFunctionalKeysFrames];
    [self updatePunctuationKeysCollectionFrame];
    
-   [self updateKeyFrameTextDictionaryUpdater];
+   [self updateKeyboardMapUpdater];
 }
 
 #pragma mark - Setup
@@ -234,11 +232,9 @@
 }
 
 #pragma mark - Helper
-- (void)updateKeyFrameTextDictionaryUpdater
+- (void)updateKeyboardMapUpdater
 {
    KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
-   keyFrameTextMap.keyboardView = self.view;
-   
    for (KeyViewCollection* collection in self.letterKeysCollectionArray)
    {
       [keyFrameTextMap addFramesForKeyViewCollection:collection];
@@ -328,7 +324,7 @@
          collection.hidden = NO;
       }
       
-      [self updateKeyFrameTextDictionaryUpdater];
+      [self updateKeyboardMapUpdater];
    }
 }
 

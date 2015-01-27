@@ -21,6 +21,4 @@
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection;
 - (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, NSString* text, BOOL *stop))block;
 
-@property (nonatomic) UIView* keyboardView;
-
 @end

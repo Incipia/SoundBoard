@@ -35,13 +35,7 @@
 #pragma mark - Helper
 - (CGRect)convertedFrameFromKeyboardView:(KeyView*)keyView
 {
-   CGRect frame = keyView.frame;
-   if (self.keyboardView != nil)
-   {
-      // Why do we have to use the superview here?!
-      frame = [keyView.superview convertRect:keyView.frame toView:self.keyboardView];
-   }
-   return frame;
+   return [keyView convertRect:keyView.bounds toView:nil];
 }
 
 #pragma mark - Public
