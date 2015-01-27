@@ -36,6 +36,32 @@
     {
       if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
       {
+         // EDGE CASE!
+         if ([string isEqualToString:@"next"] && self.advanceToNextKeyboardBlock != nil)
+         {
+            self.advanceToNextKeyboardBlock();
+            *stop = YES;
+            return;
+         }
+         else if ([string isEqualToString:@"space"])
+         {
+            [self.textProxy insertText:@" "];
+            *stop = YES;
+            return;
+         }
+         else if ([string isEqualToString:@"del"])
+         {
+            [self.textProxy deleteBackward];
+            *stop = YES;
+            return;
+         }
+         else if ([string isEqualToString:@"return"])
+         {
+            [self.textProxy insertText:@"\r"];
+            *stop = YES;
+            return;
+         }
+         
          // for now...
          [self.textProxy insertText:string];
          *stop = YES;

@@ -14,4 +14,6 @@
 + (instancetype)handlerWithTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 
+@property (nonatomic, copy) dispatch_block_t advanceToNextKeyboardBlock;
+
 @end

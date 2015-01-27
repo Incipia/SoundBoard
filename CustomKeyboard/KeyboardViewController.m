@@ -51,6 +51,13 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 - (void)setupTouchEventHandler
 {
    self.touchEventHandler = [KeyboardTouchEventHandler handlerWithTextDocumentProxy:self.textDocumentProxy];
+   
+   __weak typeof(self) weakSelf = self;
+   self.touchEventHandler.advanceToNextKeyboardBlock = ^
+   {
+      [weakSelf advanceToNextInputMode];
+   };
+   
    [self.view addSubview:self.touchEventHandler.view];
    
    self.keysController.keyboardMapUpdater = self.touchEventHandler;
