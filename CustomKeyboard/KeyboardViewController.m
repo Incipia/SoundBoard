@@ -28,6 +28,9 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    
    [self setupControllers];
    [self setupTouchEventHandler];
+
+   // temporary!
+   self.auxController.keysController = self.keysController;
 }
 
 - (void)viewDidLayoutSubviews

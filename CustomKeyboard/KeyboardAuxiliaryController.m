@@ -7,6 +7,7 @@
 //
 
 #import "KeyboardAuxiliaryController.h"
+#import "KeyboardKeysController.h"
 
 @interface KeyboardAuxiliaryController ()
 @property (nonatomic) UILabel* temporaryLabel;
@@ -50,6 +51,13 @@
 - (void)viewDidLayoutSubviews
 {
    self.temporaryLabel.frame = self.view.bounds;
+}
+
+#pragma mark - Touch Events
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   KeyboardMode mode = self.keysController.mode;
+   [self.keysController updateMode:(++mode % 3) + 1];
 }
 
 @end

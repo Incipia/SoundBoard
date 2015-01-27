@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class KeyboardKeysController;
 
 @interface KeyboardAuxiliaryController : UIViewController
 
 + (instancetype)controller;
+
+// tempoary!
+@property (nonatomic) KeyboardKeysController* keysController;
 
 @end
