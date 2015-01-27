@@ -14,13 +14,7 @@
 #pragma mark - Class Init
 + (instancetype)layerWithLetter:(NSString*)letter
 {
-   KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
-   
-   [layer setupProperties];
-   [layer setLetter:letter fontSize:22.f];
-   [layer updateFrame];
-   
-   return layer;
+   return [KeyboardKeyLayer layerWithLetter:letter fontSize:22.f];
 }
 
 + (instancetype)layerWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize
