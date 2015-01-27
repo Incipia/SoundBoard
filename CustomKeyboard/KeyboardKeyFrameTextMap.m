@@ -33,7 +33,7 @@
 }
 
 #pragma mark - Helper
-- (CGRect)convertFrameFromKeyboardView:(KeyView*)keyView
+- (CGRect)convertedFrameFromKeyboardView:(KeyView*)keyView
 {
    CGRect frame = keyView.frame;
    if (self.keyboardView != nil)
@@ -50,8 +50,9 @@
    [self.keyFrameTextDictionary removeAllObjects];
 }
 
-- (void)addFrame:(CGRect)frame forKeyView:(KeyView*)keyView
+- (void)addFrameForKeyView:(KeyView*)keyView
 {
+   CGRect frame = [self convertedFrameFromKeyboardView:keyView];
    NSValue* frameValue = [NSValue valueWithCGRect:frame];
    self.keyFrameTextDictionary[frameValue] = keyView.letter;
 }
@@ -60,10 +61,7 @@
 {
    for (KeyView* keyView in collection.keyViews)
    {
-      CGRect keyViewFrame = keyView.frame;
-      keyViewFrame = [self convertFrameFromKeyboardView:keyView];
-      NSValue* frameValue = [NSValue valueWithCGRect:keyViewFrame];
-      self.keyFrameTextDictionary[frameValue] = keyView.letter;
+      [self addFrameForKeyView:keyView];
    }
 }
 
