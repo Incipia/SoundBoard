@@ -244,9 +244,9 @@
       [keyFrameTextMap addFramesForKeyViewCollection:collection];
    }
    
-   if (self.keyboardMapListener != nil)
+   if (self.keyboardMapUpdater != nil)
    {
-      [self.keyboardMapListener updateKeyboardKeyFrameTextMap:keyFrameTextMap];
+      [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:keyFrameTextMap];
    }
 }
 

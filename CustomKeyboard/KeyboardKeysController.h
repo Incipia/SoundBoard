@@ -16,6 +16,6 @@
 - (void)updateMode:(KeyboardMode)mode;
 
 @property (nonatomic, readonly) KeyboardMode mode;
-@property (nonatomic, weak) NSObject<KeyboardKeyFrameTextMapUpdater>* keyboardMapListener;
+@property (nonatomic, weak) NSObject<KeyboardKeyFrameTextMapUpdater>* keyboardMapUpdater;
 
 @end

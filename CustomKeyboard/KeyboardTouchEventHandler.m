@@ -43,7 +43,7 @@
    }];
 }
 
-#pragma mark - KeyboardMapUpdateListener
+#pragma mark - Keyboard Map Updater Protocol
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap
 {
    self.keyFrameTextMap = keyFrameTexMap;
