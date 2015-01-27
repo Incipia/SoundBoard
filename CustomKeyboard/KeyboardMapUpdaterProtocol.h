@@ -1,5 +1,5 @@
 //
-//  KeyboardMapProviderProtocol.h
+//  KeyboardMapUpdaterProtocol.h
 //  SoundBoard
 //
 //  Created by Klein, Greg on 1/26/15.

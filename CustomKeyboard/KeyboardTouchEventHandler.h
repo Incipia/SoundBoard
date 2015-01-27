@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KeyboardMapUpdateListener.h"
+#import "KeyboardMapUpdaterProtocol.h"
 
 @interface KeyboardTouchEventHandler : UIViewController <KeyboardKeyFrameTextMapUpdater>
 
