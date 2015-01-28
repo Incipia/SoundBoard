@@ -48,7 +48,7 @@
 {
    CGRect frame = [self convertedFrameFromKeyboardView:keyView];
    NSValue* frameValue = [NSValue valueWithCGRect:frame];
-   self.keyFrameTextDictionary[frameValue] = keyView.letter;
+   self.keyFrameTextDictionary[frameValue] = keyView;
 }
 
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection
@@ -59,7 +59,7 @@
    }
 }
 
-- (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, NSString* text, BOOL *stop))block
+- (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, KeyView* keyView, BOOL *stop))block
 {
    BOOL stop = NO;
    for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
