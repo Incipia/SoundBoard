@@ -62,7 +62,6 @@
       [self setupNumberKeysCollections];
       [self setupSymbolKeysCollections];
       [self setupPunctuationKeysCollection];
-      [self addKeyCollectionSubviews];
       
       [self setupFunctionalKeyControllers];
       [self setupDimensionsProvider];
@@ -79,17 +78,32 @@
 }
 
 #pragma mark - Lifecycle
+- (void)loadView
+{
+   [super loadView];
+   [self addKeyCollectionSubviews];
+}
+
+- (void)viewDidLoad
+{
+   [super viewDidLoad];
+   self.view.backgroundColor = [UIColor whiteColor];
+}
+
 - (void)viewDidLayoutSubviews
 {
-   [self.dimensionsProvider updateInputViewFrame:self.view.frame];
-   
-   [self updateLetterKeyCollectionFrames];
-   [self updateNumberKeyCollectionFrames];
-   [self updateSymbolKeyCollectionFrames];
-   [self updateFunctionalKeysFrames];
-   [self updatePunctuationKeysCollectionFrame];
-   
-   [self updateKeyboardMapUpdater];
+   if (CGRectEqualToRect(self.view.bounds, CGRectZero) == NO)
+   {
+      [self.dimensionsProvider updateInputViewFrame:self.view.frame];
+      
+      [self updateLetterKeyCollectionFrames];
+      [self updateNumberKeyCollectionFrames];
+      [self updateSymbolKeyCollectionFrames];
+      [self updateFunctionalKeysFrames];
+      [self updatePunctuationKeysCollectionFrame];
+      
+      [self updateKeyboardMapUpdaterWithMode:self.mode];
+   }
 }
 
 #pragma mark - Setup
@@ -232,10 +246,10 @@
 }
 
 #pragma mark - Helper
-- (void)updateKeyboardMapUpdater
+- (void)updateKeyboardMapUpdaterWithMode:(KeyboardMode)mode
 {
    KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
-   for (KeyViewCollection* collection in self.letterKeysCollectionArray)
+   for (KeyViewCollection* collection in [self keysCollectionArrayForMode:mode])
    {
       [keyFrameTextMap addFramesForKeyViewCollection:collection];
    }
@@ -245,10 +259,35 @@
       [keyFrameTextMap addFrameForKeyView:controller.keyViewArray[0]];
    }
    
+   [keyFrameTextMap addFramesForKeyViewCollection:self.punctuationKeysCollection];
+   
    if (self.keyboardMapUpdater != nil)
    {
       [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:keyFrameTextMap];
    }
+}
+
+- (NSArray*)keysCollectionArrayForMode:(KeyboardMode)mode
+{
+   NSArray* keysCollectionArray = nil;
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         keysCollectionArray = self.letterKeysCollectionArray;
+         break;
+      
+      case KeyboardModeNumbers:
+         keysCollectionArray = self.numberKeysCollectionArray;
+         break;
+         
+      case KeyboardModeSymbols:
+         keysCollectionArray = self.symbolKeysCollectionArray;
+         break;
+         
+      default:
+         break;
+   }
+   return keysCollectionArray;
 }
 
 #pragma mark - Property Overrides
@@ -329,7 +368,7 @@
          collection.hidden = NO;
       }
       
-      [self updateKeyboardMapUpdater];
+      [self updateKeyboardMapUpdaterWithMode:self.mode];
    }
 }
 
