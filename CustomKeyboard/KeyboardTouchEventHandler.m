@@ -8,11 +8,16 @@
 
 #import "KeyboardTouchEventHandler.h"
 #import "KeyboardKeyFrameTextMap.h"
+#import "KeyView.h"
 
 @interface KeyboardTouchEventHandler ()
+
 @property (nonatomic) NSDictionary* keyboardKeyFrameTextMap;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) id<UITextDocumentProxy> textProxy;
+
+@property (nonatomic) KeyView* currentFocusedKeyView;
+
 @end
 
 @implementation KeyboardTouchEventHandler
@@ -27,46 +32,85 @@
 }
 
 #pragma mark - Touch Events
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   UITouch* touchEvent = touches.anyObject;
+   CGPoint touchLocation = [touchEvent locationInView:nil];
+   
+   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
+    {
+       if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
+       {
+          [keyView giveFocus];
+          self.currentFocusedKeyView = keyView;
+          *stop = YES;
+          return;
+       }
+    }];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   UITouch* touchEvent = touches.anyObject;
+   CGPoint touchLocation = [touchEvent locationInView:nil];
+   
+   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
+    {
+       if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
+       {
+          [keyView giveFocus];
+          self.currentFocusedKeyView = keyView;
+       }
+       else
+       {
+          [keyView removeFocus];
+       }
+    }];
+}
+
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:nil];
    
-   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, NSString* string, BOOL *stop)
+   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
     {
-      if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
-      {
-         // EDGE CASE!
-         if ([string isEqualToString:@"next"] && self.advanceToNextKeyboardBlock != nil)
-         {
-            self.advanceToNextKeyboardBlock();
-            *stop = YES;
-            return;
-         }
-         else if ([string isEqualToString:@"space"])
-         {
-            [self.textProxy insertText:@" "];
-            *stop = YES;
-            return;
-         }
-         else if ([string isEqualToString:@"del"])
-         {
-            [self.textProxy deleteBackward];
-            *stop = YES;
-            return;
-         }
-         else if ([string isEqualToString:@"return"])
-         {
-            [self.textProxy insertText:@"\r"];
-            *stop = YES;
-            return;
-         }
-         
-         // for now...
-         [self.textProxy insertText:string];
-         *stop = YES;
-      }
+       NSString* string = keyView.letter;
+       if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
+       {
+          // EDGE CASES!
+          if ([string isEqualToString:@"next"] && self.advanceToNextKeyboardBlock != nil)
+          {
+             self.advanceToNextKeyboardBlock();
+             *stop = YES;
+             return;
+          }
+          else if ([string isEqualToString:@"space"])
+          {
+             [self.textProxy insertText:@" "];
+             *stop = YES;
+             return;
+          }
+          else if ([string isEqualToString:@"del"])
+          {
+             [self.textProxy deleteBackward];
+             *stop = YES;
+             return;
+          }
+          else if ([string isEqualToString:@"return"])
+          {
+             [self.textProxy insertText:@"\n"];
+             *stop = YES;
+             return;
+          }
+          
+          // for now...
+          [self.textProxy insertText:string];
+          *stop = YES;
+       }
    }];
+   
+   [self.currentFocusedKeyView removeFocus];
 }
 
 #pragma mark - Keyboard Map Updater Protocol
