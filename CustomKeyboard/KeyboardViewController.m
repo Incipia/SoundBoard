@@ -21,11 +21,19 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @implementation KeyboardViewController
 
+#pragma mark - Init
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+   if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+   {
+   }
+   return self;
+}
+
 #pragma mark - Lifecycle
 - (void)viewDidLoad
 {
    [super viewDidLoad];
-   
    [self setupControllers];
    [self setupTouchEventHandler];
 
@@ -35,6 +43,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 
 - (void)viewDidLayoutSubviews
 {
+   [super viewWillLayoutSubviews];
    [self updateControllerViewFrames];
 }
 
