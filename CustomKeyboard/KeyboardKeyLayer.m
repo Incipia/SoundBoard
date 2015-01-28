@@ -31,7 +31,7 @@
 #pragma mark - Setup
 - (void)setupProperties
 {
-   self.actions = @{@"position" : [NSNull null]};
+   self.actions = @{@"frame" : [NSNull null], @"bounds" : [NSNull null], @"position" : [NSNull null]};
    self.alignmentMode = kCAAlignmentCenter;
    self.contentsScale = [UIScreen mainScreen].scale;
 }
