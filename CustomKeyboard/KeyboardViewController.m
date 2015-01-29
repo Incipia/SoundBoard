@@ -45,6 +45,9 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    [super viewDidLoad];
    [self setupControllers];
    [self setupTouchEventHandler];
+   
+   // This is currently a hack: we need at least one view that uses autolayout in our view heirarchy in order to adjust the
+   // height constraint of this view controller's view, so we're adding a dummy view with autolayout constraints
    [self setupAutolayoutView];
 
    // temporary!
@@ -67,13 +70,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    {
       [self.inputView removeConstraint:self.heightConstraint];
       
-      CGRect screenFrame = [UIScreen mainScreen].bounds;
-      CGFloat screenH = CGRectGetHeight(screenFrame);
-      CGFloat screenW = CGRectGetWidth(screenFrame);
-      BOOL isLandscape =  !(CGRectGetWidth(viewFrame) == (screenW*(screenW<screenH))+(screenH*(screenW>screenH)));
-      
-      self.isLandscape = isLandscape;
-      CGFloat height = isLandscape ? self.landscapeHeight : self.portraitHeight;
+      CGFloat height = self.isLandscape ? self.landscapeHeight : self.portraitHeight;
       self.heightConstraint.constant = height;
       
       [self.inputView addConstraint:self.heightConstraint];
@@ -145,6 +142,16 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    CGFloat keysViewHeight = CGRectGetHeight(self.inputView.bounds) - CGRectGetHeight(self.auxController.view.bounds);
    CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
    self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.inputView.bounds), keysViewHeight);
+}
+
+#pragma mark - Property Overrides
+- (BOOL)isLandscape
+{
+   CGRect viewFrame = self.view.frame;
+   CGRect screenFrame = [UIScreen mainScreen].bounds;
+   CGFloat screenH = CGRectGetHeight(screenFrame);
+   CGFloat screenW = CGRectGetWidth(screenFrame);
+   return !(CGRectGetWidth(viewFrame) == (screenW*(screenW<screenH))+(screenH*(screenW>screenH)));
 }
 
 #pragma mark - UITextInput Delegate
