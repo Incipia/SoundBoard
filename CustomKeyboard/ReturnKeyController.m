@@ -23,4 +23,10 @@
    [self.view addSubview:self.returnKeyView];
 }
 
+#pragma mark - Public
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   return self.returnKeyView;
+}
+
 @end

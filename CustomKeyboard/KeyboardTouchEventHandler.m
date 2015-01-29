@@ -103,6 +103,38 @@
              *stop = YES;
              return;
           }
+          else if ([string isEqualToString:@"123"])
+          {
+             if (self.modeSwitchingBlock)
+             {
+                self.modeSwitchingBlock(KeyboardModeNumbers);
+                *stop = YES;
+                return;
+             }
+          }
+          else if ([string isEqualToString:@"ABC"])
+          {
+             if (self.modeSwitchingBlock)
+             {
+                self.modeSwitchingBlock(KeyboardModeLetters);
+                *stop = YES;
+                return;
+             }
+          }
+          else if ([string isEqualToString:@"#+="])
+          {
+             if (self.modeSwitchingBlock)
+             {
+                self.modeSwitchingBlock(KeyboardModeSymbols);
+                *stop = YES;
+                return;
+             }
+          }
+          else if ([string isEqualToString:@"shift"])
+          {
+             *stop = YES;
+             return;
+          }
           
           // for now...
           [self.textProxy insertText:string];

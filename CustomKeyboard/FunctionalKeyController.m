@@ -54,4 +54,13 @@
    [self updateLetterViewFrames:frame];
 }
 
+- (void)updateMode:(KeyboardMode)mode
+{
+}
+
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   return nil;
+}
+
 @end

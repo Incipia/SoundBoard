@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "KeyboardMapUpdaterProtocol.h"
+#import "KeyboardTypedefs.h"
 
 @interface KeyboardTouchEventHandler : UIViewController <KeyboardKeyFrameTextMapUpdater>
 
@@ -15,5 +16,6 @@
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 
 @property (nonatomic, copy) dispatch_block_t advanceToNextKeyboardBlock;
+@property (nonatomic, copy) void (^modeSwitchingBlock)(KeyboardMode mode);
 
 @end

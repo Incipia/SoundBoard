@@ -23,4 +23,10 @@
    [self.view addSubview:self.spacebarKeyView];
 }
 
+#pragma mark - Public
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   return self.spacebarKeyView;
+}
+
 @end

@@ -256,7 +256,8 @@
    
    for (FunctionalKeyController* controller in self.functionalKeyControllers)
    {
-      [keyFrameTextMap addFrameForKeyView:controller.keyViewArray[0]];
+      KeyView* keyView = [controller keyViewForMode:self.mode];
+      [keyFrameTextMap addFrameForKeyView:keyView];
    }
    
    [keyFrameTextMap addFramesForKeyViewCollection:self.punctuationKeysCollection];
@@ -367,7 +368,10 @@
       {
          collection.hidden = NO;
       }
-      
+      for (FunctionalKeyController* controller in self.functionalKeyControllers)
+      {
+         [controller updateMode:self.mode];
+      }
       [self updateKeyboardMapUpdaterWithMode:self.mode];
    }
 }

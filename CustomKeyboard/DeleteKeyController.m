@@ -24,4 +24,10 @@
    [self.view addSubview:self.deleteView];
 }
 
+#pragma mark - Public
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   return self.deleteView;
+}
+
 @end

@@ -34,4 +34,55 @@
    self.shiftLetterView.hidden = NO;
 }
 
+#pragma mark - Public
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   KeyView* keyView;
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         keyView = self.shiftLetterView;
+         break;
+         
+      case KeyboardModeNumbers:
+         keyView = self.symbolsLetterView;
+         break;
+         
+      case KeyboardModeSymbols:
+         keyView = self.numbersLetterView;
+         break;
+         
+      default:
+         break;
+   }
+   return keyView;
+}
+
+- (void)updateMode:(KeyboardMode)mode
+{
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         self.shiftLetterView.hidden = NO;
+         self.numbersLetterView.hidden = YES;
+         self.symbolsLetterView.hidden = YES;
+         break;
+         
+      case KeyboardModeNumbers:
+         self.shiftLetterView.hidden = YES;
+         self.numbersLetterView.hidden = YES;
+         self.symbolsLetterView.hidden = NO;
+         break;
+         
+      case KeyboardModeSymbols:
+         self.shiftLetterView.hidden = YES;
+         self.numbersLetterView.hidden = NO;
+         self.symbolsLetterView.hidden = YES;
+         break;
+         
+      default:
+         break;
+   }
+}
+
 @end

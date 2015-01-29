@@ -32,4 +32,47 @@
    self.numbersKeyView.hidden = NO;
 }
 
+#pragma mark - Public
+- (KeyView*)keyViewForMode:(KeyboardMode)mode
+{
+   KeyView* keyView = nil;
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         return self.numbersKeyView;
+         break;
+      
+      case KeyboardModeNumbers:
+         return self.lettersKeyView;
+         break;
+         
+      case KeyboardModeSymbols:
+         return self.lettersKeyView;
+         break;
+         
+      default:
+         break;
+   }
+   return keyView;
+}
+
+- (void)updateMode:(KeyboardMode)mode
+{
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         self.numbersKeyView.hidden = NO;
+         self.lettersKeyView.hidden = YES;
+         break;
+         
+      case KeyboardModeNumbers:
+         self.numbersKeyView.hidden = YES;
+         self.lettersKeyView.hidden = NO;
+         break;
+         
+      default:
+         break;
+   }
+}
+
 @end

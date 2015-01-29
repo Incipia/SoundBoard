@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardTypedefs.h"
 
+@class KeyView;
 @interface FunctionalKeyController : UIViewController
 
 + (instancetype)controller;
 
 // Override!
 - (void)setupKeyViews;
+- (KeyView*)keyViewForMode:(KeyboardMode)mode;
 
 - (void)updateFrame:(CGRect)frame;
+- (void)updateMode:(KeyboardMode)mode;
 
 @property (nonatomic) NSArray* keyViewArray;
 

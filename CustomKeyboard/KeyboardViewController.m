@@ -14,9 +14,16 @@
 static const CGFloat s_auxViewHeightPercentage = .2f;
 
 @interface KeyboardViewController ()
+
 @property (nonatomic) KeyboardAuxiliaryController* auxController;
 @property (nonatomic) KeyboardKeysController* keysController;
 @property (nonatomic) KeyboardTouchEventHandler* touchEventHandler;
+
+@property (nonatomic) NSLayoutConstraint* heightConstraint;
+@property (nonatomic) CGFloat portraitHeight;
+@property (nonatomic) CGFloat landscapeHeight;
+@property (nonatomic) BOOL isLandscape;
+
 @end
 
 @implementation KeyboardViewController
@@ -26,6 +33,8 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 {
    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
    {
+      self.portraitHeight = 270;
+      self.landscapeHeight = 215;
    }
    return self;
 }
@@ -36,25 +45,65 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    [super viewDidLoad];
    [self setupControllers];
    [self setupTouchEventHandler];
+   [self setupAutolayoutView];
 
    // temporary!
    self.auxController.keysController = self.keysController;
+   self.heightConstraint = [NSLayoutConstraint constraintWithItem:self.inputView
+                                                        attribute:NSLayoutAttributeHeight
+                                                        relatedBy:NSLayoutRelationEqual
+                                                           toItem:nil
+                                                        attribute:NSLayoutAttributeNotAnAttribute
+                                                       multiplier:0.0
+                                                         constant:self.portraitHeight];
 }
 
 - (void)viewDidLayoutSubviews
 {
    [super viewWillLayoutSubviews];
-   [self updateControllerViewFrames];
+   
+   CGRect viewFrame = self.view.frame;
+   if (CGRectGetWidth(viewFrame) != 0 && CGRectGetHeight(viewFrame) != 0)
+   {
+      [self.inputView removeConstraint:self.heightConstraint];
+      
+      CGRect screenFrame = [UIScreen mainScreen].bounds;
+      CGFloat screenH = CGRectGetHeight(screenFrame);
+      CGFloat screenW = CGRectGetWidth(screenFrame);
+      BOOL isLandscape =  !(CGRectGetWidth(viewFrame) == (screenW*(screenW<screenH))+(screenH*(screenW>screenH)));
+      
+      self.isLandscape = isLandscape;
+      CGFloat height = isLandscape ? self.landscapeHeight : self.portraitHeight;
+      self.heightConstraint.constant = height;
+      
+      [self.inputView addConstraint:self.heightConstraint];
+      [self updateControllerViewFrames];
+   }
 }
 
 #pragma mark - Setup
+- (void)setupAutolayoutView
+{
+   UIView* autolayoutView = [[UIView alloc] init];
+   autolayoutView.translatesAutoresizingMaskIntoConstraints = NO;
+   
+   NSDictionary* views = NSDictionaryOfVariableBindings(autolayoutView);
+   
+   [self.inputView insertSubview:autolayoutView belowSubview:self.auxController.view];
+   NSArray* horizontalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[autolayoutView]|" options:0 metrics:nil views:views];
+   NSArray* verticalConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[autolayoutView]|" options:0 metrics:nil views:views];
+   
+   [self.inputView addConstraints:horizontalConstraints];
+   [self.inputView addConstraints:verticalConstraints];
+}
+
 - (void)setupControllers
 {
    self.auxController = [KeyboardAuxiliaryController controller];
-   [self.view addSubview:self.auxController.view];
+   [self.inputView addSubview:self.auxController.view];
 
    self.keysController = [KeyboardKeysController controllerWithMode:KeyboardModeLetters];
-   [self.view addSubview:self.keysController.view];
+   [self.inputView addSubview:self.keysController.view];
 }
 
 - (void)setupTouchEventHandler
@@ -67,7 +116,12 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
       [weakSelf advanceToNextInputMode];
    };
    
-   [self.view addSubview:self.touchEventHandler.view];
+   self.touchEventHandler.modeSwitchingBlock =  ^(KeyboardMode mode)
+   {
+      [weakSelf.keysController updateMode:mode];
+   };
+   
+   [self.inputView addSubview:self.touchEventHandler.view];
    
    self.keysController.keyboardMapUpdater = self.touchEventHandler;
 }
@@ -77,20 +131,20 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 {
    [self updateAuxViewFrame];
    [self updateKeysViewFrame];
-   self.touchEventHandler.view.frame = self.keysController.view.frame;
+   self.touchEventHandler.view.frame = self.keysController.inputView.frame;
 }
 
 - (void)updateAuxViewFrame
 {
-   NSUInteger containerViewHeight = (int)CGRectGetHeight(self.view.bounds)*s_auxViewHeightPercentage;
-   self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), containerViewHeight);
+   NSUInteger containerViewHeight = (int)CGRectGetHeight(self.inputView.bounds)*s_auxViewHeightPercentage;
+   self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.inputView.bounds), containerViewHeight);
 }
 
 - (void)updateKeysViewFrame
 {
-   CGFloat keysViewHeight = CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.auxController.view.bounds);
+   CGFloat keysViewHeight = CGRectGetHeight(self.inputView.bounds) - CGRectGetHeight(self.auxController.view.bounds);
    CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
-   self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.view.bounds), keysViewHeight);
+   self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.inputView.bounds), keysViewHeight);
 }
 
 #pragma mark - UITextInput Delegate
