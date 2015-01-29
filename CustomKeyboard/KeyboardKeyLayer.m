@@ -39,7 +39,7 @@
 - (void)setLetter:(NSString*)letter fontSize:(CGFloat)fontSize
 {
    NSDictionary* letterAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
-                                      NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:fontSize]};
+                                      NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
    
    NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:letter attributes:letterAttributes];
    self.string = attributedLetter;
