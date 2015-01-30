@@ -12,7 +12,7 @@
 
 @interface KeyboardTouchEventHandler : UIViewController <KeyboardKeyFrameTextMapUpdater>
 
-+ (instancetype)handlerWithTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
++ (instancetype)handler;
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 
 @property (nonatomic, copy) dispatch_block_t advanceToNextKeyboardBlock;

@@ -9,26 +9,19 @@
 #import "KeyboardTouchEventHandler.h"
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyView.h"
+#import "TextDocumentProxyManager.h"
 
 @interface KeyboardTouchEventHandler ()
-
-@property (nonatomic) NSDictionary* keyboardKeyFrameTextMap;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
-@property (nonatomic) id<UITextDocumentProxy> textProxy;
-
 @property (nonatomic) KeyView* currentFocusedKeyView;
-
 @end
 
 @implementation KeyboardTouchEventHandler
 
 #pragma mark - Class Init
-+ (instancetype)handlerWithTextDocumentProxy:(id<UITextDocumentProxy>)proxy
++ (instancetype)handler
 {
-   KeyboardTouchEventHandler* handler = [[[self class] alloc] init];
-   handler.textProxy = proxy;
-   
-   return handler;
+   return [[self class] new];
 }
 
 #pragma mark - Touch Events
@@ -81,21 +74,19 @@
           }
           else if ([string isEqualToString:@"space"])
           {
-             [self.textProxy insertText:@" "];
+             string = @" ";
              *stop = YES;
-             return;
           }
           else if ([string isEqualToString:@"del"])
           {
-             [self.textProxy deleteBackward];
+             [TextDocumentProxyManager deleteBackward];
              *stop = YES;
              return;
           }
           else if ([string isEqualToString:@"return"])
           {
-             [self.textProxy insertText:@"\n"];
+             string = @"\n";
              *stop = YES;
-             return;
           }
           else if ([string isEqualToString:@"123"])
           {
@@ -131,7 +122,7 @@
           }
           
           // for now...
-          [self.textProxy insertText:string];
+          [TextDocumentProxyManager insertText:string];
           *stop = YES;
        }
    }];

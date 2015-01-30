@@ -10,8 +10,11 @@
 #import "KeyboardAuxiliaryController.h"
 #import "KeyboardKeysController.h"
 #import "KeyboardTouchEventHandler.h"
+#import "TextDocumentProxyManager.h"
 
 static const CGFloat s_auxViewHeightPercentage = .2f;
+static const NSUInteger s_portraitHeight = 270;
+static const NSUInteger s_landscapeHeight = 215;
 
 @interface KeyboardViewController ()
 
@@ -20,8 +23,6 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 @property (nonatomic) KeyboardTouchEventHandler* touchEventHandler;
 
 @property (nonatomic) NSLayoutConstraint* heightConstraint;
-@property (nonatomic) CGFloat portraitHeight;
-@property (nonatomic) CGFloat landscapeHeight;
 @property (nonatomic) BOOL isLandscape;
 
 @end
@@ -33,8 +34,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 {
    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
    {
-      self.portraitHeight = 270;
-      self.landscapeHeight = 215;
+      [TextDocumentProxyManager setTextDocumentProxy:self.textDocumentProxy];
    }
    return self;
 }
@@ -58,7 +58,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
                                                            toItem:nil
                                                         attribute:NSLayoutAttributeNotAnAttribute
                                                        multiplier:0.0
-                                                         constant:self.portraitHeight];
+                                                         constant:s_portraitHeight];
 }
 
 - (void)viewDidLayoutSubviews
@@ -70,7 +70,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
    {
       [self.inputView removeConstraint:self.heightConstraint];
       
-      CGFloat height = self.isLandscape ? self.landscapeHeight : self.portraitHeight;
+      CGFloat height = self.isLandscape ? s_landscapeHeight : s_portraitHeight;
       self.heightConstraint.constant = height;
       
       [self.inputView addConstraint:self.heightConstraint];
@@ -105,7 +105,7 @@ static const CGFloat s_auxViewHeightPercentage = .2f;
 
 - (void)setupTouchEventHandler
 {
-   self.touchEventHandler = [KeyboardTouchEventHandler handlerWithTextDocumentProxy:self.textDocumentProxy];
+   self.touchEventHandler = [KeyboardTouchEventHandler handler];
    
    __weak typeof(self) weakSelf = self;
    self.touchEventHandler.advanceToNextKeyboardBlock = ^
