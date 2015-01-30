@@ -64,7 +64,8 @@
    self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
    self.backgroundLayer.cornerRadius = 4.f;
    
-   self.backgroundLayer.shadowOpacity = .1;
+   self.backgroundLayer.shadowOpacity = .1f;
+   self.backgroundLayer.shadowRadius = 2.f;
    self.backgroundLayer.shadowOffset = CGSizeMake(0, 1);
    self.backgroundLayer.actions = @{@"frame" : [NSNull null],
                                     @"position" : [NSNull null],
