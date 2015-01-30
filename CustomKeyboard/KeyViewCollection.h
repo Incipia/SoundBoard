@@ -15,6 +15,5 @@
 
 @property (nonatomic, readonly) NSArray* keyViews;
 @property (nonatomic, readonly) CGFloat keyWidth;
-@property (nonatomic, readonly) NSUInteger characterCount;
 
 @end

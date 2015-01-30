@@ -80,10 +80,4 @@
    return isnan(characterWidth) ? 0 : characterWidth;
 }
 
-- (NSUInteger)characterCount
-{
-   NSUInteger count = self.mutableLetterViewArray.count;
-   return isnan(count) ? 0 : count;
-}
-
 @end
