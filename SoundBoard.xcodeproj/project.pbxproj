@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B0FB5891A7B1EEA00D2854F /* TextDocumentProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */; };
 		5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */; };
 		5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E881A73255C0006AEF8 /* DeleteKeyController.m */; };
 		5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B537E8B1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m */; };
@@ -67,6 +68,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDocumentProxyManager.h; sourceTree = "<group>"; };
+		5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDocumentProxyManager.m; sourceTree = "<group>"; };
 		5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeyLayer.h; sourceTree = "<group>"; };
 		5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardKeyLayer.m; sourceTree = "<group>"; };
 		5B537E871A73255C0006AEF8 /* DeleteKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteKeyController.h; sourceTree = "<group>"; };
@@ -249,6 +252,8 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */,
+				5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */,
 				8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				5B537E9D1A7351910006AEF8 /* Utilities */,
@@ -458,6 +463,7 @@
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
 				5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */,
+				5B0FB5891A7B1EEA00D2854F /* TextDocumentProxyManager.m in Sources */,
 				8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */,
 				5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */,
 			);
