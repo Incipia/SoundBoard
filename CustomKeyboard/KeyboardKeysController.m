@@ -260,7 +260,10 @@
       [keyFrameTextMap addFrameForKeyView:keyView];
    }
    
-   [keyFrameTextMap addFramesForKeyViewCollection:self.punctuationKeysCollection];
+   if (mode != KeyboardModeLetters)
+   {
+      [keyFrameTextMap addFramesForKeyViewCollection:self.punctuationKeysCollection];
+   }
    
    if (self.keyboardMapUpdater != nil)
    {

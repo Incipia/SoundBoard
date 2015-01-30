@@ -12,8 +12,6 @@
 @interface KeyView ()
 @property (nonatomic) KeyboardKeyLayer* letterLayer;
 @property (nonatomic) CALayer* backgroundLayer;
-
-@property (nonatomic) BOOL hasFocus;
 @end
 
 @implementation KeyView
@@ -78,22 +76,10 @@
 #pragma mark - Public
 - (void)giveFocus
 {
-   if (self.hasFocus == NO)
-   {
-      self.hasFocus = YES;
-      self.backgroundLayer.backgroundColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1].CGColor;
-      self.backgroundLayer.shadowRadius = 0;
-   }
 }
 
 - (void)removeFocus
 {
-   if (self.hasFocus == YES)
-   {
-      self.hasFocus = NO;
-      self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
-      self.backgroundLayer.shadowRadius = 3;
-   }
 }
 
 - (void)updateFrame:(CGRect)frame

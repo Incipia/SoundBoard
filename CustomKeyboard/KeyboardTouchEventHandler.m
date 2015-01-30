@@ -41,7 +41,6 @@
     {
        if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
        {
-          [keyView giveFocus];
           self.currentFocusedKeyView = keyView;
           *stop = YES;
           return;
@@ -58,12 +57,7 @@
     {
        if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
        {
-          [keyView giveFocus];
           self.currentFocusedKeyView = keyView;
-       }
-       else
-       {
-          [keyView removeFocus];
        }
     }];
 }
@@ -141,8 +135,6 @@
           *stop = YES;
        }
    }];
-   
-   [self.currentFocusedKeyView removeFocus];
 }
 
 #pragma mark - Keyboard Map Updater Protocol
