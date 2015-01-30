@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 @interface TextDocumentProxyManager : NSObject
+
++ (instancetype)sharedManager;
++ (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
+
++ (void)insertText:(NSString*)text;
++ (void)deleteBackward;
++ (void)adjustTextPositionByCharacterOffset:(NSInteger)offset;
 
 @end
