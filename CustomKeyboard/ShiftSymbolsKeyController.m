@@ -20,9 +20,9 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.shiftLetterView = [KeyView viewWithLetter:@"shift" fontSize:14.f frame:CGRectZero];
-   self.symbolsLetterView = [KeyView viewWithLetter:@"#+=" fontSize:14.f frame:CGRectZero];
-   self.numbersLetterView = [KeyView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
+   self.shiftLetterView = [KeyView viewWithText:@"shift" fontSize:14.f frame:CGRectZero];
+   self.symbolsLetterView = [KeyView viewWithText:@"#+=" fontSize:14.f frame:CGRectZero];
+   self.numbersLetterView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
    
    self.keyViewArray = @[self.shiftLetterView, self.symbolsLetterView, self.numbersLetterView];
    for (KeyView* letterView in self.keyViewArray)

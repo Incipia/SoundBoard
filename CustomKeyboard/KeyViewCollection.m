@@ -40,7 +40,7 @@
 {
    for (NSString* letter in self.characterArray)
    {
-      KeyView* letterView = [KeyView viewWithLetter:letter frame:CGRectZero];
+      KeyView* letterView = [KeyView viewWithText:letter frame:CGRectZero];
 
       [self.mutableLetterViewArray addObject:letterView];
       [self addSubview:letterView];

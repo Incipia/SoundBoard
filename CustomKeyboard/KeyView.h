@@ -10,11 +10,11 @@
 
 @interface KeyView : UIView
 
-+ (instancetype)viewWithLetter:(NSString*)letter frame:(CGRect)frame;
-+ (instancetype)viewWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame;
++ (instancetype)viewWithText:(NSString*)text frame:(CGRect)frame;
++ (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
 - (void)updateFrame:(CGRect)frame;
 
-@property (nonatomic, copy) NSString* letter;
+@property (nonatomic, copy) NSString* displayText;
 
 @end

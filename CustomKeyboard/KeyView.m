@@ -10,7 +10,7 @@
 #import "KeyboardKeyLayer.h"
 
 @interface KeyView ()
-@property (nonatomic) KeyboardKeyLayer* letterLayer;
+@property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @end
 
@@ -26,34 +26,34 @@
    return self;
 }
 
-- (instancetype)initWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame
+- (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
    if (self = [self initWithFrame:frame])
    {
-      self.letter = letter;
-      [self setupLetterLayerWithLetter:letter fontSize:fontSize];
+      self.displayText = text;
+      [self setupLetterLayerWithText:text fontSize:fontSize];
    }
    return self;
 }
 
 #pragma mark - Class Init
-+ (instancetype)viewWithLetter:(NSString *)letter frame:(CGRect)frame
++ (instancetype)viewWithText:(NSString *)text frame:(CGRect)frame
 {
-   return [[KeyView alloc] initWithLetter:letter fontSize:18.f frame:frame];
+   return [[KeyView alloc] initWithText:text fontSize:18.f frame:frame];
 }
 
-+ (instancetype)viewWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize frame:(CGRect)frame
++ (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
-   return [[KeyView alloc] initWithLetter:letter fontSize:fontSize frame:frame];
+   return [[KeyView alloc] initWithText:text fontSize:fontSize frame:frame];
 }
 
 #pragma mark - Setup
-- (void)setupLetterLayerWithLetter:(NSString*)letter fontSize:(CGFloat)fontSize
+- (void)setupLetterLayerWithText:(NSString*)text fontSize:(CGFloat)fontSize
 {
-   self.letterLayer = [KeyboardKeyLayer layerWithLetter:letter fontSize:fontSize];
-   self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+   self.keyLayer = [KeyboardKeyLayer layerWithText:text fontSize:fontSize];
+   self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
-   [self.layer addSublayer:self.letterLayer];
+   [self.layer addSublayer:self.keyLayer];
 }
 
 - (void)setupBackgroundLayer
@@ -86,7 +86,7 @@
 {
    self.frame = frame;
    self.backgroundLayer.frame = CGRectInset(self.bounds, 2, 4);
-   self.letterLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+   self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
 @end

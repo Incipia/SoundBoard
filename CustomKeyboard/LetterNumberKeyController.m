@@ -19,8 +19,8 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.numbersKeyView = [KeyView viewWithLetter:@"123" fontSize:14.f frame:CGRectZero];
-   self.lettersKeyView = [KeyView viewWithLetter:@"ABC" fontSize:14.f frame:CGRectZero];
+   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   self.lettersKeyView = [KeyView viewWithText:@"ABC" fontSize:14.f frame:CGRectZero];
    
    self.keyViewArray = @[self.numbersKeyView, self.lettersKeyView];
    for (KeyView* letterView in self.keyViewArray)

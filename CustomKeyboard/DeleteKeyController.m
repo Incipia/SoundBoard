@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.deleteView = [KeyView viewWithLetter:@"del" fontSize:14.f frame:self.view.bounds];
+   self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
    self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];

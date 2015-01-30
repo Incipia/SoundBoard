@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.spacebarKeyView = [KeyView viewWithLetter:@"space" fontSize:14.f frame:CGRectZero];
+   self.spacebarKeyView = [KeyView viewWithText:@"space" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.spacebarKeyView];
    [self.view addSubview:self.spacebarKeyView];
 }

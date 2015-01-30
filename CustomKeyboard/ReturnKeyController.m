@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.returnKeyView = [KeyView viewWithLetter:@"return" fontSize:14.f frame:CGRectZero];
+   self.returnKeyView = [KeyView viewWithText:@"return" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.returnKeyView];
    [self.view addSubview:self.returnKeyView];
 }

@@ -62,7 +62,7 @@
    
    [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
     {
-       NSString* string = keyView.letter;
+       NSString* string = keyView.displayText;
        if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
        {
           // EDGE CASES!

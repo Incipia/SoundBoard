@@ -10,7 +10,7 @@
 
 @interface KeyboardKeyLayer : CATextLayer
 
-+ (instancetype)layerWithLetter:(NSString*)letter;
-+ (instancetype)layerWithLetter:(NSString *)letter fontSize:(CGFloat)fontSize;
++ (instancetype)layerWithText:(NSString*)text;
++ (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize;
 
 @end

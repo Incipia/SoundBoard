@@ -18,7 +18,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.nextKeyboardKeyView = [KeyView viewWithLetter:@"next" fontSize:14.f frame:CGRectZero];
+   self.nextKeyboardKeyView = [KeyView viewWithText:@"next" fontSize:14.f frame:CGRectZero];
    self.keyViewArray = @[self.nextKeyboardKeyView];
    [self.view addSubview:self.nextKeyboardKeyView];
 }
