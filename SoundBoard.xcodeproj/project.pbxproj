@@ -176,6 +176,8 @@
 		5B537E9D1A7351910006AEF8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */,
+				5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */,
 				5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */,
 				5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */,
 				5BFB27911A73847600508C1F /* KeyboardTypedefs.h */,
@@ -252,8 +254,6 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */,
-				5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */,
 				8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				5B537E9D1A7351910006AEF8 /* Utilities */,
