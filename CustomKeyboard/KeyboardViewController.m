@@ -65,7 +65,7 @@ static const NSUInteger s_landscapeHeight = 215;
 {
    [super viewWillLayoutSubviews];
    
-   CGRect viewFrame = self.view.frame;
+   CGRect viewFrame = self.inputView.frame;
    if (CGRectGetWidth(viewFrame) != 0 && CGRectGetHeight(viewFrame) != 0)
    {
       [self.inputView removeConstraint:self.heightConstraint];
@@ -128,7 +128,7 @@ static const NSUInteger s_landscapeHeight = 215;
 {
    [self updateAuxViewFrame];
    [self updateKeysViewFrame];
-   self.touchEventHandler.view.frame = self.keysController.inputView.frame;
+   self.touchEventHandler.view.frame = self.keysController.view.frame;
 }
 
 - (void)updateAuxViewFrame
@@ -147,7 +147,7 @@ static const NSUInteger s_landscapeHeight = 215;
 #pragma mark - Property Overrides
 - (BOOL)isLandscape
 {
-   CGRect viewFrame = self.view.frame;
+   CGRect viewFrame = self.inputView.frame;
    CGRect screenFrame = [UIScreen mainScreen].bounds;
    CGFloat screenH = CGRectGetHeight(screenFrame);
    CGFloat screenW = CGRectGetWidth(screenFrame);
