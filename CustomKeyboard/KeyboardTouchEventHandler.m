@@ -37,7 +37,6 @@
 #pragma mark - Touch Events
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-   NSLog(@"touches began");
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:nil];
    
@@ -54,11 +53,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-}
-
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   NSLog(@"touches cancelled");
 }
 
 #pragma mark - Keyboard Map Updater Protocol
