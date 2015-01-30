@@ -18,16 +18,26 @@
 
 @implementation KeyboardTouchEventHandler
 
+#pragma mark - Init
+- (instancetype)init
+{
+   if (self = [super init])
+   {
+      self.view.multipleTouchEnabled = YES;
+   }
+   return self;
+}
+
 #pragma mark - Class Init
 + (instancetype)handler
 {
-   return [[self class] new];
+   return [[[self class] alloc] init];
 }
 
 #pragma mark - Touch Events
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-   NSLog(@"touchBegan!");
+   NSLog(@"touches began");
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:nil];
    
@@ -44,6 +54,11 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   NSLog(@"touches cancelled");
 }
 
 #pragma mark - Keyboard Map Updater Protocol

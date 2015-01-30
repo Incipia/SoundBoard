@@ -13,7 +13,6 @@
 @interface KeyboardTouchEventHandler : UIViewController <KeyboardKeyFrameTextMapUpdater>
 
 + (instancetype)handler;
-- (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
 
 @property (nonatomic, copy) dispatch_block_t advanceToNextKeyboardBlock;
 @property (nonatomic, copy) void (^modeSwitchingBlock)(KeyboardMode mode);

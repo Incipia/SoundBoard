@@ -74,21 +74,4 @@
    return targetKeyView;
 }
 
-- (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, KeyView* keyView, BOOL *stop))block
-{
-   BOOL stop = NO;
-   for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
-   {
-      if (block != nil && stop != YES)
-      {
-         CGRect targetFrame = [frameValue CGRectValue];
-         block(targetFrame, self.keyFrameTextDictionary[frameValue], &stop);
-      }
-      else
-      {
-         break;
-      }
-   }
-}
-
 @end
