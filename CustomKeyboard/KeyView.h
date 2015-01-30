@@ -15,6 +15,10 @@
 
 - (void)updateFrame:(CGRect)frame;
 
+- (void)setActionBlock:(dispatch_block_t)block;
+- (void)executeActionBlock;
+
 @property (nonatomic, copy) NSString* displayText;
+@property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
 
 @end

@@ -12,6 +12,7 @@
 @interface KeyView ()
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
+@property (nonatomic, copy) dispatch_block_t actionBlock;
 @end
 
 @implementation KeyView
@@ -74,19 +75,24 @@
 }
 
 #pragma mark - Public
-- (void)giveFocus
-{
-}
-
-- (void)removeFocus
-{
-}
-
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
    self.backgroundLayer.frame = CGRectInset(self.bounds, 2, 4);
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+}
+
+- (void)setActionBlock:(dispatch_block_t)block
+{
+   self.actionBlock = block;
+}
+
+- (void)executeActionBlock
+{
+   if (self.actionBlock != nil)
+   {
+      self.actionBlock();
+   }
 }
 
 @end
