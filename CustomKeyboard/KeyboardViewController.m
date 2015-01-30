@@ -63,7 +63,7 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)viewDidLayoutSubviews
 {
-   [super viewWillLayoutSubviews];
+   [super viewDidLayoutSubviews];
    
    CGRect viewFrame = self.inputView.frame;
    if (CGRectGetWidth(viewFrame) != 0 && CGRectGetHeight(viewFrame) != 0)
