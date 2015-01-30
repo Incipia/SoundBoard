@@ -59,6 +59,21 @@
    }
 }
 
+- (KeyView*)keyViewAtPoint:(CGPoint)point
+{
+   KeyView* targetKeyView = nil;
+   for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
+   {
+      CGRect frame = [frameValue CGRectValue];
+      if (CGRectContainsPoint(frame, point))
+      {
+         targetKeyView = self.keyFrameTextDictionary[frameValue];
+         break;
+      }
+   }
+   return targetKeyView;
+}
+
 - (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, KeyView* keyView, BOOL *stop))block
 {
    BOOL stop = NO;

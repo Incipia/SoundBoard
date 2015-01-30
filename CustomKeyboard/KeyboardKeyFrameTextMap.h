@@ -19,6 +19,8 @@
 
 - (void)addFrameForKeyView:(KeyView*)keyView;
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection;
+
+- (KeyView*)keyViewAtPoint:(CGPoint)point;
 - (void)enumerateFramesUsingBlock:(void (^)(CGRect targetFrame, KeyView* keyView, BOOL *stop))block;
 
 @end

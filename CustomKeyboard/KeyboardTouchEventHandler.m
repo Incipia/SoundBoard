@@ -27,105 +27,23 @@
 #pragma mark - Touch Events
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+   NSLog(@"touchBegan!");
    UITouch* touchEvent = touches.anyObject;
    CGPoint touchLocation = [touchEvent locationInView:nil];
    
-   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
-    {
-       if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
-       {
-          self.currentFocusedKeyView = keyView;
-          *stop = YES;
-          return;
-       }
-    }];
+   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+   if (targetKeyView != nil)
+   {
+      [TextDocumentProxyManager insertText:targetKeyView.displayText];
+   }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-   UITouch* touchEvent = touches.anyObject;
-   CGPoint touchLocation = [touchEvent locationInView:nil];
-   
-   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
-    {
-       if (CGRectContainsPoint(targetFrame, touchLocation) && keyView != nil)
-       {
-          self.currentFocusedKeyView = keyView;
-       }
-    }];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-   UITouch* touchEvent = touches.anyObject;
-   CGPoint touchLocation = [touchEvent locationInView:nil];
-   
-   [self.keyFrameTextMap enumerateFramesUsingBlock:^(CGRect targetFrame, KeyView* keyView, BOOL *stop)
-    {
-       NSString* string = keyView.displayText;
-       if (CGRectContainsPoint(targetFrame, touchLocation) && string != nil)
-       {
-          // EDGE CASES!
-          if ([string isEqualToString:@"next"] && self.advanceToNextKeyboardBlock != nil)
-          {
-             self.advanceToNextKeyboardBlock();
-             *stop = YES;
-             return;
-          }
-          else if ([string isEqualToString:@"space"])
-          {
-             string = @" ";
-             *stop = YES;
-          }
-          else if ([string isEqualToString:@"del"])
-          {
-             [TextDocumentProxyManager deleteBackward];
-             *stop = YES;
-             return;
-          }
-          else if ([string isEqualToString:@"return"])
-          {
-             string = @"\n";
-             *stop = YES;
-          }
-          else if ([string isEqualToString:@"123"])
-          {
-             if (self.modeSwitchingBlock)
-             {
-                self.modeSwitchingBlock(KeyboardModeNumbers);
-                *stop = YES;
-                return;
-             }
-          }
-          else if ([string isEqualToString:@"ABC"])
-          {
-             if (self.modeSwitchingBlock)
-             {
-                self.modeSwitchingBlock(KeyboardModeLetters);
-                *stop = YES;
-                return;
-             }
-          }
-          else if ([string isEqualToString:@"#+="])
-          {
-             if (self.modeSwitchingBlock)
-             {
-                self.modeSwitchingBlock(KeyboardModeSymbols);
-                *stop = YES;
-                return;
-             }
-          }
-          else if ([string isEqualToString:@"shift"])
-          {
-             *stop = YES;
-             return;
-          }
-          
-          // for now...
-          [TextDocumentProxyManager insertText:string];
-          *stop = YES;
-       }
-   }];
 }
 
 #pragma mark - Keyboard Map Updater Protocol
