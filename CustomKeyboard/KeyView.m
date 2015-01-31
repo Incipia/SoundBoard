@@ -84,7 +84,7 @@
 
 - (void)setActionBlock:(dispatch_block_t)block
 {
-   self.actionBlock = block;
+   _actionBlock = block;
 }
 
 - (void)executeActionBlock
