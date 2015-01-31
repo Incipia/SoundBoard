@@ -7,6 +7,7 @@
 //
 
 #import "LetterNumberKeyController.h"
+#import "KeyboardModeManager.h"
 #import "KeyView.h"
 
 @interface LetterNumberKeyController ()
@@ -19,19 +20,40 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
-   self.lettersKeyView = [KeyView viewWithText:@"ABC" fontSize:14.f frame:CGRectZero];
+   [self setupNumbersKeyView];
+   [self setupLettersKeyView];
    
    self.keyViewArray = @[self.numbersKeyView, self.lettersKeyView];
    for (KeyView* letterView in self.keyViewArray)
    {
-      letterView.hidden = YES;
-      letterView.shouldTriggerActionOnTouchDown = YES;
-      
       [self.view addSubview:letterView];
    }
    
    self.numbersKeyView.hidden = NO;
+}
+
+- (void)setupNumbersKeyView
+{
+   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   self.numbersKeyView.hidden = YES;
+   self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
+   
+   [self.numbersKeyView setActionBlock:^
+   {
+      [KeyboardModeManager updateKeyboardMode:KeyboardModeNumbers];
+   }];
+}
+
+- (void)setupLettersKeyView
+{
+   self.lettersKeyView = [KeyView viewWithText:@"ABC" fontSize:14.f frame:CGRectZero];
+   self.lettersKeyView.hidden = YES;
+   self.lettersKeyView.shouldTriggerActionOnTouchDown = YES;
+   
+   [self.lettersKeyView setActionBlock:^
+   {
+      [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
+   }];
 }
 
 #pragma mark - Public
