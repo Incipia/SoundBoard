@@ -13,7 +13,7 @@
 
 + (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
-   LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
+   LetterSymbolKeyView* letterSymbolView = [[super class] viewWithText:text fontSize:fontSize frame:frame];
    
    [letterSymbolView setActionBlock:^
    {
