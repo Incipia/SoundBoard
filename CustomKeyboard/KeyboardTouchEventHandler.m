@@ -13,6 +13,8 @@
 
 @interface KeyboardTouchEventHandler ()
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
+
+@property (nonatomic) UITouch* currentActiveTouch;
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @end
 
@@ -35,31 +37,45 @@
 }
 
 #pragma mark - Touch Events
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
-   UITouch* touchEvent = touches.anyObject;
-   CGPoint touchLocation = [touchEvent locationInView:nil];
-   
-   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   if (targetKeyView != nil && targetKeyView.shouldTriggerActionOnTouchDown)
+   if (self.currentActiveTouch == nil)
    {
-      [targetKeyView executeActionBlock];
+      [self handleTouch:touches.anyObject onTouchDown:YES];
+   }
+   else
+   {
+      [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+   }
+   self.currentActiveTouch = touches.anyObject;
+}
+
+- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+{
+}
+
+- (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
+{
+   if (self.currentActiveTouch == touches.anyObject)
+   {
+      [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+      self.currentActiveTouch = nil;
    }
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+#pragma mark - Helper
+- (void)handleTouch:(UITouch*)touch onTouchDown:(BOOL)touchDown
 {
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   UITouch* touchEvent = touches.anyObject;
-   CGPoint touchLocation = [touchEvent locationInView:nil];
-   
-   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   if (targetKeyView != nil && !targetKeyView.shouldTriggerActionOnTouchDown)
+   if (touch != nil)
    {
-      [targetKeyView executeActionBlock];
+      CGPoint touchLocation = [touch locationInView:nil];
+      KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+
+      BOOL shouldTrigger = touchDown ? targetKeyView.shouldTriggerActionOnTouchDown : !targetKeyView.shouldTriggerActionOnTouchDown;
+      if (targetKeyView != nil && shouldTrigger)
+      {
+         [targetKeyView executeActionBlock];
+      }
    }
 }
 

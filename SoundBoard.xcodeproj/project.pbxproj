@@ -293,22 +293,14 @@
 			isa = PBXGroup;
 			children = (
 				8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */,
-				5BE1E8D31A7D63D90094E050 /* Managers */,
-				8ED831F61A7B523800F52238 /* Main View Controllers */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
-				5B537E9D1A7351910006AEF8 /* Utility Objects */,
+				8ED831F61A7B523800F52238 /* Main View Controllers */,
+				5BE1E8D31A7D63D90094E050 /* Managers */,
 				8ED831F71A7B526F00F52238 /* Protocols */,
-				5BFB27981A76B8DB00508C1F /* KeyboardTouchEventHandler.h */,
-				5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */,
-				8E7662E61A72212A006410E7 /* KeyViewCollection.h */,
-				8E7662E71A72212A006410E7 /* KeyViewCollection.m */,
-				5BE1E8D41A7D75B00094E050 /* LetterSymbolKeyView.h */,
-				5BE1E8D51A7D75B00094E050 /* LetterSymbolKeyView.m */,
-				8E7662C81A701D4F006410E7 /* KeyView.h */,
-				8E7662C91A701D4F006410E7 /* KeyView.m */,
-				5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */,
-				5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */,
 				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
+				8EECE81A1A7D86A000DF93C0 /* Touch Events */,
+				5B537E9D1A7351910006AEF8 /* Utility Objects */,
+				8EECE8191A7D868600DF93C0 /* Views and Layers */,
 			);
 			path = CustomKeyboard;
 			sourceTree = "<group>";
@@ -319,6 +311,30 @@
 				8EDFB7F91A6B6E9F000AD00A /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8EECE8191A7D868600DF93C0 /* Views and Layers */ = {
+			isa = PBXGroup;
+			children = (
+				8E7662E61A72212A006410E7 /* KeyViewCollection.h */,
+				8E7662E71A72212A006410E7 /* KeyViewCollection.m */,
+				5BE1E8D41A7D75B00094E050 /* LetterSymbolKeyView.h */,
+				5BE1E8D51A7D75B00094E050 /* LetterSymbolKeyView.m */,
+				8E7662C81A701D4F006410E7 /* KeyView.h */,
+				8E7662C91A701D4F006410E7 /* KeyView.m */,
+				5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */,
+				5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */,
+			);
+			name = "Views and Layers";
+			sourceTree = "<group>";
+		};
+		8EECE81A1A7D86A000DF93C0 /* Touch Events */ = {
+			isa = PBXGroup;
+			children = (
+				5BFB27981A76B8DB00508C1F /* KeyboardTouchEventHandler.h */,
+				5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */,
+			);
+			name = "Touch Events";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
