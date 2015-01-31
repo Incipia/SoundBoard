@@ -10,12 +10,15 @@
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
+#import "EnlargedKeyDrawingView.h"
 
 @interface KeyboardTouchEventHandler ()
-@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 
-@property (nonatomic) UITouch* currentActiveTouch;
+@property (nonatomic) EnlargedKeyDrawingView* view;
 @property (nonatomic) KeyView* currentFocusedKeyView;
+@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
+@property (nonatomic) UITouch* currentActiveTouch;
+
 @end
 
 @implementation KeyboardTouchEventHandler
@@ -25,6 +28,7 @@
 {
    if (self = [super init])
    {
+      self.view = [EnlargedKeyDrawingView drawingViewWithFrame:self.view.bounds];
       self.view.multipleTouchEnabled = YES;
    }
    return self;
@@ -48,6 +52,8 @@
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
    }
    self.currentActiveTouch = touches.anyObject;
+   KeyView* keyView = [self.keyFrameTextMap keyViewAtPoint:[self.currentActiveTouch locationInView:nil]];
+   [self.view drawEnlargedKeyView:keyView withFrame:keyView.frame];
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
