@@ -7,7 +7,7 @@
 //
 
 #import "KeyViewCollection.h"
-#import "KeyView.h"
+#import "LetterSymbolKeyView.h"
 
 @interface KeyViewCollection ()
 @property (nonatomic) NSArray* characterArray;
@@ -40,7 +40,7 @@
 {
    for (NSString* letter in self.characterArray)
    {
-      KeyView* letterView = [KeyView viewWithText:letter frame:CGRectZero];
+      LetterSymbolKeyView* letterView = [LetterSymbolKeyView viewWithText:letter fontSize:18.f frame:CGRectZero];
 
       [self.mutableLetterViewArray addObject:letterView];
       [self addSubview:letterView];

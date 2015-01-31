@@ -10,7 +10,6 @@
 
 @interface KeyView : UIView
 
-+ (instancetype)viewWithText:(NSString*)text frame:(CGRect)frame;
 + (instancetype)viewWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
 - (void)updateFrame:(CGRect)frame;

@@ -38,11 +38,6 @@
 }
 
 #pragma mark - Class Init
-+ (instancetype)viewWithText:(NSString *)text frame:(CGRect)frame
-{
-   return [[KeyView alloc] initWithText:text fontSize:18.f frame:frame];
-}
-
 + (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
    return [[KeyView alloc] initWithText:text fontSize:fontSize frame:frame];
