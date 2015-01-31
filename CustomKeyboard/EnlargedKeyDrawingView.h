@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EnlargedKeyDrawingView : NSView
+@class KeyView;
+@interface EnlargedKeyDrawingView : UIView
+
++ (instancetype)drawingViewWithFrame:(CGRect)frame;
+
+- (void)drawEnlargedKeyView:(KeyView*)keyView withFrame:(CGRect)frame;
+- (void)reset;
 
 @end
