@@ -53,6 +53,14 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+   UITouch* touchEvent = touches.anyObject;
+   CGPoint touchLocation = [touchEvent locationInView:nil];
+   
+   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+   if (targetKeyView != nil && !targetKeyView.shouldTriggerActionOnTouchDown)
+   {
+      [targetKeyView executeActionBlock];
+   }
 }
 
 #pragma mark - Keyboard Map Updater Protocol
