@@ -7,12 +7,13 @@
 //
 
 #import "ShiftSymbolsKeyController.h"
+#import "KeyboardModeManager.h"
 #import "KeyView.h"
 
 @interface ShiftSymbolsKeyController ()
-@property (nonatomic) KeyView* shiftLetterView;
-@property (nonatomic) KeyView* symbolsLetterView;
-@property (nonatomic) KeyView* numbersLetterView;
+@property (nonatomic) KeyView* shiftKeyView;
+@property (nonatomic) KeyView* symbolsKeyView;
+@property (nonatomic) KeyView* numbersKeyView;
 @end
 
 @implementation ShiftSymbolsKeyController
@@ -20,19 +21,53 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.shiftLetterView = [KeyView viewWithText:@"shift" fontSize:14.f frame:CGRectZero];
-   self.symbolsLetterView = [KeyView viewWithText:@"#+=" fontSize:14.f frame:CGRectZero];
-   self.numbersLetterView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   [self setupShiftLetterView];
+   [self setupSymbolsLetterView];
+   [self setupNumbersLetterView];
    
-   self.keyViewArray = @[self.shiftLetterView, self.symbolsLetterView, self.numbersLetterView];
+   self.keyViewArray = @[self.shiftKeyView, self.symbolsKeyView, self.numbersKeyView];
    for (KeyView* letterView in self.keyViewArray)
    {
-      letterView.hidden = YES;
-      letterView.shouldTriggerActionOnTouchDown = YES;
       [self.view addSubview:letterView];
    }
    
-   self.shiftLetterView.hidden = NO;
+   self.shiftKeyView.hidden = NO;
+}
+
+- (void)setupShiftLetterView
+{
+   self.shiftKeyView = [KeyView viewWithText:@"shift" fontSize:14.f frame:CGRectZero];
+   self.shiftKeyView.hidden = YES;
+   self.shiftKeyView.shouldTriggerActionOnTouchDown = YES;
+   
+   [self.shiftKeyView setActionBlock:^
+   {
+      NSLog(@"shift button pressed");
+   }];
+}
+
+- (void)setupSymbolsLetterView
+{
+   self.symbolsKeyView = [KeyView viewWithText:@"#+=" fontSize:14.f frame:CGRectZero];
+   self.symbolsKeyView.hidden = YES;
+   self.symbolsKeyView.shouldTriggerActionOnTouchDown = YES;
+   
+   [self.symbolsKeyView setActionBlock:^
+   {
+      [KeyboardModeManager updateKeyboardMode:KeyboardModeSymbols];
+   }];
+}
+
+- (void)setupNumbersLetterView
+{
+   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   self.numbersKeyView.hidden = YES;
+   self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
+   
+   [self.numbersKeyView setActionBlock:^
+   {
+      [KeyboardModeManager updateKeyboardMode:KeyboardModeNumbers];
+   }];
 }
 
 #pragma mark - Public
@@ -42,15 +77,15 @@
    switch (mode)
    {
       case KeyboardModeLetters:
-         keyView = self.shiftLetterView;
+         keyView = self.shiftKeyView;
          break;
          
       case KeyboardModeNumbers:
-         keyView = self.symbolsLetterView;
+         keyView = self.symbolsKeyView;
          break;
          
       case KeyboardModeSymbols:
-         keyView = self.numbersLetterView;
+         keyView = self.numbersKeyView;
          break;
          
       default:
@@ -64,21 +99,21 @@
    switch (mode)
    {
       case KeyboardModeLetters:
-         self.shiftLetterView.hidden = NO;
-         self.numbersLetterView.hidden = YES;
-         self.symbolsLetterView.hidden = YES;
+         self.shiftKeyView.hidden = NO;
+         self.numbersKeyView.hidden = YES;
+         self.symbolsKeyView.hidden = YES;
          break;
          
       case KeyboardModeNumbers:
-         self.shiftLetterView.hidden = YES;
-         self.numbersLetterView.hidden = YES;
-         self.symbolsLetterView.hidden = NO;
+         self.shiftKeyView.hidden = YES;
+         self.numbersKeyView.hidden = YES;
+         self.symbolsKeyView.hidden = NO;
          break;
          
       case KeyboardModeSymbols:
-         self.shiftLetterView.hidden = YES;
-         self.numbersLetterView.hidden = NO;
-         self.symbolsLetterView.hidden = YES;
+         self.shiftKeyView.hidden = YES;
+         self.numbersKeyView.hidden = NO;
+         self.symbolsKeyView.hidden = YES;
          break;
          
       default:
