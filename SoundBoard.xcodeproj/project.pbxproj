@@ -292,8 +292,8 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
-				5BE1E8D31A7D63D90094E050 /* Managers */,
 				8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */,
+				5BE1E8D31A7D63D90094E050 /* Managers */,
 				8ED831F61A7B523800F52238 /* Main View Controllers */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				5B537E9D1A7351910006AEF8 /* Utility Objects */,
