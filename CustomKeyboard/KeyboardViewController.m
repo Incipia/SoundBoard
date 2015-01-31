@@ -11,12 +11,13 @@
 #import "KeyboardKeysController.h"
 #import "KeyboardTouchEventHandler.h"
 #import "TextDocumentProxyManager.h"
+#import "KeyboardModeManager.h"
 
 static const CGFloat s_auxViewHeightPercentage = .2f;
 static const NSUInteger s_portraitHeight = 270;
 static const NSUInteger s_landscapeHeight = 215;
 
-@interface KeyboardViewController ()
+@interface KeyboardViewController () <KeyboardModeUpdater>
 
 @property (nonatomic) KeyboardAuxiliaryController* auxController;
 @property (nonatomic) KeyboardKeysController* keysController;
@@ -35,6 +36,7 @@ static const NSUInteger s_landscapeHeight = 215;
    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
    {
       [TextDocumentProxyManager setTextDocumentProxy:self.textDocumentProxy];
+      [KeyboardModeManager setKeyboardModeUpdater:self];
    }
    return self;
 }
@@ -107,19 +109,7 @@ static const NSUInteger s_landscapeHeight = 215;
 {
    self.touchEventHandler = [KeyboardTouchEventHandler handler];
    
-   __weak typeof(self) weakSelf = self;
-   self.touchEventHandler.advanceToNextKeyboardBlock = ^
-   {
-      [weakSelf advanceToNextInputMode];
-   };
-   
-   self.touchEventHandler.modeSwitchingBlock =  ^(KeyboardMode mode)
-   {
-      [weakSelf.keysController updateMode:mode];
-   };
-   
    [self.inputView addSubview:self.touchEventHandler.view];
-   
    self.keysController.keyboardMapUpdater = self.touchEventHandler;
 }
 
@@ -162,6 +152,12 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)textDidChange:(id<UITextInput>)textInput
 {
+}
+
+#pragma mark - Keyboard Mode Updater
+- (void)updateKeyboardMode:(KeyboardMode)mode
+{
+   [self.keysController updateMode:mode];
 }
 
 @end
