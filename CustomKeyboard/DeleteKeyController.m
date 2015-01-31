@@ -19,6 +19,8 @@
 - (void)setupKeyViews
 {
    self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
+   self.deleteView.shouldTriggerActionOnTouchDown = YES;
+   
    self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];

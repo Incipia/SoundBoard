@@ -28,6 +28,7 @@
    for (KeyView* letterView in self.keyViewArray)
    {
       letterView.hidden = YES;
+      letterView.shouldTriggerActionOnTouchDown = YES;
       [self.view addSubview:letterView];
    }
    
