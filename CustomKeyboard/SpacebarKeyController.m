@@ -7,6 +7,7 @@
 //
 
 #import "SpacebarKeyController.h"
+#import "TextDocumentProxyManager.h"
 #import "KeyView.h"
 
 @interface SpacebarKeyController ()
@@ -19,6 +20,11 @@
 - (void)setupKeyViews
 {
    self.spacebarKeyView = [KeyView viewWithText:@"space" fontSize:14.f frame:CGRectZero];
+   [self.spacebarKeyView setActionBlock:
+    ^{
+       [TextDocumentProxyManager insertText:@" "];
+    }];
+   
    self.keyViewArray = @[self.spacebarKeyView];
    [self.view addSubview:self.spacebarKeyView];
 }

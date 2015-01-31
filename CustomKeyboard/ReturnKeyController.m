@@ -7,6 +7,7 @@
 //
 
 #import "ReturnKeyController.h"
+#import "TextDocumentProxyManager.h"
 #import "KeyView.h"
 
 @interface ReturnKeyController ()
@@ -19,6 +20,11 @@
 - (void)setupKeyViews
 {
    self.returnKeyView = [KeyView viewWithText:@"return" fontSize:14.f frame:CGRectZero];
+   [self.returnKeyView setActionBlock:^
+   {
+      [TextDocumentProxyManager insertText:@"\n"];
+   }];
+   
    self.keyViewArray = @[self.returnKeyView];
    [self.view addSubview:self.returnKeyView];
 }

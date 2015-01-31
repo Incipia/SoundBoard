@@ -7,6 +7,7 @@
 //
 
 #import "DeleteKeyController.h"
+#import "TextDocumentProxyManager.h"
 #import "KeyView.h"
 
 @interface DeleteKeyController ()
@@ -18,12 +19,20 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
-   self.deleteView.shouldTriggerActionOnTouchDown = YES;
-   
+   [self setupDeleteKeyView];
    self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];
+}
+
+- (void)setupDeleteKeyView
+{
+   self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
+   self.deleteView.shouldTriggerActionOnTouchDown = YES;
+   [self.deleteView setActionBlock:^
+   {
+      [TextDocumentProxyManager deleteBackward];
+   }];
 }
 
 #pragma mark - Public
