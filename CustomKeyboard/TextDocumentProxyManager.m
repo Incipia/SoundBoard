@@ -27,11 +27,6 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 }
 
 #pragma mark - Class Init
-+ (instancetype)sharedManager
-{
-   return [[self class] lazyLoadedManager];
-}
-
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy
 {
    [[self class] lazyLoadedManager].proxy = proxy;
