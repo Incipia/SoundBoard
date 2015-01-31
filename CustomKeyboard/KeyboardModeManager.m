@@ -8,6 +8,33 @@
 
 #import "KeyboardModeManager.h"
 
+static KeyboardModeManager* s_manager = nil;
+
+@interface KeyboardModeManager ()
+@property (weak, nonatomic) NSObject<KeyboardModeUpdater>* updater;
+@end
+
 @implementation KeyboardModeManager
+
+#pragma mark - Helper
++ (KeyboardModeManager*)lazyLoadedManager
+{
+   if (s_manager == nil)
+   {
+      s_manager = [KeyboardModeManager new];
+   }
+   return s_manager;
+}
+
+#pragma mark - Class Methods
++ (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater
+{
+   [[self class] lazyLoadedManager].updater = updater;
+}
+
++ (void)updateKeyboardMode:(KeyboardMode)mode
+{
+   [[[self class] lazyLoadedManager].updater updateKeyboardMode:mode];
+}
 
 @end

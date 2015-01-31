@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyboardTypedefs.h"
+
+@protocol KeyboardModeUpdater <NSObject>
+@required
+- (void)updateKeyboardMode:(KeyboardMode)mode;
+@end
 
 @interface KeyboardModeManager : NSObject
+
++ (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater;
++ (void)updateKeyboardMode:(KeyboardMode)mode;
 
 @end
