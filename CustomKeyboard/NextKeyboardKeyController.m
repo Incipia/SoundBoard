@@ -7,6 +7,7 @@
 //
 
 #import "NextKeyboardKeyController.h"
+#import "KeyboardModeManager.h"
 #import "KeyView.h"
 
 @interface NextKeyboardKeyController ()
@@ -19,6 +20,11 @@
 - (void)setupKeyViews
 {
    self.nextKeyboardKeyView = [KeyView viewWithText:@"next" fontSize:14.f frame:CGRectZero];
+   [self.nextKeyboardKeyView setActionBlock:^
+   {
+      [KeyboardModeManager advanceToNextKeyboard];
+   }];
+
    self.keyViewArray = @[self.nextKeyboardKeyView];
    [self.view addSubview:self.nextKeyboardKeyView];
 }

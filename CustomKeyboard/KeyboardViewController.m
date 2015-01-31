@@ -160,4 +160,9 @@ static const NSUInteger s_landscapeHeight = 215;
    [self.keysController updateMode:mode];
 }
 
+- (void)advanceToNextKeyboard
+{
+   [self advanceToNextInputMode];
+}
+
 @end

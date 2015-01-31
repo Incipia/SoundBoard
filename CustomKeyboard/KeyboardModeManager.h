@@ -12,11 +12,13 @@
 @protocol KeyboardModeUpdater <NSObject>
 @required
 - (void)updateKeyboardMode:(KeyboardMode)mode;
+- (void)advanceToNextKeyboard;
 @end
 
 @interface KeyboardModeManager : NSObject
 
 + (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater;
 + (void)updateKeyboardMode:(KeyboardMode)mode;
++ (void)advanceToNextKeyboard;
 
 @end
