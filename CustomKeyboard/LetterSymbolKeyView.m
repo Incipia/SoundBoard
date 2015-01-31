@@ -7,15 +7,20 @@
 //
 
 #import "LetterSymbolKeyView.h"
+#import "TextDocumentProxyManager.h"
 
 @implementation LetterSymbolKeyView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
++ (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
+{
+   LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
+   
+   [letterSymbolView setActionBlock:^
+   {
+      [TextDocumentProxyManager insertText:text];
+   }];
+   
+   return letterSymbolView;
 }
-*/
 
 @end
