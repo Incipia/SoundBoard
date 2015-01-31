@@ -41,9 +41,9 @@
    CGPoint touchLocation = [touchEvent locationInView:nil];
    
    KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   if (targetKeyView != nil)
+   if (targetKeyView != nil && targetKeyView.shouldTriggerActionOnTouchDown)
    {
-      [TextDocumentProxyManager insertText:targetKeyView.displayText];
+      [targetKeyView executeActionBlock];
    }
 }
 
