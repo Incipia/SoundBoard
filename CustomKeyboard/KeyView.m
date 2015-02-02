@@ -7,6 +7,7 @@
 //
 
 #import "KeyView.h"
+#import "CALayer+DisableAnimations.h"
 #import "KeyboardKeyLayer.h"
 
 @interface KeyView ()
@@ -61,10 +62,7 @@
    self.backgroundLayer.shadowOpacity = .1f;
    self.backgroundLayer.shadowRadius = 1.5f;
    self.backgroundLayer.shadowOffset = CGSizeMake(0, .5f);
-   self.backgroundLayer.actions = @{@"frame" : [NSNull null],
-                                    @"position" : [NSNull null],
-                                    @"backgroundColor" : [NSNull null],
-                                    @"shadowRadius" : [NSNull null]};
+   [self.backgroundLayer disableAnimations];
    
    [self.layer addSublayer:self.backgroundLayer];
 }
