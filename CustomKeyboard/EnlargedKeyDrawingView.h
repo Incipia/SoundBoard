@@ -13,7 +13,7 @@
 
 + (instancetype)drawingViewWithFrame:(CGRect)frame;
 
-- (void)drawEnlargedKeyView:(KeyView*)keyView withFrame:(CGRect)frame;
+- (void)drawEnlargedKeyView:(KeyView*)keyView;
 - (void)reset;
 
 @end
