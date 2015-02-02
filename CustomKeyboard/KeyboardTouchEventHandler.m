@@ -82,7 +82,9 @@
       BOOL shouldTrigger = touchDown ? targetKeyView.shouldTriggerActionOnTouchDown : !targetKeyView.shouldTriggerActionOnTouchDown;
       if (targetKeyView != nil && shouldTrigger)
       {
-         [targetKeyView executeActionBlock];
+         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [targetKeyView executeActionBlock];
+         });
       }
       
       if (touchDown == YES)

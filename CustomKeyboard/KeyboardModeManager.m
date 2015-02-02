@@ -34,7 +34,14 @@ static KeyboardModeManager* s_manager = nil;
 
 + (void)updateKeyboardMode:(KeyboardMode)mode
 {
-   [[[self class] lazyLoadedManager].updater updateKeyboardMode:mode];
+   dispatch_async(dispatch_get_main_queue(), ^{
+      [[[self class] lazyLoadedManager].updater updateKeyboardMode:mode];
+   });
+}
+
++ (void)advanceToNextKeyboard
+{
+   [[[self class] lazyLoadedManager].updater advanceToNextKeyboard];
 }
 
 @end
