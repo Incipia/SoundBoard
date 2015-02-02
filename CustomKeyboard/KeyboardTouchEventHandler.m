@@ -52,18 +52,20 @@
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
    }
    self.currentActiveTouch = touches.anyObject;
-   KeyView* keyView = [self.keyFrameTextMap keyViewAtPoint:[self.currentActiveTouch locationInView:nil]];
-   [self.view drawEnlargedKeyView:keyView withFrame:keyView.frame];
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
+   CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
+   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+   [self drawEnlargedKeyView:targetKeyView];
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
    if (self.currentActiveTouch == touches.anyObject)
    {
+      [self.view reset];
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
       self.currentActiveTouch = nil;
    }
@@ -82,6 +84,23 @@
       {
          [targetKeyView executeActionBlock];
       }
+      
+      if (touchDown == YES)
+      {
+         [self drawEnlargedKeyView:targetKeyView];
+      }
+   }
+}
+
+- (void)drawEnlargedKeyView:(KeyView*)keyView
+{
+   if (keyView != nil && keyView.shouldShowEnlargedKeyOnTouchDown)
+   {
+      [self.view drawEnlargedKeyView:keyView];
+   }
+   else
+   {
+      [self.view reset];
    }
 }
 
