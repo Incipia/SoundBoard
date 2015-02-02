@@ -19,5 +19,6 @@
 
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
+@property (nonatomic) BOOL shouldShowEnlargedKeyOnTouchDown;
 
 @end
