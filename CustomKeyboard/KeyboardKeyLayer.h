@@ -13,4 +13,6 @@
 + (instancetype)layerWithText:(NSString*)text;
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize;
 
+- (void)updateText:(NSString*)text;
+
 @end
