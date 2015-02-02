@@ -20,6 +20,7 @@
 		5BE1E8D21A7D63C90094E050 /* KeyboardModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1E8D11A7D63C90094E050 /* KeyboardModeManager.m */; };
 		5BE1E8D61A7D75B00094E050 /* LetterSymbolKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1E8D51A7D75B00094E050 /* LetterSymbolKeyView.m */; };
 		5BE1E8D91A7D91780094E050 /* EnlargedKeyDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1E8D81A7D91780094E050 /* EnlargedKeyDrawingView.m */; };
+		5BE1E8DC1A7F2F5B0094E050 /* CALayer+DisableAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */; };
 		5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */; };
 		5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27931A75725300508C1F /* KeyboardLayoutDimensonsProvider.m */; };
 		5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */; };
@@ -97,6 +98,8 @@
 		5BE1E8D51A7D75B00094E050 /* LetterSymbolKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LetterSymbolKeyView.m; sourceTree = "<group>"; };
 		5BE1E8D71A7D91780094E050 /* EnlargedKeyDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargedKeyDrawingView.h; sourceTree = "<group>"; };
 		5BE1E8D81A7D91780094E050 /* EnlargedKeyDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargedKeyDrawingView.m; sourceTree = "<group>"; };
+		5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+DisableAnimations.h"; sourceTree = "<group>"; };
+		5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+DisableAnimations.m"; sourceTree = "<group>"; };
 		5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyViewCollectionCreator.h; sourceTree = "<group>"; };
 		5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyViewCollectionCreator.m; sourceTree = "<group>"; };
 		5BFB27911A73847600508C1F /* KeyboardTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardTypedefs.h; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 			children = (
 				5BE1E8D71A7D91780094E050 /* EnlargedKeyDrawingView.h */,
 				5BE1E8D81A7D91780094E050 /* EnlargedKeyDrawingView.m */,
+				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
+				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
 				8E7662E61A72212A006410E7 /* KeyViewCollection.h */,
 				8E7662E71A72212A006410E7 /* KeyViewCollection.m */,
 				5BE1E8D41A7D75B00094E050 /* LetterSymbolKeyView.h */,
@@ -520,6 +525,7 @@
 				5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
+				5BE1E8DC1A7F2F5B0094E050 /* CALayer+DisableAnimations.m in Sources */,
 				5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */,
 				5B0FB5891A7B1EEA00D2854F /* TextDocumentProxyManager.m in Sources */,
 				8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */,
