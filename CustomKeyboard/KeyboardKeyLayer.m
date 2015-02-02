@@ -7,6 +7,7 @@
 //
 
 #import "KeyboardKeyLayer.h"
+#import "CALayer+DisableAnimations.h"
 @import UIKit;
 
 @implementation KeyboardKeyLayer
@@ -31,9 +32,9 @@
 #pragma mark - Setup
 - (void)setupProperties
 {
-   self.actions = @{@"frame" : [NSNull null], @"bounds" : [NSNull null], @"position" : [NSNull null]};
    self.alignmentMode = kCAAlignmentCenter;
    self.contentsScale = [UIScreen mainScreen].scale;
+   [self disableAnimations];
 }
 
 - (void)setText:(NSString*)text fontSize:(CGFloat)fontSize
@@ -57,6 +58,12 @@
    NSMutableAttributedString* mutableString = [((NSAttributedString*)self.string) mutableCopy];
    [mutableString removeAttribute:attribute range:NSRangeFromString(mutableString.string)];
    [mutableString addAttribute:attribute value:value range:NSRangeFromString(mutableString.string)];
+}
+
+#pragma mark - Public
+- (void)updateText:(NSString*)text
+{
+   [self setText:text fontSize:self.fontSize];
 }
 
 @end
