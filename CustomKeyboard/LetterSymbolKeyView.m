@@ -14,6 +14,7 @@
 + (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
    LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
+   letterSymbolView.shouldShowEnlargedKeyOnTouchDown = YES;
    
    [letterSymbolView setActionBlock:^
    {
