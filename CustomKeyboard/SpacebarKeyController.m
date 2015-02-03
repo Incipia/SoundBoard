@@ -20,6 +20,7 @@
 - (void)setupKeyViews
 {
    self.spacebarKeyView = [KeyView viewWithText:@"space" fontSize:14.f frame:CGRectZero];
+   self.spacebarKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
    [self.spacebarKeyView setActionBlock:
     ^{
        [TextDocumentProxyManager insertText:@" "];

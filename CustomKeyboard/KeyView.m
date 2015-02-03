@@ -58,7 +58,7 @@
    self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
    self.backgroundLayer.cornerRadius = 4.f;
    
-   self.backgroundLayer.shadowOpacity = .1f;
+   self.backgroundLayer.shadowOpacity = .25f;
    self.backgroundLayer.shadowRadius = 1.5f;
    self.backgroundLayer.shadowOffset = CGSizeMake(0, .5f);
    [self.backgroundLayer disableAnimations];
@@ -89,7 +89,8 @@
 
 - (void)giveFocus
 {
-   self.backgroundLayer.backgroundColor = [UIColor darkGrayColor].CGColor;
+//   self.backgroundLayer.backgroundColor = [UIColor darkGrayColor].CGColor;
+   self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
 }
 
 - (void)removeFocus
