@@ -32,7 +32,7 @@
 
    self.spacebarIconLayer = [CAShapeLayer layer];
    self.spacebarIconLayer.lineWidth = 1.5f;
-   self.spacebarIconLayer.strokeColor = [UIColor colorWithRed:.2 green:.8 blue:1 alpha:1].CGColor;
+   self.spacebarIconLayer.strokeColor = [UIColor whiteColor].CGColor;
    self.spacebarIconLayer.fillColor = [UIColor clearColor].CGColor;
    self.spacebarIconLayer.lineCap = kCALineCapRound;
 
