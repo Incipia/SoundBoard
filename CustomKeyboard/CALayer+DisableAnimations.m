@@ -16,7 +16,8 @@
                     @"frame" : [NSNull null],
                     @"position" : [NSNull null],
                     @"bounds" : [NSNull null],
-                    @"contents" : [NSNull null]};
+                    @"contents" : [NSNull null],
+                    @"backgroundColor" : [NSNull null]};
 }
 
 @end
