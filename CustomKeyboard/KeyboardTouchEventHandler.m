@@ -10,7 +10,6 @@
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
-#import "EnlargedKeyDrawingView.h"
 
 @interface KeyboardTouchEventHandler ()
 
