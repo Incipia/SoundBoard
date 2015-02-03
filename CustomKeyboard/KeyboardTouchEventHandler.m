@@ -14,7 +14,6 @@
 
 @interface KeyboardTouchEventHandler ()
 
-@property (nonatomic) EnlargedKeyDrawingView* view;
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) UITouch* currentActiveTouch;
@@ -28,7 +27,6 @@
 {
    if (self = [super init])
    {
-      self.view = [EnlargedKeyDrawingView drawingViewWithFrame:self.view.bounds];
       self.view.multipleTouchEnabled = YES;
    }
    return self;
@@ -65,7 +63,8 @@
 {
    if (self.currentActiveTouch == touches.anyObject)
    {
-      [self.view reset];
+      [self.currentFocusedKeyView removeFocus];
+      self.currentFocusedKeyView = nil;
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
       self.currentActiveTouch = nil;
    }
@@ -96,13 +95,19 @@
 
 - (void)drawEnlargedKeyView:(KeyView*)keyView
 {
-   if (keyView != nil && keyView.shouldShowEnlargedKeyOnTouchDown)
+   if (keyView != nil)
    {
-      [self.view drawEnlargedKeyView:keyView];
+      if (self.currentFocusedKeyView != keyView)
+      {
+         [keyView giveFocus];
+         [self.currentFocusedKeyView removeFocus];
+         self.currentFocusedKeyView = keyView;
+      }
    }
    else
    {
-      [self.view reset];
+      [self.currentFocusedKeyView removeFocus];
+      self.currentFocusedKeyView = nil;
    }
 }
 
