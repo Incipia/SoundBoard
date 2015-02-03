@@ -26,6 +26,7 @@
    self.keyViewArray = @[self.numbersKeyView, self.lettersKeyView];
    for (KeyView* letterView in self.keyViewArray)
    {
+      letterView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
       [self.view addSubview:letterView];
    }
    

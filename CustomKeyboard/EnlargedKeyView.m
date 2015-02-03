@@ -50,8 +50,8 @@
    self.enlargedKeyViewLayer = [CAShapeLayer layer];
 
    self.enlargedKeyViewLayer.lineWidth = 2.f;
-   self.enlargedKeyViewLayer.fillColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:.96].CGColor;
-   self.enlargedKeyViewLayer.strokeColor = [UIColor blackColor].CGColor;
+   self.enlargedKeyViewLayer.fillColor = [UIColor colorWithWhite:.2 alpha:.96].CGColor;
+   self.enlargedKeyViewLayer.strokeColor = [UIColor whiteColor].CGColor;
 
    self.enlargedKeyViewLayer.shadowOpacity = .1f;
    self.enlargedKeyViewLayer.shadowRadius = 1.5f;
@@ -96,7 +96,7 @@
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 2, 4)];
+   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 4, 8)];
 
    CGRect letterLayerFrame = self.bounds;
    letterLayerFrame.origin.y -= 38;

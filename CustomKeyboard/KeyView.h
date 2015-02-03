@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardKeyLayer.h"
 
 @interface KeyView : UIView
 
@@ -23,5 +24,8 @@
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
 @property (nonatomic) BOOL shouldShowEnlargedKeyOnTouchDown;
+
+@property (nonatomic, readonly) KeyboardKeyLayer* keyLayer;
+@property (nonatomic, readonly) CALayer* backgroundLayer;
 
 @end

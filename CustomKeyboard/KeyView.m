@@ -8,7 +8,6 @@
 
 #import "KeyView.h"
 #import "CALayer+DisableAnimations.h"
-#import "KeyboardKeyLayer.h"
 
 @interface KeyView ()
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
@@ -56,7 +55,7 @@
 - (void)setupBackgroundLayer
 {
    self.backgroundLayer = [CALayer layer];
-   self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
+   self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
    self.backgroundLayer.cornerRadius = 4.f;
    
    self.backgroundLayer.shadowOpacity = .1f;
@@ -71,7 +70,7 @@
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   self.backgroundLayer.frame = CGRectInset(self.bounds, 2, 4);
+   self.backgroundLayer.frame = CGRectInset(self.bounds, 4, 8);
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -95,7 +94,7 @@
 
 - (void)removeFocus
 {
-   self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
+   self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
 }
 
 @end

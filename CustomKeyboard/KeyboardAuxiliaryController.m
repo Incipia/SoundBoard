@@ -36,13 +36,13 @@
 {
    self.temporaryLabel = [[UILabel alloc] init];
    
-   NSDictionary* labelAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
-                                     NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:12.f]};
+   NSDictionary* labelAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                     NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:14.f]};
    
    NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:@"[Auxiliary View]" attributes:labelAttributes];
    self.temporaryLabel.attributedText = attributedLetter;
    self.temporaryLabel.textAlignment = NSTextAlignmentCenter;
-   self.temporaryLabel.backgroundColor = [UIColor colorWithRed:.6 green:.6 blue:1 alpha:.5];
+   self.temporaryLabel.backgroundColor = [UIColor colorWithRed:43/255.f green:44/255.f blue:48/255.f alpha:1];
    
    [self.view addSubview:self.temporaryLabel];
 }

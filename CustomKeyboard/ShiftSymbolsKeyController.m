@@ -28,6 +28,7 @@
    self.keyViewArray = @[self.shiftKeyView, self.symbolsKeyView, self.numbersKeyView];
    for (KeyView* letterView in self.keyViewArray)
    {
+      letterView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
       [self.view addSubview:letterView];
    }
    

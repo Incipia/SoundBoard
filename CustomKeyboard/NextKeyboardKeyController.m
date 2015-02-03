@@ -20,6 +20,8 @@
 - (void)setupKeyViews
 {
    self.nextKeyboardKeyView = [KeyView viewWithText:@"next" fontSize:14.f frame:CGRectZero];
+   self.nextKeyboardKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
+
    [self.nextKeyboardKeyView setActionBlock:^
    {
       [KeyboardModeManager advanceToNextKeyboard];

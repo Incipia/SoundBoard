@@ -39,7 +39,7 @@
 
 - (void)setText:(NSString*)text fontSize:(CGFloat)fontSize
 {
-   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor blackColor],
+   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
    
    NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:text attributes:textAttributes];
@@ -53,11 +53,17 @@
    self.frame = CGRectMake(0, 0, textSize.width, textSize.height);
 }
 
-- (void)updateTextAttribute:(NSString*)attribute withValue:(id)value
+- (void)updateTextColor:(UIColor*)color
 {
-   NSMutableAttributedString* mutableString = [((NSAttributedString*)self.string) mutableCopy];
-   [mutableString removeAttribute:attribute range:NSRangeFromString(mutableString.string)];
-   [mutableString addAttribute:attribute value:value range:NSRangeFromString(mutableString.string)];
+   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : color,
+                                    NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
+
+   NSAttributedString* attributedString = (NSAttributedString*)self.string;
+   NSString* string = attributedString.string;
+
+   NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
+
+   self.string = attributedText;
 }
 
 #pragma mark - Public

@@ -9,6 +9,7 @@
 #import "DeleteKeyController.h"
 #import "TextDocumentProxyManager.h"
 #import "KeyView.h"
+#import "KeyboardKeyLayer.h"
 
 @interface DeleteKeyController ()
 @property (nonatomic) KeyView* deleteView;
@@ -29,6 +30,8 @@
 {
    self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
    self.deleteView.shouldTriggerActionOnTouchDown = YES;
+   self.deleteView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
+
    [self.deleteView setActionBlock:^
    {
       [TextDocumentProxyManager deleteBackward];

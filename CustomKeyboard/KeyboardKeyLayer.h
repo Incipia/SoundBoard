@@ -7,6 +7,7 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+@import UIKit;
 
 @interface KeyboardKeyLayer : CATextLayer
 
@@ -14,5 +15,6 @@
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize;
 
 - (void)updateText:(NSString*)text;
+- (void)updateTextColor:(UIColor*)color;
 
 @end
