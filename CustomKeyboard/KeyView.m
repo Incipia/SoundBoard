@@ -41,7 +41,7 @@
 #pragma mark - Class Init
 + (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
-   return [[KeyView alloc] initWithText:text fontSize:fontSize frame:frame];
+   return [[[self class] alloc] initWithText:text fontSize:fontSize frame:frame];
 }
 
 #pragma mark - Setup
@@ -86,6 +86,16 @@
    {
       self.actionBlock();
    }
+}
+
+- (void)giveFocus
+{
+   self.backgroundLayer.backgroundColor = [UIColor darkGrayColor].CGColor;
+}
+
+- (void)removeFocus
+{
+   self.backgroundLayer.backgroundColor = [UIColor whiteColor].CGColor;
 }
 
 @end

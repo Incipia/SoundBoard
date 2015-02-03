@@ -17,6 +17,9 @@
 - (void)setActionBlock:(dispatch_block_t)block;
 - (void)executeActionBlock;
 
+- (void)giveFocus;
+- (void)removeFocus;
+
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
 @property (nonatomic) BOOL shouldShowEnlargedKeyOnTouchDown;
