@@ -39,6 +39,7 @@
 
 - (void)setText:(NSString*)text fontSize:(CGFloat)fontSize
 {
+   self.fontSize = fontSize;
    NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
    
@@ -50,7 +51,7 @@
 - (void)updateFrame
 {
    CGSize textSize = [((NSAttributedString*)self.string) size];
-   self.frame = CGRectMake(0, 0, textSize.width, textSize.height);
+   self.bounds = CGRectMake(0, 0, textSize.width, textSize.height);
 }
 
 - (void)updateTextColor:(UIColor*)color
@@ -66,10 +67,81 @@
    self.string = attributedText;
 }
 
-#pragma mark - Public
-- (void)updateText:(NSString*)text
+- (void)updateStringAttribute:(NSString*)attribute withValue:(id)value
 {
-   [self setText:text fontSize:self.fontSize];
+   NSMutableAttributedString* mutableString = [((NSAttributedString*)self.string) mutableCopy];
+   
+   NSRange range = NSMakeRange(0, mutableString.length);
+   NSMutableDictionary* mutableAttributes = [[mutableString attributesAtIndex:0 effectiveRange:&range] mutableCopy];
+   mutableAttributes[attribute] = value;
+   [mutableString setAttributes:mutableAttributes range:range];
+   
+   self.string = mutableString;
+}
+
+#pragma mark - Public
+- (void)updateText:(NSString*)text fontSize:(CGFloat)fontSize
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      [self setText:text fontSize:fontSize];
+      [self updateFrame];
+   });
+}
+
+- (void)makeTextBold
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize]};
+      
+      NSString* string = ((NSAttributedString*)self.string).string;
+      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
+      self.string = attributedText;
+      [self updateFrame];
+   });
+}
+
+- (void)makeTextRegular
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
+      
+      NSString* string = ((NSAttributedString*)self.string).string;
+      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
+      self.string = attributedText;
+      [self updateFrame];
+   });
+}
+
+- (void)makeTextUnderlined
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
+                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+      
+      NSString* string = ((NSAttributedString*)self.string).string;
+      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
+      self.string = attributedText;
+      [self updateFrame];
+   });
+}
+
+- (void)removeTextUnderline
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
+                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+      
+      NSString* string = ((NSAttributedString*)self.string).string;
+      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
+      self.string = attributedText;
+      [self updateFrame];
+   });
 }
 
 @end
