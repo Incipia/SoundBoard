@@ -12,6 +12,7 @@
 @protocol KeyboardModeUpdater <NSObject>
 @required
 - (void)updateKeyboardMode:(KeyboardMode)mode;
+- (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode;
 - (void)advanceToNextKeyboard;
 @end
 
@@ -19,6 +20,10 @@
 
 + (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater;
 + (void)updateKeyboardMode:(KeyboardMode)mode;
+
++ (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode;
++ (KeyboardShiftMode)currentShiftMode;
+
 + (void)advanceToNextKeyboard;
 
 @end

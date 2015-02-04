@@ -12,6 +12,7 @@ static KeyboardModeManager* s_manager = nil;
 
 @interface KeyboardModeManager ()
 @property (weak, nonatomic) NSObject<KeyboardModeUpdater>* updater;
+@property (nonatomic) KeyboardShiftMode currentShiftMode;
 @end
 
 @implementation KeyboardModeManager
@@ -37,6 +38,19 @@ static KeyboardModeManager* s_manager = nil;
    dispatch_async(dispatch_get_main_queue(), ^{
       [[[self class] lazyLoadedManager].updater updateKeyboardMode:mode];
    });
+}
+
++ (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode
+{
+   [[self class] lazyLoadedManager].currentShiftMode = shiftMode;
+   dispatch_async(dispatch_get_main_queue(), ^{
+      [[[self class] lazyLoadedManager].updater updateKeyboardShiftMode:shiftMode];
+   });
+}
+
++ (KeyboardShiftMode)currentShiftMode
+{
+   return [[self class] lazyLoadedManager].currentShiftMode;
 }
 
 + (void)advanceToNextKeyboard
