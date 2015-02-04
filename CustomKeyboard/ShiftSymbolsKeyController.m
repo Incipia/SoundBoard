@@ -41,9 +41,13 @@
    self.shiftKeyView.hidden = YES;
    self.shiftKeyView.shouldTriggerActionOnTouchDown = YES;
    
+   __weak typeof(self) weakSelf = self;
    [self.shiftKeyView setActionBlock:^
    {
-      NSLog(@"shift button pressed");
+      KeyboardShiftMode currentShiftMode = [KeyboardModeManager currentShiftMode];
+      KeyboardShiftMode nextMode = [weakSelf nextShiftModeForCurrentShiftMode:currentShiftMode];
+      [KeyboardModeManager updateKeyboardShiftMode:nextMode];
+      [weakSelf updateKeyLayerForShiftMode:nextMode];
    }];
 }
 
@@ -69,6 +73,57 @@
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeNumbers];
    }];
+}
+
+#pragma mark - Helper
+- (void)updateShiftMode:(KeyboardShiftMode)shiftMode
+{
+   [self updateKeyLayerForShiftMode:shiftMode];
+}
+
+- (KeyboardShiftMode)nextShiftModeForCurrentShiftMode:(KeyboardShiftMode)mode
+{
+   KeyboardShiftMode nextMode = ShiftModeNotApplied;
+   switch (mode)
+   {
+      case ShiftModeNotApplied:
+         nextMode = ShiftModeApplied;
+         break;
+         
+      case ShiftModeApplied:
+         nextMode = ShiftModeNotApplied;
+         break;
+         
+      case ShiftModeCapsLock:
+         nextMode = ShiftModeApplied;
+         break;
+         
+      default:
+         break;
+   }
+   return nextMode;
+}
+
+- (void)updateKeyLayerForShiftMode:(KeyboardShiftMode)mode
+{
+   KeyboardKeyLayer* keyLayer = self.shiftKeyView.keyLayer;
+   switch (mode)
+   {
+      case ShiftModeNotApplied:
+         [keyLayer makeTextRegular];
+         break;
+         
+      case ShiftModeApplied:
+         [keyLayer makeTextBold];
+         break;
+         
+      case ShiftModeCapsLock:
+         [keyLayer makeTextUnderlined];
+         break;
+         
+      default:
+         break;
+   }
 }
 
 #pragma mark - Public
