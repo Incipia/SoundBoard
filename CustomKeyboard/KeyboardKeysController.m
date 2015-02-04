@@ -381,26 +381,11 @@
 
 - (void)updateShiftMode:(KeyboardShiftMode)shiftMode
 {
-   BOOL capitalized = NO;
-   switch (shiftMode)
-   {
-      case ShiftModeNotApplied:
-         break;
-   
-      case ShiftModeApplied:
-      case ShiftModeCapsLock:
-         capitalized = YES;
-         break;
-         
-      default:
-         break;
-   }
-
    for (KeyViewCollection* collection in self.letterKeysCollectionArray)
    {
       for (LetterSymbolKeyView* keyView in collection.keyViews)
       {
-         keyView.capitalized = capitalized;
+         [keyView updateForShiftMode:shiftMode];
       }
    }
    
