@@ -89,7 +89,6 @@
 
 - (void)giveFocus
 {
-//   self.backgroundLayer.backgroundColor = [UIColor darkGrayColor].CGColor;
    self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
 }
 
