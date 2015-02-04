@@ -8,7 +8,7 @@
 
 #import "KeyboardKeysController.h"
 #import "KeyViewCollection.h"
-#import "KeyView.h"
+#import "LetterSymbolKeyView.h"
 #import "DeleteKeyController.h"
 #import "ShiftSymbolsKeyController.h"
 #import "LetterNumberKeyController.h"
@@ -377,6 +377,34 @@
       }
       [self updateKeyboardMapUpdaterWithMode:self.mode];
    }
+}
+
+- (void)updateShiftMode:(KeyboardShiftMode)shiftMode
+{
+   BOOL capitalized = NO;
+   switch (shiftMode)
+   {
+      case ShiftModeNotApplied:
+         break;
+   
+      case ShiftModeApplied:
+      case ShiftModeCapsLock:
+         capitalized = YES;
+         break;
+         
+      default:
+         break;
+   }
+
+   for (KeyViewCollection* collection in self.letterKeysCollectionArray)
+   {
+      for (LetterSymbolKeyView* keyView in collection.keyViews)
+      {
+         keyView.capitalized = capitalized;
+      }
+   }
+   
+   [((ShiftSymbolsKeyController*)self.shiftSymbolsController) updateShiftMode:shiftMode];
 }
 
 @end

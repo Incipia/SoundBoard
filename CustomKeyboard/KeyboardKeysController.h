@@ -14,6 +14,7 @@
 
 + (instancetype)controllerWithMode:(KeyboardMode)mode;
 - (void)updateMode:(KeyboardMode)mode;
+- (void)updateShiftMode:(KeyboardShiftMode)shiftMode;
 
 @property (nonatomic, readonly) KeyboardMode mode;
 @property (nonatomic, weak) NSObject<KeyboardKeyFrameTextMapUpdater>* keyboardMapUpdater;
