@@ -142,7 +142,7 @@
    });
 }
 
-- (void)makeTextCapitalized
+- (void)makeTextUppercase
 {
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],

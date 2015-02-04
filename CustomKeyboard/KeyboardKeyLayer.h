@@ -21,7 +21,7 @@
 - (void)makeTextRegular;
 - (void)makeTextUnderlined;
 - (void)removeTextUnderline;
-- (void)makeTextCapitalized;
+- (void)makeTextUppercase;
 - (void)makeTextLowercase;
 
 @end
