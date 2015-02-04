@@ -9,5 +9,5 @@
 #import "KeyView.h"
 
 @interface LetterSymbolKeyView : KeyView
-
+@property (nonatomic) BOOL capitalized;
 @end
