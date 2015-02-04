@@ -32,9 +32,12 @@
    LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
 
    [letterSymbolView setupEnlargedKeyView];
+   
+   __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
    [letterSymbolView setActionBlock:^
     {
-       [TextDocumentProxyManager insertText:text];
+       NSString* insertedText = weakLetterView.capitalized ? text.capitalizedString : text.lowercaseString;
+       [TextDocumentProxyManager insertText:insertedText];
     }];
 
    return letterSymbolView;
