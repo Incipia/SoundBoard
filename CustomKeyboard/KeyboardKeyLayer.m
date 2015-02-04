@@ -79,6 +79,16 @@
    self.string = mutableString;
 }
 
+- (void)updateStringWithAttributesDictionary:(NSDictionary*)attributes capitalized:(BOOL)capitalized
+{
+   NSString* string = ((NSAttributedString*)self.string).string;
+   string = capitalized ? string.capitalizedString : string.lowercaseString;
+   
+   NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+   self.string = attributedText;
+   [self updateFrame];
+}
+
 #pragma mark - Public
 - (void)updateText:(NSString*)text fontSize:(CGFloat)fontSize
 {
@@ -94,10 +104,7 @@
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize]};
       
-      NSString* string = ((NSAttributedString*)self.string).string;
-      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
-      self.string = attributedText;
-      [self updateFrame];
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
 }
 
@@ -107,10 +114,7 @@
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
       
-      NSString* string = ((NSAttributedString*)self.string).string;
-      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
-      self.string = attributedText;
-      [self updateFrame];
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
 }
 
@@ -122,10 +126,7 @@
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
                                        NSUnderlineColorAttributeName : [UIColor whiteColor]};
       
-      NSString* string = ((NSAttributedString*)self.string).string;
-      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
-      self.string = attributedText;
-      [self updateFrame];
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
 }
 
@@ -137,10 +138,31 @@
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : [UIColor whiteColor]};
       
-      NSString* string = ((NSAttributedString*)self.string).string;
-      NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
-      self.string = attributedText;
-      [self updateFrame];
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
+   });
+}
+
+- (void)makeTextCapitalized
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
+                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+      
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:YES];
+   });
+}
+
+- (void)makeTextLowercase
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
+                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+      
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
 }
 
