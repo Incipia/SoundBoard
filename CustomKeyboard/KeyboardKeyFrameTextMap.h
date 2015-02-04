@@ -21,5 +21,6 @@
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection;
 
 - (KeyView*)keyViewAtPoint:(CGPoint)point;
+- (NSArray*)keyViews;
 
 @end

@@ -74,4 +74,9 @@
    return targetKeyView;
 }
 
+- (NSArray*)keyViews
+{
+   return self.keyFrameTextDictionary.allValues;
+}
+
 @end
