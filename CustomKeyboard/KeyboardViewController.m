@@ -48,6 +48,8 @@ static const NSUInteger s_landscapeHeight = 215;
    [self setupControllers];
    [self setupTouchEventHandler];
    
+   [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+   
    // This is currently a hack: we need at least one view that uses autolayout in our view heirarchy in order to adjust the
    // height constraint of this view controller's view, so we're adding a dummy view with autolayout constraints
    [self setupAutolayoutView];
@@ -158,6 +160,11 @@ static const NSUInteger s_landscapeHeight = 215;
 - (void)updateKeyboardMode:(KeyboardMode)mode
 {
    [self.keysController updateMode:mode];
+}
+
+- (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode
+{
+   [self.keysController updateShiftMode:shiftMode];
 }
 
 - (void)advanceToNextKeyboard
