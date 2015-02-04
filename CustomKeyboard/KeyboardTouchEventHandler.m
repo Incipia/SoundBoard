@@ -7,15 +7,19 @@
 //
 
 #import "KeyboardTouchEventHandler.h"
+#import "KeyboardModeManager.h"
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
 
-@interface KeyboardTouchEventHandler ()
+@interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
 
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) UITouch* currentActiveTouch;
+@property (nonatomic) KeyView* shiftKeyView;
+
+@property (nonatomic) UITapGestureRecognizer* tapRecognizer;
 
 @end
 
@@ -27,6 +31,12 @@
    if (self = [super init])
    {
       self.view.multipleTouchEnabled = YES;
+      
+      self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapRecognized:)];
+      self.tapRecognizer.delegate = self;
+      self.tapRecognizer.numberOfTapsRequired = 2;
+      self.tapRecognizer.delaysTouchesEnded = NO;
+      [self.view addGestureRecognizer:self.tapRecognizer];
    }
    return self;
 }
@@ -114,6 +124,28 @@
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap
 {
    self.keyFrameTextMap = keyFrameTexMap;
+   for (KeyView* keyView in self.keyFrameTextMap.keyViews)
+   {
+      if ([keyView.displayText isEqualToString:@"shift"])
+      {
+         self.shiftKeyView = keyView;
+         break;
+      }
+   }
+}
+
+#pragma mark - UIGestureRecognizer Delegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+   KeyView* keyView = [self.keyFrameTextMap keyViewAtPoint:[touch locationInView:nil]];
+   return (keyView == self.shiftKeyView);
+}
+
+- (void)doubleTapRecognized:(UIGestureRecognizer*)recognizer
+{
+   [self.shiftKeyView removeFocus];
+   [KeyboardModeManager updateKeyboardShiftMode:ShiftModeCapsLock];
+   self.currentActiveTouch = nil;
 }
 
 @end
