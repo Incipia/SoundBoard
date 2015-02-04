@@ -19,6 +19,13 @@ typedef NS_ENUM(NSUInteger, KeyboardFunctionalKeyType)
    KeyboardSpacebarKey
 };
 
+typedef NS_ENUM(NSUInteger, KeyboardShiftMode)
+{
+   ShiftModeNotApplied = 1,
+   ShiftModeApplied,
+   ShiftModeCapsLock
+};
+
 typedef NS_ENUM(NSUInteger, KeyboardMode)
 {
    KeyboardModeLetters = 1,
