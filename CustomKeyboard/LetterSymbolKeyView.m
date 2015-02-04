@@ -36,8 +36,7 @@
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
    [letterSymbolView setActionBlock:^
     {
-       NSString* insertedText = weakLetterView.capitalized ? text.capitalizedString : text.lowercaseString;
-       [TextDocumentProxyManager insertText:insertedText];
+       [TextDocumentProxyManager insertText:weakLetterView.displayText];
     }];
 
    return letterSymbolView;
@@ -67,6 +66,35 @@
 - (void)removeFocus
 {
    self.enlargedKeyView.hidden = YES;
+}
+
+- (void)updateForShiftMode:(KeyboardShiftMode)shiftMode
+{
+   BOOL capitalized = NO;
+   switch (shiftMode)
+   {
+      case ShiftModeNotApplied:
+         break;
+         
+      case ShiftModeApplied:
+      case ShiftModeCapsLock:
+         capitalized = YES;
+         break;
+         
+      default:
+         break;
+   }
+   
+   if (capitalized)
+   {
+      [self.keyLayer makeTextUppercase];
+      self.displayText = self.displayText.capitalizedString;
+   }
+   else
+   {
+      [self.keyLayer makeTextLowercase];
+      self.displayText = self.displayText.lowercaseString;
+   }
 }
 
 @end

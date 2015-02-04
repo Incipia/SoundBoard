@@ -7,7 +7,8 @@
 //
 
 #import "KeyView.h"
+#import "KeyboardTypedefs.h"
 
 @interface LetterSymbolKeyView : KeyView
-@property (nonatomic) BOOL capitalized;
+- (void)updateForShiftMode:(KeyboardShiftMode)shiftMode;
 @end
