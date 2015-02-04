@@ -151,11 +151,6 @@
    for (FunctionalKeyController* controller in self.functionalKeyControllers)
    {
       [self.view addSubview:controller.view];
-      for (KeyView* keyView in controller.keyViewArray)
-      {
-         keyView.backgroundLayer.borderWidth = 1.5f;
-         keyView.backgroundLayer.borderColor = [UIColor colorWithWhite:1 alpha:.75].CGColor;
-      }
    }
 }
 
