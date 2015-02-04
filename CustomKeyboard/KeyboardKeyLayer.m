@@ -54,31 +54,6 @@
    self.bounds = CGRectMake(0, 0, textSize.width, textSize.height);
 }
 
-- (void)updateTextColor:(UIColor*)color
-{
-   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : color,
-                                    NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
-
-   NSAttributedString* attributedString = (NSAttributedString*)self.string;
-   NSString* string = attributedString.string;
-
-   NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:textAttributes];
-
-   self.string = attributedText;
-}
-
-- (void)updateStringAttribute:(NSString*)attribute withValue:(id)value
-{
-   NSMutableAttributedString* mutableString = [((NSAttributedString*)self.string) mutableCopy];
-   
-   NSRange range = NSMakeRange(0, mutableString.length);
-   NSMutableDictionary* mutableAttributes = [[mutableString attributesAtIndex:0 effectiveRange:&range] mutableCopy];
-   mutableAttributes[attribute] = value;
-   [mutableString setAttributes:mutableAttributes range:range];
-   
-   self.string = mutableString;
-}
-
 - (void)updateStringWithAttributesDictionary:(NSDictionary*)attributes capitalized:(BOOL)capitalized
 {
    NSString* string = ((NSAttributedString*)self.string).string;
