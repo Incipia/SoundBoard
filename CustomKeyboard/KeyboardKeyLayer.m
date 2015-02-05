@@ -65,14 +65,6 @@
 }
 
 #pragma mark - Public
-- (void)updateText:(NSString*)text fontSize:(CGFloat)fontSize
-{
-   dispatch_async(dispatch_get_main_queue(), ^{
-      [self setText:text fontSize:fontSize];
-      [self updateFrame];
-   });
-}
-
 - (void)makeTextBold
 {
    dispatch_async(dispatch_get_main_queue(), ^{

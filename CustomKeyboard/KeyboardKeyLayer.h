@@ -14,9 +14,6 @@
 + (instancetype)layerWithText:(NSString*)text;
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize;
 
-- (void)updateText:(NSString*)text fontSize:(CGFloat)fontSize;
-- (void)updateTextColor:(UIColor*)color;
-
 - (void)makeTextBold;
 - (void)makeTextRegular;
 - (void)makeTextUnderlined;
