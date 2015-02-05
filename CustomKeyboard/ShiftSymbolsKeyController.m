@@ -38,14 +38,15 @@
 - (void)setupShiftLetterView
 {
    self.shiftKeyView = [KeyView viewWithText:@"shift" fontSize:14.f frame:CGRectZero];
-   self.shiftKeyView.hidden = YES;
    self.shiftKeyView.shouldTriggerActionOnTouchDown = YES;
+   self.shiftKeyView.hidden = YES;
    
    __weak typeof(self) weakSelf = self;
    [self.shiftKeyView setActionBlock:^
    {
       KeyboardShiftMode currentShiftMode = [KeyboardModeManager currentShiftMode];
       KeyboardShiftMode nextMode = [weakSelf nextShiftModeForCurrentShiftMode:currentShiftMode];
+      
       [KeyboardModeManager updateKeyboardShiftMode:nextMode];
       [weakSelf updateKeyLayerForShiftMode:nextMode];
    }];
