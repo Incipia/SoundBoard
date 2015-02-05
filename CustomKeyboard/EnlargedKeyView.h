@@ -8,10 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef  NS_ENUM(NSUInteger, EnlargedKeyType)
+{
+   EnlargedKeyTypeDefault,
+   EnlargedKeyTypeLeft,
+   EnlargedKeyTypeRight
+};
+
 @class KeyView;
 @interface EnlargedKeyView : UIView
 
 + (instancetype)viewWithKeyView:(KeyView*)keyView;
 - (void)updateFrame:(CGRect)frame;
+
+@property (nonatomic) EnlargedKeyType keyType;
 
 @end
