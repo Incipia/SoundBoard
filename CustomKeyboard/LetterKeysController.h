@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import "KeyboardLayoutDimensonsProvider.h"
+
 @interface LetterKeysController : UIViewController
+
++ (instancetype)controllerWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider;
+- (void)updateKeyViewFrames;
+
+@property (readonly) NSArray* keyViews;
+@property (readonly) NSArray* keyViewCollections;
 
 @end
