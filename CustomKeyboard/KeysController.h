@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardLayoutDimensonsProvider.h"
 
+@class KeyboardLayoutDimensonsProvider;
 @interface KeysController : UIViewController
+
++ (instancetype)controllerWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider;
+- (instancetype)initWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider;
+
+- (void)updateKeyViewFrames;
+
+@property (readonly) NSArray* keyViews;
+@property (readonly) NSArray* keyViewCollections;
+@property (readonly) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 
 @end
