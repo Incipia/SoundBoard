@@ -12,7 +12,6 @@
 
 @class KeyView;
 @interface LetterKeysController ()
-@property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
 @property (nonatomic) KeyViewCollection* topLettersCollection;
 @property (nonatomic) KeyViewCollection* middleLettersCollection;
 @property (nonatomic) KeyViewCollection* bottomLettersCollection;
@@ -23,18 +22,11 @@
 #pragma mark - Init
 - (instancetype)initWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider
 {
-   if (self = [super init])
+   if (self = [super initWithDimensionsProvider:provider])
    {
-      self.dimensionsProvider = provider;
       [self setupKeyViewCollections];
    }
    return self;
-}
-
-#pragma mark - Class Init
-+ (instancetype)controllerWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider
-{
-   return [[[self class] alloc] initWithDimensionsProvider:provider];
 }
 
 #pragma mark - Setup
