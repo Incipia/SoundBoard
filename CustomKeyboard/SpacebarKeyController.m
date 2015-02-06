@@ -31,7 +31,7 @@
    [self.view addSubview:self.spacebarKeyView];
 
    self.spacebarIconLayer = [CAShapeLayer layer];
-   self.spacebarIconLayer.lineWidth = 1.5f;
+   self.spacebarIconLayer.lineWidth = 2;
    self.spacebarIconLayer.strokeColor = [UIColor whiteColor].CGColor;
    self.spacebarIconLayer.fillColor = [UIColor clearColor].CGColor;
    self.spacebarIconLayer.lineCap = kCALineCapRound;
