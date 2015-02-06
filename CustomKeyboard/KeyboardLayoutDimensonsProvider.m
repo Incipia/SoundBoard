@@ -13,6 +13,26 @@
 #define NUM_ROWS 4
 #define NUM_LETTERS_OVER_SPACEBAR 5
 
+static CGRect _bottomRegionFrame(CGRect inputViewFrame, CGFloat keyHeight)
+{
+   CGFloat x = 0;
+   CGFloat y = CGRectGetHeight(inputViewFrame) - keyHeight;
+   CGFloat width = CGRectGetWidth(inputViewFrame);
+   CGFloat height = keyHeight;
+   
+   return CGRectMake(x, y, width, height);
+}
+
+static CGRect _topRegionFrame(CGRect inputViewFrame, CGFloat keyHeight)
+{
+   CGFloat x = 0;
+   CGFloat y = 0;
+   CGFloat width = CGRectGetWidth(inputViewFrame);
+   CGFloat height = CGRectGetHeight(inputViewFrame) - keyHeight;
+   
+   return CGRectMake(x, y, width, height);
+}
+
 static CGRect _lettersFrame(KeyboardRow row, CGFloat letterKeyWidth, CGFloat keyHeight)
 {
    CGFloat xPosition = 0;
@@ -223,6 +243,25 @@ static CGRect _spacebarKeyFrame(CGFloat letterKeyWidth, CGFloat keyHeight, CGFlo
          
       case KeyboardSpacebarKey:
          frame = _spacebarKeyFrame(self.letterKeyWidth, self.keyHeight, inputViewWidth);
+         break;
+         
+      default:
+         break;
+   }
+   return frame;
+}
+
+- (CGRect)frameForKeyboardKeyRegion:(KeyboardKeyRegion)region
+{
+   CGRect frame = CGRectZero;
+   switch (region)
+   {
+      case KeyRegionTop:
+         frame = _topRegionFrame(self.inputViewFrame, self.keyHeight);
+         break;
+         
+      case KeyRegionBottom:
+         frame = _bottomRegionFrame(self.inputViewFrame, self.keyHeight);
          break;
          
       default:

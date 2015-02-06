@@ -15,7 +15,9 @@
 + (instancetype)dimensionsProvider;
 
 - (void)updateInputViewFrame:(CGRect)frame;
+
 - (CGRect)frameForKeyboardMode:(KeyboardMode)mode row:(KeyboardRow)row;
 - (CGRect)frameForKeyboardKeyType:(KeyboardFunctionalKeyType)type;
+- (CGRect)frameForKeyboardKeyRegion:(KeyboardKeyRegion)region;
 
 @end
