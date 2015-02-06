@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeysController.h"
 
-@interface NumberSymbolKeysController : UIViewController
+@interface NumberSymbolKeysController : KeysController
 
 @end
