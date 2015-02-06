@@ -40,4 +40,10 @@ typedef NS_ENUM(NSUInteger, KeyboardRow)
    KeyboardRowBottom
 };
 
+typedef NS_ENUM(NSUInteger, KeyboardKeyRegion)
+{
+   KeyRegionTop,
+   KeyRegionBottom
+};
+
 #endif
