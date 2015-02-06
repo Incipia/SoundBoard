@@ -18,12 +18,9 @@
 #import "KeyViewCollectionCreator.h"
 #import "KeyboardLayoutDimensonsProvider.h"
 #import "KeyboardKeyFrameTextMap.h"
+#import "LetterKeysController.h"
 
 @interface KeyboardKeysController ()
-
-@property (nonatomic) KeyViewCollection* topLetterKeysCollection;
-@property (nonatomic) KeyViewCollection* middleLetterKeysCollection;
-@property (nonatomic) KeyViewCollection* bottomLetterKeysCollection;
 
 @property (nonatomic) KeyViewCollection* topNumberKeysCollection;
 @property (nonatomic) KeyViewCollection* middleNumberKeysCollection;
@@ -33,6 +30,8 @@
 
 @property (nonatomic) KeyViewCollection* punctuationKeysCollection;
 
+@property (nonatomic) LetterKeysController* letterKeysController;
+
 @property (nonatomic) DeleteKeyController* deleteController;
 @property (nonatomic) ShiftSymbolsKeyController* shiftSymbolsController;
 @property (nonatomic) LetterNumberKeyController* letterNumberController;
@@ -40,7 +39,6 @@
 @property (nonatomic) SpacebarKeyController* spacebarKeyController;
 @property (nonatomic) ReturnKeyController* returnKeyController;
 
-@property (nonatomic, readonly) NSArray* letterKeysCollectionArray;
 @property (nonatomic, readonly) NSArray* numberKeysCollectionArray;
 @property (nonatomic, readonly) NSArray* symbolKeysCollectionArray;
 @property (nonatomic, readonly) NSArray* allKeyCollectionsArray;
@@ -58,13 +56,15 @@
 {
    if (self = [super init])
    {
-      [self setupLetterKeysCollections];
       [self setupNumberKeysCollections];
       [self setupSymbolKeysCollections];
       [self setupPunctuationKeysCollection];
       
       [self setupFunctionalKeyControllers];
       [self setupDimensionsProvider];
+      
+      self.letterKeysController = [LetterKeysController controllerWithDimensionsProvider:self.dimensionsProvider];
+      [self.view addSubview:self.letterKeysController.view];
       
       [self updateMode:mode];
    }
@@ -96,7 +96,9 @@
    {
       [self.dimensionsProvider updateInputViewFrame:self.view.frame];
       
-      [self updateLetterKeyCollectionFrames];
+      self.letterKeysController.view.frame = [self.dimensionsProvider frameForKeyboardKeyRegion:KeyRegionTop];
+      [self.letterKeysController updateKeyViewFrames];
+      
       [self updateNumberKeyCollectionFrames];
       [self updateSymbolKeyCollectionFrames];
       [self updateFunctionalKeysFrames];
@@ -107,13 +109,6 @@
 }
 
 #pragma mark - Setup
-- (void)setupLetterKeysCollections
-{
-   self.topLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowTop];
-   self.middleLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowMiddle];
-   self.bottomLetterKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowBottom];
-}
-
 - (void)setupNumberKeysCollections
 {
    self.topNumberKeysCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeNumbers row:KeyboardRowTop];
@@ -160,17 +155,6 @@
 }
 
 #pragma mark - Update
-- (void)updateLetterKeyCollectionFrames
-{
-   KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle, KeyboardRowBottom};
-   NSUInteger rowIndex = 0;
-   for (KeyViewCollection* letterCollection in self.letterKeysCollectionArray)
-   {
-      CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeLetters row:rows[rowIndex++]];
-      [letterCollection updateFrame:frame];
-   }
-}
-
 - (void)updateNumberKeyCollectionFrames
 {
    KeyboardRow rows[] = {KeyboardRowTop, KeyboardRowMiddle};
@@ -260,11 +244,6 @@
       [keyFrameTextMap addFrameForKeyView:keyView];
    }
    
-   if (mode != KeyboardModeLetters)
-   {
-      [keyFrameTextMap addFramesForKeyViewCollection:self.punctuationKeysCollection];
-   }
-   
    if (self.keyboardMapUpdater != nil)
    {
       [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:keyFrameTextMap];
@@ -277,15 +256,17 @@
    switch (mode)
    {
       case KeyboardModeLetters:
-         keysCollectionArray = self.letterKeysCollectionArray;
+         keysCollectionArray = self.letterKeysController.keyViewCollections;
          break;
       
       case KeyboardModeNumbers:
          keysCollectionArray = self.numberKeysCollectionArray;
+         keysCollectionArray = [keysCollectionArray arrayByAddingObject:self.punctuationKeysCollection];
          break;
          
       case KeyboardModeSymbols:
          keysCollectionArray = self.symbolKeysCollectionArray;
+         keysCollectionArray = [keysCollectionArray arrayByAddingObject:self.punctuationKeysCollection];
          break;
          
       default:
@@ -295,11 +276,6 @@
 }
 
 #pragma mark - Property Overrides
-- (NSArray*)letterKeysCollectionArray
-{
-   return @[self.topLetterKeysCollection, self.middleLetterKeysCollection, self.bottomLetterKeysCollection];
-}
-
 - (NSArray*)numberKeysCollectionArray
 {
    return @[self.topNumberKeysCollection, self.middleNumberKeysCollection];
@@ -312,8 +288,7 @@
 
 - (NSArray*)allKeyCollectionsArray
 {
-   NSArray* allKeyCollections = [NSArray arrayWithArray:self.letterKeysCollectionArray];
-   allKeyCollections = [allKeyCollections arrayByAddingObjectsFromArray:self.numberKeysCollectionArray];
+   NSArray* allKeyCollections = [NSArray arrayWithArray:self.numberKeysCollectionArray];
    allKeyCollections = [allKeyCollections arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
    allKeyCollections = [allKeyCollections arrayByAddingObject:self.punctuationKeysCollection];
    return allKeyCollections;
@@ -340,21 +315,21 @@
       switch (mode)
       {
          case KeyboardModeLetters:
+            keyCollectionsToShow = self.letterKeysController.keyViewCollections;
             keyCollectionsToHide = [NSArray arrayWithArray:self.numberKeysCollectionArray];
             keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
             keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObject:self.punctuationKeysCollection];
-            keyCollectionsToShow = self.letterKeysCollectionArray;
             break;
             
          case KeyboardModeNumbers:
-            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysCollectionArray];
+            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysController.keyViewCollections];
             keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.symbolKeysCollectionArray];
             keyCollectionsToShow = [NSArray arrayWithArray:self.numberKeysCollectionArray];
             keyCollectionsToShow = [keyCollectionsToShow arrayByAddingObject:self.punctuationKeysCollection];
             break;
             
          case KeyboardModeSymbols:
-            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysCollectionArray];
+            keyCollectionsToHide = [NSArray arrayWithArray:self.letterKeysController.keyViewCollections];
             keyCollectionsToHide = [keyCollectionsToHide arrayByAddingObjectsFromArray:self.numberKeysCollectionArray];
             keyCollectionsToShow = [NSArray arrayWithArray:self.symbolKeysCollectionArray];
             keyCollectionsToShow = [keyCollectionsToShow arrayByAddingObject:self.punctuationKeysCollection];
@@ -381,12 +356,9 @@
 
 - (void)updateShiftMode:(KeyboardShiftMode)shiftMode
 {
-   for (KeyViewCollection* collection in self.letterKeysCollectionArray)
+   for (LetterSymbolKeyView* keyView in self.letterKeysController.keyViews)
    {
-      for (LetterSymbolKeyView* keyView in collection.keyViews)
-      {
-         [keyView updateForShiftMode:shiftMode];
-      }
+      [keyView updateForShiftMode:shiftMode];
    }
    
    [((ShiftSymbolsKeyController*)self.shiftSymbolsController) updateShiftMode:shiftMode];
