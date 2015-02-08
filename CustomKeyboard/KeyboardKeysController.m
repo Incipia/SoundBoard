@@ -18,7 +18,9 @@
 #import "KeyViewCollectionCreator.h"
 #import "KeyboardLayoutDimensonsProvider.h"
 #import "KeyboardKeyFrameTextMap.h"
+
 #import "LetterKeysController.h"
+#import "NumberSymbolKeysController.h"
 
 @interface KeyboardKeysController ()
 

@@ -10,6 +10,11 @@
 #import "KeyViewCollection.h"
 #import "KeyViewCollectionCreator.h"
 
+static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
+{
+   return [KeyViewCollectionCreator collectionForMode:mode row:row];
+}
+
 @class KeyView;
 @interface LetterKeysController ()
 @property (nonatomic) KeyViewCollection* topLettersCollection;
@@ -32,9 +37,9 @@
 #pragma mark - Setup
 - (void)setupKeyViewCollections
 {
-   self.topLettersCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowTop];
-   self.middleLettersCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowMiddle];
-   self.bottomLettersCollection = [KeyViewCollectionCreator collectionForMode:KeyboardModeLetters row:KeyboardRowBottom];
+   self.topLettersCollection = _collection(KeyboardModeLetters, KeyboardRowTop);
+   self.middleLettersCollection = _collection(KeyboardModeLetters, KeyboardRowMiddle);
+   self.bottomLettersCollection = _collection(KeyboardModeLetters, KeyboardRowBottom);
    
    for (KeyViewCollection* collection in self.keyViewCollections)
    {
