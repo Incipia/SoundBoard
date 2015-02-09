@@ -92,6 +92,10 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)updateForShiftMode:(KeyboardShiftMode)shiftMode
 {
+   // Disabling this for now -- removing this retrun will make the letters that display on the keyboard
+   // lowercase when shift is not being applied
+   return;
+   
    BOOL capitalized = NO;
    switch (shiftMode)
    {
