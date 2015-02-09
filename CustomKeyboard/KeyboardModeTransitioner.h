@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyboardTypedefs.h"
 
 @interface KeyboardModeTransitioner : NSObject
+
++ (void)giveTextInput:(NSString*)input;
++ (void)giveSpacebarInput;
+
++ (void)disableRequestsWhileInMode:(KeyboardMode)mode;
++ (void)requestTransitionToMode:(KeyboardMode)mode afterNextInput:(NSString*)input;
++ (void)requestTransitionToModeAfterNextSpacebarInput:(KeyboardMode)mode;
++ (void)resetPreviousRequest;
 
 @end
