@@ -9,6 +9,7 @@
 #import "LetterKeysController.h"
 #import "KeyViewCollection.h"
 #import "KeyViewCollectionCreator.h"
+#import "LetterSymbolKeyView.h"
 
 static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
 {
@@ -77,6 +78,20 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
       KeyboardRow currentRow = rows[rowIndex];
       CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeLetters row:currentRow];
       [self updateKeyCollectionForRow:currentRow withFrame:frame];
+   }
+}
+
+- (void)updateFrame:(CGRect)frame
+{
+   [super updateFrame:frame];
+   [self updateKeyViewFrames];
+}
+
+- (void)updateShiftMode:(KeyboardShiftMode)shiftMode
+{
+   for (LetterSymbolKeyView* keyView in self.keyViews)
+   {
+      [keyView updateForShiftMode:shiftMode];
    }
 }
 
