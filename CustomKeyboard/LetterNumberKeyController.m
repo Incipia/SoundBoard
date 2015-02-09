@@ -8,6 +8,7 @@
 
 #import "LetterNumberKeyController.h"
 #import "KeyboardModeManager.h"
+#import "KeyboardModeTransitioner.h"
 #import "KeyView.h"
 
 @interface LetterNumberKeyController ()
@@ -54,6 +55,7 @@
    [self.lettersKeyView setActionBlock:^
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
+      [KeyboardModeTransitioner resetPreviousRequest];
    }];
 }
 

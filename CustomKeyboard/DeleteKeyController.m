@@ -10,6 +10,7 @@
 #import "TextDocumentProxyManager.h"
 #import "KeyView.h"
 #import "KeyboardKeyLayer.h"
+#import "KeyboardModeTransitioner.h"
 
 @interface DeleteKeyController ()
 @property (nonatomic) KeyView* deleteView;
@@ -35,6 +36,7 @@
    [self.deleteView setActionBlock:^
    {
       [TextDocumentProxyManager deleteBackward];
+      [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
    }];
 }
 

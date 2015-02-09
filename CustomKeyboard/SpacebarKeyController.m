@@ -8,6 +8,7 @@
 
 #import "SpacebarKeyController.h"
 #import "TextDocumentProxyManager.h"
+#import "KeyboardModeTransitioner.h"
 #import "KeyView.h"
 
 @interface SpacebarKeyController ()
@@ -25,6 +26,7 @@
    [self.spacebarKeyView setActionBlock:
     ^{
        [TextDocumentProxyManager insertText:@" "];
+       [KeyboardModeTransitioner giveSpacebarInput];
     }];
    
    self.keyViewArray = @[self.spacebarKeyView];

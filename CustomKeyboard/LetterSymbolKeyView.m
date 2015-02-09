@@ -8,6 +8,7 @@
 
 #import "LetterSymbolKeyView.h"
 #import "TextDocumentProxyManager.h"
+#import "KeyboardModeTransitioner.h"
 #import "EnlargedKeyView.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
@@ -40,6 +41,8 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    [letterSymbolView setActionBlock:^
     {
        [TextDocumentProxyManager insertText:weakLetterView.displayText];
+       [KeyboardModeTransitioner giveTextInput:weakLetterView.displayText];
+       [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
     }];
 
    return letterSymbolView;
