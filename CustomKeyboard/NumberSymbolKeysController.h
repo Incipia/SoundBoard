@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "KeysController.h"
 
+@class KeyViewCollection;
 @interface NumberSymbolKeysController : KeysController
+
+@property (readonly) NSArray* numberKeysCollectionArray;
+@property (readonly) NSArray* symbolKeysCollectionArray;
+@property (readonly) KeyViewCollection* punctuationKeysCollection;
+
+- (void)updateMode:(KeyboardMode)mode;
 
 @end
