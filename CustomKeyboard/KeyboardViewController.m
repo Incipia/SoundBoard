@@ -12,6 +12,7 @@
 #import "KeyboardTouchEventHandler.h"
 #import "TextDocumentProxyManager.h"
 #import "KeyboardModeManager.h"
+#import "KeyboardModeTransitioner.h"
 
 static const CGFloat s_auxViewHeightPercentage = .2f;
 static const NSUInteger s_portraitHeight = 270;
@@ -37,6 +38,11 @@ static const NSUInteger s_landscapeHeight = 215;
    {
       [TextDocumentProxyManager setTextDocumentProxy:self.textDocumentProxy];
       [KeyboardModeManager setKeyboardModeUpdater:self];
+      
+      [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+      [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
+
+      [KeyboardModeTransitioner disableRequestsWhileInMode:KeyboardModeLetters];
    }
    return self;
 }
@@ -47,8 +53,6 @@ static const NSUInteger s_landscapeHeight = 215;
    [super viewDidLoad];
    [self setupControllers];
    [self setupTouchEventHandler];
-   
-   [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
    
    // This is currently a hack: we need at least one view that uses autolayout in our view heirarchy in order to adjust the
    // height constraint of this view controller's view, so we're adding a dummy view with autolayout constraints
@@ -103,7 +107,7 @@ static const NSUInteger s_landscapeHeight = 215;
    self.auxController = [KeyboardAuxiliaryController controller];
    [self.inputView addSubview:self.auxController.view];
 
-   self.keysController = [KeyboardKeysController controllerWithMode:KeyboardModeLetters];
+   self.keysController = [KeyboardKeysController controllerWithMode:[KeyboardModeManager currentMode]];
    [self.inputView addSubview:self.keysController.view];
 }
 
