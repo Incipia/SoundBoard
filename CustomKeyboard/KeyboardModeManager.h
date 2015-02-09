@@ -19,7 +19,9 @@
 @interface KeyboardModeManager : NSObject
 
 + (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater;
+
 + (void)updateKeyboardMode:(KeyboardMode)mode;
++ (KeyboardMode)currentMode;
 
 + (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode;
 + (KeyboardShiftMode)currentShiftMode;
