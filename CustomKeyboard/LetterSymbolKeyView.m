@@ -10,8 +10,8 @@
 #import "TextDocumentProxyManager.h"
 #import "EnlargedKeyView.h"
 
-static NSString* const s_leftEdgeLetterKey = @"Q";
-static NSString* const s_rightEdgeLetterKey = @"P";
+static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
+static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 @interface LetterSymbolKeyView ()
 @property (nonatomic) EnlargedKeyView* enlargedKeyView;
@@ -59,11 +59,11 @@ static NSString* const s_rightEdgeLetterKey = @"P";
 - (EnlargedKeyType)enlargedKeyTypeForString:(NSString*)string
 {
    EnlargedKeyType type = EnlargedKeyTypeDefault;
-   if ([string isEqualToString:s_leftEdgeLetterKey])
+   if ([s_leftEdgeLetterKeys containsString:string])
    {
       type = EnlargedKeyTypeLeft;
    }
-   else if ([string isEqualToString:s_rightEdgeLetterKey])
+   else if ([s_rightEdgeLetterKeys containsString:string])
    {
       type = EnlargedKeyTypeRight;
    }
