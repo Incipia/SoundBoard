@@ -15,6 +15,14 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
    return [KeyViewCollectionCreator collectionForMode:mode row:row];
 }
 
+static void _hideCollectionArray(NSArray* array, BOOL hidden)
+{
+   for (KeyViewCollection* collection in array)
+   {
+      collection.hidden = hidden;
+   }
+}
+
 @interface NumberSymbolKeysController ()
 @property (nonatomic) KeyViewCollection* topNumberKeysCollection;
 @property (nonatomic) KeyViewCollection* topSymbolKeysCollection;
@@ -23,9 +31,6 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
 @property (nonatomic) KeyViewCollection* middleSymbolKeysCollection;
 
 @property (nonatomic) KeyViewCollection* punctuationKeysCollection;
-
-@property (readonly) NSArray* numberKeysCollectionArray;
-@property (readonly) NSArray* symbolKeysCollectionArray;
 @end
 
 @implementation NumberSymbolKeysController
@@ -36,6 +41,7 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
    if (self = [super initWithDimensionsProvider:provider])
    {
       [self setupKeyViewCollections];
+      [self updateMode:KeyboardModeNumbers];
    }
    return self;
 }
@@ -82,6 +88,48 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
       CGRect frame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeSymbols row:rows[rowIndex++]];
       [symbolCollection updateFrame:frame];
    }
+}
+
+- (void)updatePunctuationKeyCollectionFrame
+{
+   CGRect puncutationFrame = [self.dimensionsProvider frameForKeyboardMode:KeyboardModeNumbers row:KeyboardRowBottom];
+   [self.punctuationKeysCollection updateFrame:puncutationFrame];
+}
+
+#pragma mark - Public
+- (void)updateFrame:(CGRect)frame
+{
+   [super updateFrame:frame];
+   [self updateNumberKeyCollectionFrames];
+   [self updateSymbolKeyCollectionFrames];
+   [self updatePunctuationKeyCollectionFrame];
+}
+
+- (void)updateMode:(KeyboardMode)mode
+{
+   NSArray* collectionToShow = nil;
+   NSArray* collectionToHide = nil;
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         break;
+
+      case KeyboardModeNumbers:
+         collectionToShow = self.numberKeysCollectionArray;
+         collectionToHide = self.symbolKeysCollectionArray;
+         break;
+
+      case KeyboardModeSymbols:
+         collectionToShow = self.symbolKeysCollectionArray;
+         collectionToHide = self.numberKeysCollectionArray;
+         break;
+
+      default:
+         break;
+   }
+
+   _hideCollectionArray(collectionToShow, NO);
+   _hideCollectionArray(collectionToHide, YES);
 }
 
 #pragma mark - Property Overrides
