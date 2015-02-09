@@ -11,4 +11,6 @@
 
 @interface LetterKeysController : KeysController
 
+- (void)updateShiftMode:(KeyboardShiftMode)shiftMode;
+
 @end
