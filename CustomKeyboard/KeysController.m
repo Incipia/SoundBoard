@@ -32,8 +32,9 @@
 }
 
 #pragma mark - Public
-- (void)updateKeyViewFrames
+- (void)updateFrame:(CGRect)frame
 {
+   self.view.frame = frame;
 }
 
 
