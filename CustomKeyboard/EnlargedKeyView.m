@@ -30,7 +30,8 @@
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.enlargedKeyViewLayer];
 
-      self.letterLayer = [KeyboardKeyLayer layerWithText:text fontSize:24.f];
+      UIColor* letterLayerColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
+      self.letterLayer = [KeyboardKeyLayer layerWithText:text fontSize:24.f color:letterLayerColor];
       [self.layer addSublayer:self.letterLayer];
    }
    return self;
@@ -50,8 +51,8 @@
    self.enlargedKeyViewLayer = [CAShapeLayer layer];
 
    self.enlargedKeyViewLayer.lineWidth = 2.f;
-   self.enlargedKeyViewLayer.fillColor = [UIColor colorWithWhite:.2 alpha:.96].CGColor;
-   self.enlargedKeyViewLayer.strokeColor = [UIColor whiteColor].CGColor;
+   self.enlargedKeyViewLayer.strokeColor = [UIColor colorWithWhite:.2 alpha:1].CGColor;
+   self.enlargedKeyViewLayer.fillColor = [UIColor colorWithWhite:1 alpha:.9].CGColor;
 
    self.enlargedKeyViewLayer.shadowOpacity = .1f;
    self.enlargedKeyViewLayer.shadowRadius = 1.5f;

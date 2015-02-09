@@ -20,12 +20,17 @@
 
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize
 {
+   return [[self class] layerWithText:text fontSize:fontSize color:[UIColor whiteColor]];
+}
+
++ (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
+{
    KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
-   
+
    [layer setupProperties];
-   [layer setText:text fontSize:fontSize];
+   [layer setText:text fontSize:fontSize color:color];
    [layer updateFrame];
-   
+
    return layer;
 }
 
@@ -37,10 +42,10 @@
    [self disableAnimations];
 }
 
-- (void)setText:(NSString*)text fontSize:(CGFloat)fontSize
+- (void)setText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
 {
    self.fontSize = fontSize;
-   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : color,
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
    
    NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:text attributes:textAttributes];
