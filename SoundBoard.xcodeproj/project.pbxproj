@@ -41,6 +41,7 @@
 		8EDFB7F11A6B6BFE000AD00A /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */; };
 		8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */; };
 		8EDFB7FF1A6B6E9F000AD00A /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8EE6BDE91A8870320012D7A2 /* KeyboardModeTransitioner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,6 +146,8 @@
 		8EDFB7F91A6B6E9F000AD00A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EDFB7FA1A6B6E9F000AD00A /* KeyboardViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardViewController.h; sourceTree = "<group>"; };
 		8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KeyboardViewController.m; sourceTree = "<group>"; };
+		8EE6BDE71A8870320012D7A2 /* KeyboardModeTransitioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardModeTransitioner.h; sourceTree = "<group>"; };
+		8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardModeTransitioner.m; sourceTree = "<group>"; };
 		8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SoundBoard.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +200,8 @@
 		5B537E9D1A7351910006AEF8 /* Utility Objects */ = {
 			isa = PBXGroup;
 			children = (
+				8EE6BDE71A8870320012D7A2 /* KeyboardModeTransitioner.h */,
+				8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */,
 				5BAF950F1A771E7E00433B17 /* KeyboardKeyFrameTextMap.h */,
 				5BAF95101A771E7E00433B17 /* KeyboardKeyFrameTextMap.m */,
 				5BFB278E1A7380DD00508C1F /* KeyViewCollectionCreator.h */,
@@ -545,6 +550,7 @@
 				5BE1E8DC1A7F2F5B0094E050 /* CALayer+DisableAnimations.m in Sources */,
 				5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */,
 				5B0FB5891A7B1EEA00D2854F /* TextDocumentProxyManager.m in Sources */,
+				8EE6BDE91A8870320012D7A2 /* KeyboardModeTransitioner.m in Sources */,
 				8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */,
 				5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */,
 				5B4D23C31A8532EB00ECE9AD /* KeysController.m in Sources */,
