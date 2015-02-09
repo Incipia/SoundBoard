@@ -43,6 +43,7 @@ static const NSUInteger s_landscapeHeight = 215;
       [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
 
       [KeyboardModeTransitioner disableRequestsWhileInMode:KeyboardModeLetters];
+      [KeyboardModeTransitioner setCharacterArray:@[@"'"] forImmediateTransitionToMode:KeyboardModeLetters];
    }
    return self;
 }

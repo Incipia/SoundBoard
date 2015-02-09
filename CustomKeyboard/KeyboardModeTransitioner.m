@@ -17,10 +17,14 @@ static NSString* const s_spacebarInput = @"SPACE";
 @property (nonatomic) KeyboardMode nextMode;
 @property (nonatomic) KeyboardMode disabledRequestsMode;
 @property (nonatomic) NSString* transitionTriggerInput;
+
+@property (nonatomic) NSArray* immediateTransitionCharacters;
+@property (nonatomic) KeyboardMode immediateTransitionMode;
 @end
 
 @implementation KeyboardModeTransitioner
 
+#pragma mark - Public Class Methods
 + (KeyboardModeTransitioner*)transitioner
 {
    if (s_transitioner == nil)
@@ -33,11 +37,7 @@ static NSString* const s_spacebarInput = @"SPACE";
 + (void)giveTextInput:(NSString*)input
 {
    KeyboardModeTransitioner* transitioner = [[self class] transitioner];
-   if (transitioner.readyToTransition && [input isEqualToString:transitioner.transitionTriggerInput])
-   {
-      [KeyboardModeManager updateKeyboardMode:transitioner.nextMode];
-      transitioner.readyToTransition = NO;
-   }
+   [transitioner processInput:input];
 }
 
 + (void)giveSpacebarInput
@@ -48,6 +48,12 @@ static NSString* const s_spacebarInput = @"SPACE";
 + (void)disableRequestsWhileInMode:(KeyboardMode)mode
 {
    [[self class] transitioner].disabledRequestsMode = mode;
+}
+
++ (void)setCharacterArray:(NSArray*)array forImmediateTransitionToMode:(KeyboardMode)mode
+{
+   [[self class] transitioner].immediateTransitionCharacters = array;
+   [[self class] transitioner].immediateTransitionMode = mode;
 }
 
 + (void)requestTransitionToMode:(KeyboardMode)mode afterNextInput:(NSString*)input
@@ -70,6 +76,20 @@ static NSString* const s_spacebarInput = @"SPACE";
 {
    [[self class] transitioner].readyToTransition = NO;
    [[self class] transitioner].transitionTriggerInput = nil;
+}
+
+#pragma mark - Helper
+- (void)processInput:(NSString*)input
+{
+   if ([self.immediateTransitionCharacters containsObject:input])
+   {
+      [KeyboardModeManager updateKeyboardMode:self.immediateTransitionMode];
+   }
+   else if (self.readyToTransition && [input isEqualToString:self.transitionTriggerInput])
+   {
+      [KeyboardModeManager updateKeyboardMode:self.nextMode];
+      self.readyToTransition = NO;
+   }
 }
 
 @end

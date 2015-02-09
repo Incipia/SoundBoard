@@ -15,6 +15,8 @@
 + (void)giveSpacebarInput;
 
 + (void)disableRequestsWhileInMode:(KeyboardMode)mode;
++ (void)setCharacterArray:(NSArray*)array forImmediateTransitionToMode:(KeyboardMode)mode;
+
 + (void)requestTransitionToMode:(KeyboardMode)mode afterNextInput:(NSString*)input;
 + (void)requestTransitionToModeAfterNextSpacebarInput:(KeyboardMode)mode;
 + (void)resetPreviousRequest;
