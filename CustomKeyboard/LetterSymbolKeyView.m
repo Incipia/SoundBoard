@@ -9,6 +9,7 @@
 #import "LetterSymbolKeyView.h"
 #import "TextDocumentProxyManager.h"
 #import "KeyboardModeTransitioner.h"
+#import "KeyboardModeManager.h"
 #import "EnlargedKeyView.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
@@ -40,8 +41,9 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
    [letterSymbolView setActionBlock:^
     {
-       [TextDocumentProxyManager insertText:weakLetterView.displayText];
-       [KeyboardModeTransitioner giveTextInput:weakLetterView.displayText];
+       NSString* text = [weakLetterView stringForShiftMode:[KeyboardModeManager currentShiftMode]];
+       [TextDocumentProxyManager insertText:text];
+       [KeyboardModeTransitioner giveTextInput:text];
        [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
     }];
 
@@ -121,6 +123,25 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       [self.keyLayer makeTextLowercase];
       self.displayText = self.displayText.lowercaseString;
    }
+}
+
+- (NSString*)stringForShiftMode:(KeyboardShiftMode)mode
+{
+   BOOL capitalized = NO;
+   switch (mode)
+   {
+      case ShiftModeNotApplied:
+         break;
+         
+      case ShiftModeApplied:
+      case ShiftModeCapsLock:
+         capitalized = YES;
+         break;
+         
+      default:
+         break;
+   }
+   return capitalized ? self.displayText.capitalizedString : self.displayText.lowercaseString;
 }
 
 @end
