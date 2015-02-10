@@ -96,7 +96,7 @@
          break;
          
       case ShiftModeCapsLock:
-         nextMode = ShiftModeApplied;
+         nextMode = ShiftModeNotApplied;
          break;
          
       default:
