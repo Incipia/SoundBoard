@@ -48,4 +48,15 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
    [[[self class] lazyLoadedManager].proxy adjustTextPositionByCharacterOffset:offset];
 }
 
+#pragma mark - Property Overrides
+- (NSString*)documentContextBeforeInput
+{
+   return [[self class] lazyLoadedManager].proxy.documentContextBeforeInput;
+}
+
+- (NSString*)documentContextAfterInput
+{
+   return [[self class] lazyLoadedManager].proxy.documentContextAfterInput;
+}
+
 @end

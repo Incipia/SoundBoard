@@ -11,6 +11,9 @@
 
 @interface TextDocumentProxyManager : NSObject
 
+@property (nonatomic, readonly) NSString* documentContextBeforeInput;
+@property (nonatomic, readonly) NSString* documentContextAfterInput;
+
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
 + (void)insertText:(NSString*)text;
 + (void)deleteBackward;
