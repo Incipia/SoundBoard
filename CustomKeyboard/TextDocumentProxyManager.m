@@ -38,9 +38,19 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
    [[[self class] lazyLoadedManager].proxy insertText:text];
 }
 
-+ (void)deleteBackward
++ (BOOL)deleteBackward
 {
+   NSString * text = [self documentContextBeforeInput];
+   BOOL deletedUppercase = NO;
+   if (text && text.length)
+   {
+      unichar character = [text characterAtIndex:text.length - 1];
+      deletedUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:character];
+   }
+   
    [[[self class] lazyLoadedManager].proxy deleteBackward];
+   
+   return deletedUppercase;
 }
 
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset
@@ -49,12 +59,12 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 }
 
 #pragma mark - Property Overrides
-- (NSString*)documentContextBeforeInput
++ (NSString*)documentContextBeforeInput
 {
    return [[self class] lazyLoadedManager].proxy.documentContextBeforeInput;
 }
 
-- (NSString*)documentContextAfterInput
++ (NSString*)documentContextAfterInput
 {
    return [[self class] lazyLoadedManager].proxy.documentContextAfterInput;
 }

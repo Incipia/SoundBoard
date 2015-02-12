@@ -11,12 +11,12 @@
 
 @interface TextDocumentProxyManager : NSObject
 
-@property (nonatomic, readonly) NSString* documentContextBeforeInput;
-@property (nonatomic, readonly) NSString* documentContextAfterInput;
++ (NSString*)documentContextBeforeInput;
++ (NSString*)documentContextAfterInput;
 
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
 + (void)insertText:(NSString*)text;
-+ (void)deleteBackward;
++ (BOOL)deleteBackward;
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset;
 
 @end

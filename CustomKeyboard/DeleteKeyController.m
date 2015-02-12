@@ -11,6 +11,7 @@
 #import "KeyView.h"
 #import "KeyboardKeyLayer.h"
 #import "KeyboardModeTransitioner.h"
+#import "KeyboardModeManager.h"
 
 @interface DeleteKeyController ()
 @property (nonatomic) KeyView* deleteView;
@@ -35,7 +36,9 @@
 
    [self.deleteView setActionBlock:^
    {
-      [TextDocumentProxyManager deleteBackward];
+      BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward];
+      [KeyboardModeManager updateKeyboardShiftMode:(deletedUppercaseChar? ShiftModeApplied :
+                                                                          ShiftModeNotApplied)];
       [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
    }];
 }
