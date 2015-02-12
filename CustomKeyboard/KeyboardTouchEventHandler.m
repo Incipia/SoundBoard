@@ -13,14 +13,11 @@
 #import "TextDocumentProxyManager.h"
 
 @interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
-
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) UITouch* currentActiveTouch;
 @property (nonatomic) KeyView* shiftKeyView;
-
 @property (nonatomic) UITapGestureRecognizer* tapRecognizer;
-
 @end
 
 @implementation KeyboardTouchEventHandler
