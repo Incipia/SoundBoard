@@ -17,7 +17,6 @@ static NSString* const s_spacebarInput = @"SPACE";
 @property (nonatomic) KeyboardMode nextMode;
 @property (nonatomic) KeyboardMode disabledRequestsMode;
 @property (nonatomic) NSString* transitionTriggerInput;
-
 @property (nonatomic) NSArray* immediateTransitionCharacters;
 @property (nonatomic) KeyboardMode immediateTransitionMode;
 @end
