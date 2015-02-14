@@ -18,5 +18,6 @@
 + (void)insertText:(NSString*)text;
 + (BOOL)deleteBackward:(NSInteger)repeatCount;
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset;
++ (BOOL)insertPeriodPriorToWhitespace;
 
 @end

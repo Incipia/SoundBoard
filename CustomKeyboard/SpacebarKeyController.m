@@ -25,6 +25,10 @@
    self.spacebarKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
    [self.spacebarKeyView setActionBlock:^(NSInteger repeatCount)
     {
+       if (repeatCount == -1)
+          if ([TextDocumentProxyManager insertPeriodPriorToWhitespace])
+             return;
+       
        [TextDocumentProxyManager insertText:@" "];
        [KeyboardModeTransitioner giveSpacebarInput];
     }];

@@ -19,12 +19,15 @@
    dispatch_source_t _repeatTimer;
    KeyView *         _repeatKey;
    NSInteger         _repeatCount;
+   
+   KeyView *         _gestureView;
 }
 
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) UITouch* currentActiveTouch;
 @property (nonatomic) KeyView* shiftKeyView;
+@property (nonatomic) KeyView* spaceKeyView;
 @property (nonatomic) UITapGestureRecognizer* tapRecognizer;
 
 @end
@@ -267,7 +270,10 @@
       if ([keyView.displayText isEqualToString:@"shift"])
       {
          self.shiftKeyView = keyView;
-         break;
+      }
+      else if ([keyView.displayText isEqualToString:@""])
+      {
+         self.spaceKeyView = keyView;
       }
    }
 }
@@ -275,15 +281,25 @@
 #pragma mark - UIGestureRecognizer Delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-   KeyView* keyView = [self.keyFrameTextMap keyViewAtPoint:[touch locationInView:nil]];
-   return (keyView == self.shiftKeyView);
+   _gestureView = [self.keyFrameTextMap keyViewAtPoint:[touch locationInView:nil]];
+   return (_gestureView == self.shiftKeyView || _gestureView == self.spaceKeyView);
 }
 
 - (void)doubleTapRecognized:(UIGestureRecognizer*)recognizer
 {
-   [self.shiftKeyView removeFocus];
-   [KeyboardModeManager updateKeyboardShiftMode:ShiftModeCapsLock];
-   self.currentActiveTouch = nil;
+   [self stopTimer]; // we don't get the second key up?
+   if (_gestureView == self.shiftKeyView)
+   {
+      [self.shiftKeyView removeFocus];
+      [KeyboardModeManager updateKeyboardShiftMode:ShiftModeCapsLock];
+      self.currentActiveTouch = nil;
+   }
+   else if (_gestureView == self.spaceKeyView)
+   {
+      dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+         [self.spaceKeyView executeActionBlock:-1];
+      });
+   }
 }
 
 @end

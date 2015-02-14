@@ -46,6 +46,31 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
    return [[NSCharacterSet whitespaceCharacterSet] characterIsMember:character];
 }
 
++ (BOOL)insertPeriodPriorToWhitespace
+{
+   NSString * text = [self documentContextBeforeInput];
+   if (text && text.length > 1)
+   {
+      unichar character = [text characterAtIndex:text.length - 1];
+      if ([TextDocumentProxyManager isWhitespace:character])
+      {
+         character = [text characterAtIndex:text.length - 2];
+         if (![TextDocumentProxyManager isWhitespace:character])
+         {
+            [TextDocumentProxyManager deleteBackward:1];
+            [[[self class] lazyLoadedManager].proxy insertText:@". "];
+            
+            if ([KeyboardModeManager currentShiftMode] == ShiftModeNotApplied)
+               [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+            
+            return YES;
+         }
+      }
+   }
+   
+   return NO;
+}
+
 + (BOOL)deleteBackward:(NSInteger)repeatCount
 {
    BOOL deletedUppercase = NO;
