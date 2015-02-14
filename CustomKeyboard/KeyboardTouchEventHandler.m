@@ -11,6 +11,7 @@
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
 {
@@ -185,6 +186,28 @@
    }
 }
 
+#pragma mark - quick and dirty sound playback
+- (SystemSoundID)loadSoundForKeyView:(KeyView *)keyView
+{
+   // TODO:LEA: keep a map of keyViews to sounds
+   //           load the proper sound for the keyView
+   //           Eventually extend this to also load the proper sound depending
+   //           on how many sounds are playing (to build chords)
+   //           Also, depending on keyclick frequency, increase or decrease the
+   //           volume of the sounds?
+   SystemSoundID buttonSound = 0;
+   NSURL *audioPath = [[NSBundle mainBundle] URLForResource:@"tapClick" withExtension:@"aiff"];
+   AudioServicesCreateSystemSoundID((__bridge CFURLRef)audioPath, &buttonSound);
+   return buttonSound;
+}
+
+- (void)playSoundForKeyView:(KeyView *)keyView
+{
+   SystemSoundID buttonSound = [self loadSoundForKeyView:keyView];
+   if (buttonSound)
+      AudioServicesPlaySystemSound(buttonSound);
+}
+
 #pragma mark - Helper
 - (void)handleTouch:(UITouch*)touch onTouchDown:(BOOL)touchDown
 {
@@ -209,6 +232,10 @@
       {
          if (shouldTrigger) [self startTimer:targetKeyView];
          [self drawEnlargedKeyView:targetKeyView];
+      }
+      else
+      {
+         [self playSoundForKeyView:targetKeyView];
       }
    }
 }

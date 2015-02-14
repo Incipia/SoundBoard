@@ -42,6 +42,7 @@
 		8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7FB1A6B6E9F000AD00A /* KeyboardViewController.m */; };
 		8EDFB7FF1A6B6E9F000AD00A /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8EE6BDE91A8870320012D7A2 /* KeyboardModeTransitioner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */; };
+		EDD185B01A8F1D9C001EE182 /* tapClick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		8EE6BDE71A8870320012D7A2 /* KeyboardModeTransitioner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardModeTransitioner.h; sourceTree = "<group>"; };
 		8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardModeTransitioner.m; sourceTree = "<group>"; };
 		8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SoundBoard.entitlements; sourceTree = "<group>"; };
+		EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = tapClick.aiff; path = AudioFiles/tapClick.aiff; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 		8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				EDD185AE1A8F1D86001EE182 /* Audio Files */,
 				8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */,
 				5B537E901A73417F0006AEF8 /* Key Controllers */,
 				8ED831F61A7B523800F52238 /* Main View Controllers */,
@@ -365,6 +368,14 @@
 				5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */,
 			);
 			name = "Touch Events";
+			sourceTree = "<group>";
+		};
+		EDD185AE1A8F1D86001EE182 /* Audio Files */ = {
+			isa = PBXGroup;
+			children = (
+				EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */,
+			);
+			name = "Audio Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -499,6 +510,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDD185B01A8F1D9C001EE182 /* tapClick.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
