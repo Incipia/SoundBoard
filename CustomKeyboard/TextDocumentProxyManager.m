@@ -7,6 +7,7 @@
 //
 
 #import "TextDocumentProxyManager.h"
+#import "KeyboardModeManager.h"
 
 static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 
@@ -36,19 +37,83 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 + (void)insertText:(NSString*)text;
 {
    [[[self class] lazyLoadedManager].proxy insertText:text];
+   if ([KeyboardModeManager currentShiftMode] == ShiftModeApplied)
+      [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
 }
 
-+ (BOOL)deleteBackward
++ (BOOL)isWhitespace:(unichar)character
 {
-   NSString * text = [self documentContextBeforeInput];
+   return [[NSCharacterSet whitespaceCharacterSet] characterIsMember:character];
+}
+
++ (BOOL)deleteBackward:(NSInteger)repeatCount
+{
    BOOL deletedUppercase = NO;
+   
+   // we set this to one even if the documentContextBeforeInput text
+   // returns a string of 0 lenght - it does not appear to hurt anything
+   // to call [[[self class] lazyLoadedManager].proxy deleteBackward] when
+   // there is no text to delete, but sometimes there is still text to delete
+   NSInteger charactersToDelete = 1;
+   
+   NSString * text = [self documentContextBeforeInput];
    if (text && text.length)
    {
+      bool foundWordStart = false;
+      bool foundWordEnd = false;
+      
       unichar character = [text characterAtIndex:text.length - 1];
-      deletedUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:character];
+      if (![TextDocumentProxyManager isWhitespace:character]) foundWordEnd = true;
+      
+      NSInteger wordsToDelete = 0;
+      if (repeatCount >= KeyboardRepeatDoubleWord) wordsToDelete = 2;
+      else if (repeatCount >= KeyboardRepeatWord) wordsToDelete = 1;
+      
+      while (wordsToDelete)
+      {
+         while (!foundWordEnd && ((text.length - charactersToDelete) > 0))
+         {
+            unichar next = [text characterAtIndex:text.length - (charactersToDelete + 1)];
+            if ([TextDocumentProxyManager isWhitespace:next])
+            {
+               character = next;
+               ++charactersToDelete;
+            }
+            else
+            {
+               foundWordEnd = true;
+            }
+         }
+         
+         while (!foundWordStart && ((text.length - charactersToDelete) > 0))
+         {
+            unichar next = [text characterAtIndex:text.length - (charactersToDelete + 1)];
+            if ([TextDocumentProxyManager isWhitespace:next])
+            {
+               foundWordStart = true;
+            }
+            else
+            {
+               character = next;
+               ++charactersToDelete;
+            }
+         }
+         foundWordEnd = false;
+         foundWordStart = false;
+         --wordsToDelete;
+      }
+      
+      if (charactersToDelete)
+         deletedUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:character];
    }
    
-   [[[self class] lazyLoadedManager].proxy deleteBackward];
+//   NSLog(@"repeatCount = %ld", (long)repeatCount);
+//   NSLog(@"charactersToDelete = %ld", (long)charactersToDelete);
+   
+   while(--charactersToDelete >= 0)
+   {
+      [[[self class] lazyLoadedManager].proxy deleteBackward];
+   }
    
    return deletedUppercase;
 }

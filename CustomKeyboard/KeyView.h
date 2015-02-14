@@ -9,14 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "KeyboardKeyLayer.h"
 
+typedef void (^keyActionBlock)(NSInteger repeatCount);
+
 @interface KeyView : UIView
 
 + (instancetype)viewWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
 - (void)updateFrame:(CGRect)frame;
-
-- (void)setActionBlock:(dispatch_block_t)block;
-- (void)executeActionBlock;
+- (void)setActionBlock:(keyActionBlock)block;
+- (void)executeActionBlock:(NSInteger)repeatCount;
 
 - (void)giveFocus;
 - (void)removeFocus;

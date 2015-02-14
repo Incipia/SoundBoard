@@ -40,7 +40,7 @@
    self.numbersKeyView.hidden = YES;
    self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
    
-   [self.numbersKeyView setActionBlock:^
+   [self.numbersKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeNumbers];
    }];
@@ -52,7 +52,7 @@
    self.lettersKeyView.hidden = YES;
    self.lettersKeyView.shouldTriggerActionOnTouchDown = YES;
    
-   [self.lettersKeyView setActionBlock:^
+   [self.lettersKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
       [KeyboardModeTransitioner resetPreviousRequest];

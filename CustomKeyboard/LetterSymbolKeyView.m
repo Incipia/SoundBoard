@@ -39,7 +39,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    [letterSymbolView setupEnlargedKeyView];
    
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
-   [letterSymbolView setActionBlock:^
+   [letterSymbolView setActionBlock:^(NSInteger repeatCount)
     {
        NSString* text = [weakLetterView stringForShiftMode:[KeyboardModeManager currentShiftMode]];
        [TextDocumentProxyManager insertText:text];

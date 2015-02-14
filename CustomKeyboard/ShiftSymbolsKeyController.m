@@ -42,7 +42,7 @@
    self.shiftKeyView.hidden = YES;
    
    __weak typeof(self) weakSelf = self;
-   [self.shiftKeyView setActionBlock:^
+   [self.shiftKeyView setActionBlock:^(NSInteger repeatCount)
    {
       KeyboardShiftMode currentShiftMode = [KeyboardModeManager currentShiftMode];
       KeyboardShiftMode nextMode = [weakSelf nextShiftModeForCurrentShiftMode:currentShiftMode];
@@ -58,7 +58,7 @@
    self.symbolsKeyView.hidden = YES;
    self.symbolsKeyView.shouldTriggerActionOnTouchDown = YES;
    
-   [self.symbolsKeyView setActionBlock:^
+   [self.symbolsKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeSymbols];
    }];
@@ -70,7 +70,7 @@
    self.numbersKeyView.hidden = YES;
    self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
    
-   [self.numbersKeyView setActionBlock:^
+   [self.numbersKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [KeyboardModeManager updateKeyboardMode:KeyboardModeNumbers];
    }];

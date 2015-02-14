@@ -34,9 +34,9 @@
    self.deleteView.shouldTriggerActionOnTouchDown = YES;
    self.deleteView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
 
-   [self.deleteView setActionBlock:^
+   [self.deleteView setActionBlock:^(NSInteger repeatCount)
    {
-      BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward];
+      BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward:repeatCount];
       [KeyboardModeManager updateKeyboardShiftMode:(deletedUppercaseChar? ShiftModeApplied :
                                                                           ShiftModeNotApplied)];
       [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];

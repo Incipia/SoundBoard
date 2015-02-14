@@ -13,11 +13,19 @@
 #import "TextDocumentProxyManager.h"
 
 @interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
+{
+   dispatch_source_t _oneShotTimer;
+   dispatch_source_t _repeatTimer;
+   KeyView *         _repeatKey;
+   NSInteger         _repeatCount;
+}
+
 @property (nonatomic) KeyView* currentFocusedKeyView;
 @property (nonatomic) KeyboardKeyFrameTextMap* keyFrameTextMap;
 @property (nonatomic) UITouch* currentActiveTouch;
 @property (nonatomic) KeyView* shiftKeyView;
 @property (nonatomic) UITapGestureRecognizer* tapRecognizer;
+
 @end
 
 @implementation KeyboardTouchEventHandler
@@ -36,6 +44,11 @@
       [self.view addGestureRecognizer:self.tapRecognizer];
    }
    return self;
+}
+
+- (void)dealloc
+{
+   [self stopTimer];
 }
 
 #pragma mark - Class Init
@@ -76,6 +89,102 @@
    }
 }
 
+#pragma mark - key press timers - one shot timer fires in 1/2 second, then starts a repeat timer
+- (dispatch_source_t)createTimer:(dispatch_block_t)block
+{
+   dispatch_source_t timer =
+   dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
+                          dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
+   if (timer)
+   {
+      dispatch_source_set_event_handler(timer, block);
+   }
+   
+   return timer;
+}
+
+- (void)startTimer:(KeyView*)repeatKey
+{
+   _repeatKey = repeatKey;
+   _repeatCount = 1;
+   
+   [self stopTimer];
+
+   if (_repeatKey)
+   {
+      if (_oneShotTimer == NULL)
+         _oneShotTimer = [self createTimer:^{[self fireOneShot];}];
+      
+      assert(_oneShotTimer != NULL);
+      dispatch_source_set_timer(_oneShotTimer,
+                                dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
+                                DISPATCH_TIME_FOREVER, 0.010 * NSEC_PER_SEC);
+      dispatch_resume(_oneShotTimer);
+   }
+}
+
+- (BOOL)stopTimer
+{
+   BOOL result = false;
+   if (_oneShotTimer && 0 == dispatch_source_testcancel(_oneShotTimer))
+   {
+      dispatch_source_cancel(_oneShotTimer);
+      _oneShotTimer = NULL;
+      result = true;
+   }
+   
+   [self stopRepeatTimer];
+   return result;
+}
+
+- (void)fireOneShot
+{
+   if ([self stopTimer]) [self startRepeatTimer:0.09];
+}
+
+- (void)startRepeatTimer:(double)repeatTimeInSeconds
+{
+   [self stopRepeatTimer];
+   if (_repeatKey)
+   {
+      if (_repeatTimer == NULL)
+         _repeatTimer = [self createTimer:^{[self fireKeyRepeat];}];
+      
+      assert(_repeatTimer != NULL);
+      dispatch_source_set_timer(_repeatTimer,
+                                dispatch_walltime(NULL, 0),
+                                repeatTimeInSeconds * NSEC_PER_SEC,
+                                0.010 * NSEC_PER_SEC);
+      dispatch_resume(_repeatTimer);
+   }
+}
+
+- (void)stopRepeatTimer
+{
+   if (_repeatTimer && 0 == dispatch_source_testcancel(_repeatTimer))
+   {
+      dispatch_source_cancel(_repeatTimer);
+      _repeatTimer = NULL;
+   }
+}
+
+- (void)fireKeyRepeat
+{
+   if (_repeatKey)
+   {
+      NSInteger currentCount = _repeatCount;
+      ++_repeatCount;
+      
+      [_repeatKey executeActionBlock:_repeatCount];
+      
+      if (currentCount < KeyboardRepeatWord && _repeatCount >= KeyboardRepeatWord)
+      {
+         [self stopRepeatTimer];
+         [self startRepeatTimer:0.50];
+      }
+   }
+}
+
 #pragma mark - Helper
 - (void)handleTouch:(UITouch*)touch onTouchDown:(BOOL)touchDown
 {
@@ -84,16 +193,21 @@
       CGPoint touchLocation = [touch locationInView:nil];
       KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
 
-      BOOL shouldTrigger = touchDown ? targetKeyView.shouldTriggerActionOnTouchDown : !targetKeyView.shouldTriggerActionOnTouchDown;
+      BOOL shouldTrigger = touchDown? targetKeyView.shouldTriggerActionOnTouchDown :
+                                      !targetKeyView.shouldTriggerActionOnTouchDown;
+      
       if (targetKeyView != nil && shouldTrigger)
       {
-         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [targetKeyView executeActionBlock];
+         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [targetKeyView executeActionBlock:1];
          });
       }
       
+      if (!shouldTrigger || targetKeyView == nil) [self stopTimer];
+         
       if (touchDown == YES)
       {
+         if (shouldTrigger) [self startTimer:targetKeyView];
          [self drawEnlargedKeyView:targetKeyView];
       }
    }

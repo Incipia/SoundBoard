@@ -16,7 +16,7 @@
 
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
 + (void)insertText:(NSString*)text;
-+ (BOOL)deleteBackward;
++ (BOOL)deleteBackward:(NSInteger)repeatCount;
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset;
 
 @end

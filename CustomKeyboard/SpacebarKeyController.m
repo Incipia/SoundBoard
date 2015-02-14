@@ -23,8 +23,8 @@
 {
    self.spacebarKeyView = [KeyView viewWithText:@"" fontSize:14.f frame:CGRectZero];
    self.spacebarKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
-   [self.spacebarKeyView setActionBlock:
-    ^{
+   [self.spacebarKeyView setActionBlock:^(NSInteger repeatCount)
+    {
        [TextDocumentProxyManager insertText:@" "];
        [KeyboardModeTransitioner giveSpacebarInput];
     }];

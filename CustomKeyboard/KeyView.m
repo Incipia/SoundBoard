@@ -12,7 +12,7 @@
 @interface KeyView ()
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
-@property (nonatomic, copy) dispatch_block_t actionBlock;
+@property (nonatomic, copy) keyActionBlock actionBlock;
 @end
 
 @implementation KeyView
@@ -74,16 +74,16 @@
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
-- (void)setActionBlock:(dispatch_block_t)block
+- (void)setActionBlock:(keyActionBlock)block
 {
    _actionBlock = block;
 }
 
-- (void)executeActionBlock
+- (void)executeActionBlock:(NSInteger)repeatCount
 {
    if (self.actionBlock != nil)
    {
-      self.actionBlock();
+      self.actionBlock(repeatCount);
    }
 }
 
