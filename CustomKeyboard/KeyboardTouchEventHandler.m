@@ -71,6 +71,7 @@
    else
    {
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+      [self handleTouch:touches.anyObject onTouchDown:YES];
    }
    self.currentActiveTouch = touches.anyObject;
 }
@@ -79,6 +80,7 @@
 {
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
    KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+   if (targetKeyView != _repeatKey) [self stopTimer];
    [self drawEnlargedKeyView:targetKeyView];
 }
 
@@ -287,7 +289,7 @@
 
 - (void)doubleTapRecognized:(UIGestureRecognizer*)recognizer
 {
-   [self stopTimer]; // we don't get the second key up?
+   [self stopTimer];
    if (_gestureView == self.shiftKeyView)
    {
       [self.shiftKeyView removeFocus];
@@ -296,6 +298,7 @@
    }
    else if (_gestureView == self.spaceKeyView)
    {
+      [self.spaceKeyView removeFocus];
       dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
          [self.spaceKeyView executeActionBlock:-1];
       });

@@ -60,9 +60,6 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
             [TextDocumentProxyManager deleteBackward:1];
             [[[self class] lazyLoadedManager].proxy insertText:@". "];
             
-            if ([KeyboardModeManager currentMode] != KeyboardModeLetters)
-               [KeyboardModeManager updateKeyboardMode:KeyboardModeLetters];
-            
             if ([KeyboardModeManager currentShiftMode] == ShiftModeNotApplied)
                [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
             
