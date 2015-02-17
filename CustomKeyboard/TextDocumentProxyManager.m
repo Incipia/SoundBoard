@@ -75,11 +75,7 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 {
    BOOL deletedUppercase = NO;
    
-   // we set this to one even if the documentContextBeforeInput text
-   // returns a string of 0 lenght - it does not appear to hurt anything
-   // to call [[[self class] lazyLoadedManager].proxy deleteBackward] when
-   // there is no text to delete, but sometimes there is still text to delete
-   NSInteger charactersToDelete = 1;
+   NSInteger charactersToDelete = 0;
    
    NSString * text = [self documentContextBeforeInput];
    if (text && text.length)
@@ -88,11 +84,11 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
       bool foundWordEnd = false;
       
       unichar character = [text characterAtIndex:text.length - 1];
+      charactersToDelete = 1;
       if (![TextDocumentProxyManager isWhitespace:character]) foundWordEnd = true;
       
       NSInteger wordsToDelete = 0;
-      if (repeatCount >= KeyboardRepeatDoubleWord) wordsToDelete = 2;
-      else if (repeatCount >= KeyboardRepeatWord) wordsToDelete = 1;
+      if (repeatCount >= KeyboardRepeatStartDeletingWords) wordsToDelete = 2;
       
       while (wordsToDelete)
       {
@@ -130,6 +126,12 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
       
       if (charactersToDelete)
          deletedUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:character];
+   }
+   else
+   {
+      NSLog(@"There is no more text to delete to the left of the cursor!");
+      NSLog(@"      is this a lie? deleting 5 characters every time now!");
+      charactersToDelete = 5;
    }
    
 //   NSLog(@"repeatCount = %ld", (long)repeatCount);

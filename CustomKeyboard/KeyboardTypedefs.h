@@ -48,8 +48,7 @@ typedef NS_ENUM(NSUInteger, KeyboardKeyRegion)
 
 typedef NS_ENUM(NSUInteger, KeyboardRepeatKeyCount)
 {
-   KeyboardRepeatWord = 10,
-   KeyboardRepeatDoubleWord = 15
+   KeyboardRepeatStartDeletingWords = 15,
 };
       
 #endif

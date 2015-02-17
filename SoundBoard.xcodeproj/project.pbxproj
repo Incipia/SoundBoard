@@ -43,6 +43,7 @@
 		8EDFB7FF1A6B6E9F000AD00A /* CustomKeyboard.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8EDFB7F61A6B6E9F000AD00A /* CustomKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8EE6BDE91A8870320012D7A2 /* KeyboardModeTransitioner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */; };
 		EDD185B01A8F1D9C001EE182 /* tapClick.aiff in Resources */ = {isa = PBXBuildFile; fileRef = EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */; };
+		EDD185B41A930194001EE182 /* KeyboardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD185B31A930194001EE182 /* KeyboardTimer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,8 @@
 		8EE6BDE81A8870320012D7A2 /* KeyboardModeTransitioner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardModeTransitioner.m; sourceTree = "<group>"; };
 		8EE949C81A6CA66A0081095D /* SoundBoard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SoundBoard.entitlements; sourceTree = "<group>"; };
 		EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = tapClick.aiff; path = AudioFiles/tapClick.aiff; sourceTree = SOURCE_ROOT; };
+		EDD185B21A930194001EE182 /* KeyboardTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardTimer.h; sourceTree = "<group>"; };
+		EDD185B31A930194001EE182 /* KeyboardTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardTimer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +330,7 @@
 				5BE1E8D31A7D63D90094E050 /* Managers */,
 				8ED831F71A7B526F00F52238 /* Protocols */,
 				8EDFB7F81A6B6E9F000AD00A /* Supporting Files */,
+				EDD185B11A930139001EE182 /* Timers */,
 				8EECE81A1A7D86A000DF93C0 /* Touch Events */,
 				5B537E9D1A7351910006AEF8 /* Utility Objects */,
 				8EECE8191A7D868600DF93C0 /* Views and Layers */,
@@ -376,6 +380,15 @@
 				EDD185AF1A8F1D9C001EE182 /* tapClick.aiff */,
 			);
 			name = "Audio Files";
+			sourceTree = "<group>";
+		};
+		EDD185B11A930139001EE182 /* Timers */ = {
+			isa = PBXGroup;
+			children = (
+				EDD185B21A930194001EE182 /* KeyboardTimer.h */,
+				EDD185B31A930194001EE182 /* KeyboardTimer.m */,
+			);
+			name = Timers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -543,6 +556,7 @@
 				5BE1E8D21A7D63C90094E050 /* KeyboardModeManager.m in Sources */,
 				5B537E931A7341BA0006AEF8 /* LetterNumberKeyController.m in Sources */,
 				5B4D23C01A85329E00ECE9AD /* NumberSymbolKeysController.m in Sources */,
+				EDD185B41A930194001EE182 /* KeyboardTimer.m in Sources */,
 				5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */,
 				5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */,
 				5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */,

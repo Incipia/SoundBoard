@@ -9,17 +9,14 @@
 #import "KeyboardTouchEventHandler.h"
 #import "KeyboardModeManager.h"
 #import "KeyboardKeyFrameTextMap.h"
+#import "KeyboardTimer.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
 {
-   dispatch_source_t _oneShotTimer;
-   dispatch_source_t _repeatTimer;
-   KeyView *         _repeatKey;
-   NSInteger         _repeatCount;
-   
+   KeyboardTimer *   _repeatKeytimer;
    KeyView *         _gestureView;
 }
 
@@ -52,7 +49,7 @@
 
 - (void)dealloc
 {
-   [self stopTimer];
+   [_repeatKeytimer stopTimer];
 }
 
 #pragma mark - Class Init
@@ -80,7 +77,10 @@
 {
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
    KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   if (targetKeyView != _repeatKey) [self stopTimer];
+   if (targetKeyView != [_repeatKeytimer keyView])
+   {
+      [_repeatKeytimer stopTimer];
+   }
    [self drawEnlargedKeyView:targetKeyView];
 }
 
@@ -92,102 +92,6 @@
       self.currentFocusedKeyView = nil;
       [self handleTouch:self.currentActiveTouch onTouchDown:NO];
       self.currentActiveTouch = nil;
-   }
-}
-
-#pragma mark - key press timers - one shot timer fires in 1/2 second, then starts a repeat timer
-- (dispatch_source_t)createTimer:(dispatch_block_t)block
-{
-   dispatch_source_t timer =
-   dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0,
-                          dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
-   if (timer)
-   {
-      dispatch_source_set_event_handler(timer, block);
-   }
-   
-   return timer;
-}
-
-- (void)startTimer:(KeyView*)repeatKey
-{
-   _repeatKey = repeatKey;
-   _repeatCount = 1;
-   
-   [self stopTimer];
-
-   if (_repeatKey)
-   {
-      if (_oneShotTimer == NULL)
-         _oneShotTimer = [self createTimer:^{[self fireOneShot];}];
-      
-      assert(_oneShotTimer != NULL);
-      dispatch_source_set_timer(_oneShotTimer,
-                                dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC),
-                                DISPATCH_TIME_FOREVER, 0.010 * NSEC_PER_SEC);
-      dispatch_resume(_oneShotTimer);
-   }
-}
-
-- (BOOL)stopTimer
-{
-   BOOL result = false;
-   if (_oneShotTimer && 0 == dispatch_source_testcancel(_oneShotTimer))
-   {
-      dispatch_source_cancel(_oneShotTimer);
-      _oneShotTimer = NULL;
-      result = true;
-   }
-   
-   [self stopRepeatTimer];
-   return result;
-}
-
-- (void)fireOneShot
-{
-   if ([self stopTimer]) [self startRepeatTimer:0.09];
-}
-
-- (void)startRepeatTimer:(double)repeatTimeInSeconds
-{
-   [self stopRepeatTimer];
-   if (_repeatKey)
-   {
-      if (_repeatTimer == NULL)
-         _repeatTimer = [self createTimer:^{[self fireKeyRepeat];}];
-      
-      assert(_repeatTimer != NULL);
-      dispatch_source_set_timer(_repeatTimer,
-                                dispatch_walltime(NULL, 0),
-                                repeatTimeInSeconds * NSEC_PER_SEC,
-                                0.010 * NSEC_PER_SEC);
-      dispatch_resume(_repeatTimer);
-   }
-}
-
-- (void)stopRepeatTimer
-{
-   if (_repeatTimer && 0 == dispatch_source_testcancel(_repeatTimer))
-   {
-      dispatch_source_cancel(_repeatTimer);
-      _repeatTimer = NULL;
-   }
-}
-
-- (void)fireKeyRepeat
-{
-   if (_repeatKey)
-   {
-      NSInteger currentCount = _repeatCount;
-      ++_repeatCount;
-      
-      [_repeatKey executeActionBlock:_repeatCount];
-      
-      if (currentCount < KeyboardRepeatWord && _repeatCount >= KeyboardRepeatWord)
-      {
-         [self stopRepeatTimer];
-         [self startRepeatTimer:0.50];
-      }
    }
 }
 
@@ -231,11 +135,15 @@
          });
       }
       
-      if (!shouldTrigger || targetKeyView == nil) [self stopTimer];
+      if (!shouldTrigger || targetKeyView == nil) [_repeatKeytimer stopTimer];
          
       if (touchDown == YES)
       {
-         if (shouldTrigger) [self startTimer:targetKeyView];
+         if (shouldTrigger)
+         {
+            if (_repeatKeytimer) [_repeatKeytimer stopTimer];
+            _repeatKeytimer = [KeyboardTimer startKeyTimer:targetKeyView];
+         }
          [self drawEnlargedKeyView:targetKeyView];
       }
       else
@@ -289,7 +197,7 @@
 
 - (void)doubleTapRecognized:(UIGestureRecognizer*)recognizer
 {
-   [self stopTimer];
+   [_repeatKeytimer stopTimer];
    if (_gestureView == self.shiftKeyView)
    {
       [self.shiftKeyView removeFocus];
