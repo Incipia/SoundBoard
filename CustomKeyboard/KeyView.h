@@ -25,6 +25,7 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
 @property (nonatomic) BOOL shouldShowEnlargedKeyOnTouchDown;
+@property (readonly) BOOL wantsToHandleTouchEvents;
 
 @property (nonatomic, readonly) KeyboardKeyLayer* keyLayer;
 @property (nonatomic, readonly) CALayer* backgroundLayer;

@@ -97,4 +97,10 @@
    self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
 }
 
+#pragma mark - Property Overrides
+- (BOOL)wantsToHandleTouchEvents
+{
+   return NO;
+}
+
 @end
