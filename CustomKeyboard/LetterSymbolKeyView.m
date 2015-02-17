@@ -11,12 +11,16 @@
 #import "KeyboardModeTransitioner.h"
 #import "KeyboardModeManager.h"
 #import "EnlargedKeyView.h"
+#import "KeyboardTimer.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
 static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 @interface LetterSymbolKeyView ()
 @property (nonatomic) EnlargedKeyView* enlargedKeyView;
+@property (nonatomic) BOOL hasFocus;
+@property (nonatomic) KeyboardTimer* alternateKeysTimer;
+@property (nonatomic) BOOL isShowingAlternateKeys;
 @end
 
 @implementation LetterSymbolKeyView
@@ -29,6 +33,11 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       self.shouldShowEnlargedKeyOnTouchDown = YES;
    }
    return self;
+}
+
+- (void)dealloc
+{
+   [self.alternateKeysTimer stopTimer];
 }
 
 #pragma mark - Class Init
@@ -75,6 +84,28 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    return type;
 }
 
+- (void)fireAlterKeyTimerIfNeeded
+{
+   self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
+      dispatch_async(dispatch_get_main_queue(), ^{
+         NSLog(@"switch to alternate key mode!");
+         self.isShowingAlternateKeys = YES;
+      });
+   } andDelay:.9f];
+}
+
+- (void)killAlternateKeyTimer
+{
+   if (self.alternateKeysTimer)
+   {
+      self.isShowingAlternateKeys = NO;
+      [self.alternateKeysTimer stopTimer];
+      self.alternateKeysTimer = nil;
+
+      NSLog(@"killed alternate key timer");
+   }
+}
+
 #pragma mark - Public
 - (void)updateFrame:(CGRect)frame
 {
@@ -84,12 +115,24 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)giveFocus
 {
-   self.enlargedKeyView.hidden = NO;
+   if (!self.hasFocus)
+   {
+      self.hasFocus = YES;
+      self.enlargedKeyView.hidden = NO;
+
+      [self fireAlterKeyTimerIfNeeded];
+   }
 }
 
 - (void)removeFocus
 {
-   self.enlargedKeyView.hidden = YES;
+   if (self.hasFocus)
+   {
+      self.hasFocus = NO;
+      self.enlargedKeyView.hidden = YES;
+
+      [self killAlternateKeyTimer];
+   }
 }
 
 - (void)updateForShiftMode:(KeyboardShiftMode)shiftMode
@@ -142,6 +185,12 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
          break;
    }
    return capitalized ? self.displayText.capitalizedString : self.displayText.lowercaseString;
+}
+
+#pragma mark - Property Overrides
+- (BOOL)wantsToHandleTouchEvents
+{
+   return self.isShowingAlternateKeys;
 }
 
 @end
