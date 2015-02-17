@@ -67,7 +67,17 @@
    }
    else
    {
-      [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+      if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+      {
+         [self.currentFocusedKeyView removeFocus];
+         [self.currentFocusedKeyView executeActionBlock:1];
+         self.currentFocusedKeyView = nil;
+         self.currentActiveTouch = nil;
+      }
+      else
+      {
+         [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+      }
       [self handleTouch:touches.anyObject onTouchDown:YES];
    }
    self.currentActiveTouch = touches.anyObject;
@@ -75,6 +85,10 @@
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
+   if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+   {
+      return;
+   }
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
    KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
    if (targetKeyView != [_repeatKeytimer keyView])
@@ -86,6 +100,14 @@
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
+   if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+   {
+      [self.currentFocusedKeyView removeFocus];
+      [self.currentFocusedKeyView executeActionBlock:1];
+      self.currentFocusedKeyView = nil;
+      self.currentActiveTouch = nil;
+      return;
+   }
    if (self.currentActiveTouch == touches.anyObject)
    {
       [self.currentFocusedKeyView removeFocus];
