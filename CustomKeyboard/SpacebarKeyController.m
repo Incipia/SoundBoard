@@ -29,7 +29,7 @@
           if ([TextDocumentProxyManager insertPeriodPriorToWhitespace])
              return;
        
-       [TextDocumentProxyManager insertText:@" "];
+       [TextDocumentProxyManager insertSpace];
        [KeyboardModeTransitioner giveSpacebarInput];
     }];
    

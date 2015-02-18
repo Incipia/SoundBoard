@@ -71,6 +71,20 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
    return NO;
 }
 
++ (void)insertSpace
+{
+   [TextDocumentProxyManager insertText:@" "];
+   
+   NSString * text = [self documentContextBeforeInput];
+   if (text && text.length > 1)
+   {
+      unichar character = [text characterAtIndex:text.length - 2];
+      if (character == '.' || character == '?' || character == '!')
+         if ([KeyboardModeManager currentShiftMode] == ShiftModeNotApplied)
+            [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+   }
+}
+
 + (BOOL)deleteBackward:(NSInteger)repeatCount
 {
    BOOL deletedUppercase = NO;
