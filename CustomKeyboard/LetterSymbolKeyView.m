@@ -18,7 +18,6 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 @interface LetterSymbolKeyView ()
 @property (nonatomic) EnlargedKeyView* enlargedKeyView;
-@property (nonatomic) BOOL hasFocus;
 @property (nonatomic) KeyboardTimer* alternateKeysTimer;
 @property (nonatomic) BOOL isShowingAlternateKeys;
 @end
@@ -86,12 +85,16 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)fireAlterKeyTimerIfNeeded
 {
-   self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
-      dispatch_async(dispatch_get_main_queue(), ^{
-         NSLog(@"switch to alternate key mode!");
-         self.isShowingAlternateKeys = YES;
-      });
-   } andDelay:.9f];
+   if (self.alternateKeysTimer == nil)
+   {
+//      NSLog(@"fire alternate key timer");
+      self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
+         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"switch to alternate key mode!");
+            self.isShowingAlternateKeys = YES;
+         });
+      } andDelay:.9f];
+   }
 }
 
 - (void)killAlternateKeyTimer
@@ -102,7 +105,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       [self.alternateKeysTimer stopTimer];
       self.alternateKeysTimer = nil;
 
-      NSLog(@"killed alternate key timer");
+//      NSLog(@"killed alternate key timer");
    }
 }
 
@@ -115,24 +118,14 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)giveFocus
 {
-   if (!self.hasFocus)
-   {
-      self.hasFocus = YES;
-      self.enlargedKeyView.hidden = NO;
-
-      [self fireAlterKeyTimerIfNeeded];
-   }
+   self.enlargedKeyView.hidden = NO;
+   [self fireAlterKeyTimerIfNeeded];
 }
 
 - (void)removeFocus
 {
-   if (self.hasFocus)
-   {
-      self.hasFocus = NO;
-      self.enlargedKeyView.hidden = YES;
-
-      [self killAlternateKeyTimer];
-   }
+   self.enlargedKeyView.hidden = YES;
+   [self killAlternateKeyTimer];
 }
 
 - (void)updateForShiftMode:(KeyboardShiftMode)shiftMode

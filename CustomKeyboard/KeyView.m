@@ -10,6 +10,7 @@
 #import "CALayer+DisableAnimations.h"
 
 @interface KeyView ()
+@property (nonatomic) BOOL hasFocus;
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @property (nonatomic, copy) keyActionBlock actionBlock;
@@ -89,11 +90,13 @@
 
 - (void)giveFocus
 {
+   self.hasFocus = YES;
    self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
 }
 
 - (void)removeFocus
 {
+   self.hasFocus = NO;
    self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
 }
 

@@ -12,6 +12,69 @@
 #import "KeyboardKeyLayer.h"
 #import "KeyboardModeTransitioner.h"
 #import "KeyboardModeManager.h"
+#import "KeyboardTimer.h"
+
+// @class DeleteKeyView - this is the only view that the DeleteKeyController has
+@interface DeleteKeyView : KeyView
+{
+   KeyboardTimer * _keyboardTimer;
+}
+
+@end
+
+@implementation DeleteKeyView
+
+- (instancetype)initWithFontSize:(CGFloat)fontSize frame:(CGRect)frame
+{
+   if (self = [self initWithText:@"del" fontSize:fontSize frame:frame])
+   {
+      self.shouldTriggerActionOnTouchDown = YES;
+      self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
+      [self setActionBlock:^(NSInteger repeatCount)
+       {
+          BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward:repeatCount];
+          [KeyboardModeManager updateKeyboardShiftMode:(deletedUppercaseChar? ShiftModeApplied :
+                                                        ShiftModeNotApplied)];
+          [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
+       }];
+   }
+   return self;
+}
+
++ (instancetype)viewWithFontSize:(CGFloat)fontSize frame:(CGRect)frame
+{
+   return [[[self class] alloc] initWithFontSize:fontSize frame:frame];
+}
+
+- (void)dealloc
+{
+   [self killKeyTimer];
+}
+
+- (void)fireKeyTimerIfNeeded
+{
+   if (_keyboardTimer == nil)
+      _keyboardTimer = [KeyboardTimer startKeyTimer:self];
+}
+
+- (void)killKeyTimer
+{
+   [_keyboardTimer stopTimer];
+   _keyboardTimer = nil;
+}
+
+- (void)giveFocus
+{
+   [self fireKeyTimerIfNeeded];
+}
+
+- (void)removeFocus
+{
+   [self killKeyTimer];
+}
+
+@end
+
 
 @interface DeleteKeyController ()
 @property (nonatomic) KeyView* deleteView;
@@ -22,25 +85,10 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   [self setupDeleteKeyView];
+   self.deleteView = [DeleteKeyView viewWithFontSize:14.f frame:self.view.bounds];
    self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];
-}
-
-- (void)setupDeleteKeyView
-{
-   self.deleteView = [KeyView viewWithText:@"del" fontSize:14.f frame:self.view.bounds];
-   self.deleteView.shouldTriggerActionOnTouchDown = YES;
-   self.deleteView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
-
-   [self.deleteView setActionBlock:^(NSInteger repeatCount)
-   {
-      BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward:repeatCount];
-      [KeyboardModeManager updateKeyboardShiftMode:(deletedUppercaseChar? ShiftModeApplied :
-                                                                          ShiftModeNotApplied)];
-      [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
-   }];
 }
 
 #pragma mark - Public

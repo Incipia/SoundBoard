@@ -12,6 +12,7 @@
 typedef void (^keyActionBlock)(NSInteger repeatCount);
 
 @interface KeyView : UIView
+- (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
 + (instancetype)viewWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
@@ -22,6 +23,7 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 - (void)giveFocus;
 - (void)removeFocus;
 
+@property (readonly) BOOL hasFocus;
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
 @property (nonatomic) BOOL shouldShowEnlargedKeyOnTouchDown;

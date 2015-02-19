@@ -9,14 +9,12 @@
 #import "KeyboardTouchEventHandler.h"
 #import "KeyboardModeManager.h"
 #import "KeyboardKeyFrameTextMap.h"
-#import "KeyboardTimer.h"
 #import "KeyView.h"
 #import "TextDocumentProxyManager.h"
 #import <AudioToolbox/AudioToolbox.h>
 
 @interface KeyboardTouchEventHandler () <UIGestureRecognizerDelegate>
 {
-   KeyboardTimer *   _repeatKeytimer;
    KeyView *         _gestureView;
 }
 
@@ -45,11 +43,6 @@
       [self.view addGestureRecognizer:self.tapRecognizer];
    }
    return self;
-}
-
-- (void)dealloc
-{
-   [_repeatKeytimer stopTimer];
 }
 
 #pragma mark - Class Init
@@ -91,10 +84,6 @@
    }
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
    KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   if (targetKeyView != [_repeatKeytimer keyView])
-   {
-      [_repeatKeytimer stopTimer];
-   }
    [self drawEnlargedKeyView:targetKeyView];
 }
 
@@ -106,9 +95,8 @@
       [self.currentFocusedKeyView executeActionBlock:1];
       self.currentFocusedKeyView = nil;
       self.currentActiveTouch = nil;
-      return;
    }
-   if (self.currentActiveTouch == touches.anyObject)
+   else if (self.currentActiveTouch == touches.anyObject)
    {
       [self.currentFocusedKeyView removeFocus];
       self.currentFocusedKeyView = nil;
@@ -157,15 +145,8 @@
          });
       }
       
-      if (!shouldTrigger || targetKeyView == nil) [_repeatKeytimer stopTimer];
-         
       if (touchDown == YES)
       {
-         if (shouldTrigger)
-         {
-            if (_repeatKeytimer) [_repeatKeytimer stopTimer];
-            _repeatKeytimer = [KeyboardTimer startKeyTimer:targetKeyView];
-         }
          [self drawEnlargedKeyView:targetKeyView];
       }
       else
@@ -219,7 +200,6 @@
 
 - (void)doubleTapRecognized:(UIGestureRecognizer*)recognizer
 {
-   [_repeatKeytimer stopTimer];
    if (_gestureView == self.shiftKeyView)
    {
       [self.shiftKeyView removeFocus];
