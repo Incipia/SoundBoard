@@ -38,7 +38,8 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 {
    [[[self class] lazyLoadedManager].proxy insertText:text];
    if ([KeyboardModeManager currentShiftMode] == ShiftModeApplied)
-      [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
+      if (![text isEqualToString:@" "])
+         [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
 }
 
 + (BOOL)isWhitespace:(unichar)character
