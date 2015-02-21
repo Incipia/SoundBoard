@@ -136,7 +136,8 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)updateKeysViewFrame
 {
-   CGFloat keysViewHeight = CGRectGetHeight(self.inputView.bounds) - CGRectGetHeight(self.auxController.view.bounds);
+   
+   CGFloat keysViewHeight = self.heightConstraint.constant - CGRectGetHeight(self.auxController.view.bounds);
    CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
    self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.inputView.bounds), keysViewHeight);
 }
