@@ -6,8 +6,20 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface AlternateKeysView : NSObject
+typedef NS_ENUM(NSUInteger, AltKeysViewDirection)
+{
+   AltKeysViewDirectionCenter = 0,
+   AltKeysViewViewDirectionLeft,
+   AltKeysViewDirectionRight
+};
 
+@class KeyView;
+@interface AlternateKeysView : UIView
+
++ (instancetype)viewWithKeyView:(KeyView*)keyView direction:(AltKeysViewDirection)direction;
+- (void)updateFrame:(CGRect)frame;
+
+@property (nonatomic) AltKeysViewDirection direction;
 @end
