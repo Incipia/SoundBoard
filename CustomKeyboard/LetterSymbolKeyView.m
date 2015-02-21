@@ -12,12 +12,14 @@
 #import "KeyboardModeManager.h"
 #import "EnlargedKeyView.h"
 #import "KeyboardTimer.h"
+#import "AlternateKeysView.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
 static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 @interface LetterSymbolKeyView ()
 @property (nonatomic) EnlargedKeyView* enlargedKeyView;
+@property (nonatomic) AlternateKeysView* alternateKeysView;
 @property (nonatomic) KeyboardTimer* alternateKeysTimer;
 @property (nonatomic) BOOL isShowingAlternateKeys;
 @end
@@ -45,6 +47,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
 
    [letterSymbolView setupEnlargedKeyView];
+   [letterSymbolView setupAlternateKeysView];
    
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
    [letterSymbolView setActionBlock:^(NSInteger repeatCount)
@@ -68,6 +71,14 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    [self addSubview:self.enlargedKeyView];
 }
 
+- (void)setupAlternateKeysView
+{
+   self.alternateKeysView = [AlternateKeysView viewWithKeyView:self direction:AltKeysViewDirectionCenter];
+   self.alternateKeysView.hidden = YES;
+   
+   [self addSubview:self.alternateKeysView];
+}
+
 #pragma mark - Helper
 - (EnlargedKeyType)enlargedKeyTypeForString:(NSString*)string
 {
@@ -87,10 +98,10 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 {
    if (self.alternateKeysTimer == nil)
    {
-//      NSLog(@"fire alternate key timer");
       self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
          dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"switch to alternate key mode!");
+            
+            self.alternateKeysView.hidden = NO;
             self.isShowingAlternateKeys = YES;
          });
       } andDelay:.9f];
@@ -101,11 +112,10 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 {
    if (self.alternateKeysTimer)
    {
+      self.alternateKeysView.hidden = YES;
       self.isShowingAlternateKeys = NO;
       [self.alternateKeysTimer stopTimer];
       self.alternateKeysTimer = nil;
-
-//      NSLog(@"killed alternate key timer");
    }
 }
 
@@ -113,6 +123,8 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 - (void)updateFrame:(CGRect)frame
 {
    [super updateFrame:frame];
+   
+   [self.alternateKeysView updateFrame:self.bounds];
    [self.enlargedKeyView updateFrame:self.bounds];
 }
 
