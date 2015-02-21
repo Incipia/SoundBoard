@@ -65,11 +65,13 @@
 
 - (void)giveFocus
 {
+   [super giveFocus];
    [self fireKeyTimerIfNeeded];
 }
 
 - (void)removeFocus
 {
+   [super removeFocus];
    [self killKeyTimer];
 }
 
