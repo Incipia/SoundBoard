@@ -29,7 +29,6 @@
    if (self = [self initWithText:@"del" fontSize:fontSize frame:frame])
    {
       self.shouldTriggerActionOnTouchDown = YES;
-      self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
       [self setActionBlock:^(NSInteger repeatCount)
        {
           BOOL deletedUppercaseChar = [TextDocumentProxyManager deleteBackward:repeatCount];

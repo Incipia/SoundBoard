@@ -20,8 +20,6 @@
 - (void)setupKeyViews
 {
    self.returnKeyView = [KeyView viewWithText:@"return" fontSize:14.f frame:CGRectZero];
-   self.returnKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
-
    [self.returnKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [TextDocumentProxyManager insertText:@"\n"];

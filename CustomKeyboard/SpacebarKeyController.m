@@ -22,7 +22,6 @@
 - (void)setupKeyViews
 {
    self.spacebarKeyView = [KeyView viewWithText:@"" fontSize:14.f frame:CGRectZero];
-   self.spacebarKeyView.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
    [self.spacebarKeyView setActionBlock:^(NSInteger repeatCount)
     {
        if (repeatCount == -1)
