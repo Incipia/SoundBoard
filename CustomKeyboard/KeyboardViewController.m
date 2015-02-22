@@ -130,7 +130,7 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)updateAuxViewFrame
 {
-   NSUInteger containerViewHeight = (int)CGRectGetHeight(self.inputView.bounds)*s_auxViewHeightPercentage;
+   NSUInteger containerViewHeight = self.heightConstraint.constant*s_auxViewHeightPercentage;
    self.auxController.view.frame = CGRectMake(0, 0, CGRectGetWidth(self.inputView.bounds), containerViewHeight);
 }
 
