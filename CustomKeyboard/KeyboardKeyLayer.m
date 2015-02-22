@@ -10,6 +10,10 @@
 #import "CALayer+DisableAnimations.h"
 @import UIKit;
 
+@interface KeyboardKeyLayer ()
+@property (nonatomic) UIColor* textColor;
+@end
+
 @implementation KeyboardKeyLayer
 
 #pragma mark - Class Init
@@ -26,9 +30,10 @@
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
 {
    KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
+   layer.textColor = color;
 
    [layer setupProperties];
-   [layer setText:text fontSize:fontSize color:color];
+   [layer setText:text fontSize:fontSize];
    [layer updateFrame];
 
    return layer;
@@ -42,10 +47,10 @@
    [self disableAnimations];
 }
 
-- (void)setText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
+- (void)setText:(NSString*)text fontSize:(CGFloat)fontSize
 {
    self.fontSize = fontSize;
-   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : color,
+   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
    
    NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:text attributes:textAttributes];
@@ -73,7 +78,7 @@
 - (void)makeTextBold
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize]};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
@@ -83,7 +88,7 @@
 - (void)makeTextRegular
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
@@ -93,7 +98,7 @@
 - (void)makeTextUnderlined
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
                                        NSUnderlineColorAttributeName : [UIColor whiteColor]};
@@ -105,10 +110,10 @@
 - (void)removeTextUnderline
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
-                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+                                       NSUnderlineColorAttributeName : self.textColor};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
@@ -117,10 +122,10 @@
 - (void)makeTextUppercase
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
-                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+                                       NSUnderlineColorAttributeName : self.textColor};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:YES];
    });
@@ -129,10 +134,10 @@
 - (void)makeTextLowercase
 {
    dispatch_async(dispatch_get_main_queue(), ^{
-      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
                                        NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
-                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+                                       NSUnderlineColorAttributeName : self.textColor};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
