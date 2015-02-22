@@ -10,29 +10,126 @@
 #import "KeyboardKeyLayer.h"
 #import "CALayer+DisableAnimations.h"
 #import "KeyboardKeyLayer.h"
-#import "KeyView.h"
+#import "LetterSymbolKeyView.h"
 #import "KeyViewCollection.h"
+#import "KeyboardKeysUtility.h"
 
-CGPathRef _defaultEnlargedKeyPath(CGRect frame)
+static NSArray* _altCharactersArray(AltKeysViewDirection direction, NSString* primaryCharacter)
 {
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
+   NSMutableArray* mutableAltCharacters = [[KeyboardKeysUtility altCharacterArrayForCharacter:primaryCharacter] mutableCopy];
+   NSUInteger indexToInsert = 0;
+   switch (direction)
+   {
+      case AltKeysViewDirectionCenter:
+         indexToInsert = mutableAltCharacters.count * .5f;
+         break;
+         
+      case AltKeysViewDirectionLeft:
+         indexToInsert = mutableAltCharacters.count;
+         break;
+         
+      case AltKeysViewDirectionRight:
+      default:
+         break;
+   }
+   [mutableAltCharacters insertObject:primaryCharacter atIndex:indexToInsert];
+   return mutableAltCharacters;
+}
+
+static AltKeysViewDirection _directionForCharacter(NSString* character)
+{
+   AltKeysViewDirection direction = AltKeysViewDirectionCenter;
+   NSString* uppercaseCharacter = character.uppercaseString;
    
-   CGMutablePathRef keyPath = CGPathCreateMutable();
-   
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
-   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
-   CGPathCloseSubpath(keyPath);
-   
-   return keyPath;
+   if ([uppercaseCharacter isEqualToString:@"E"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"Y"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"U"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"I"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"O"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"A"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"S"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"L"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"Z"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"C"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"N"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"%"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"."])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"?"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"!"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"'"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"0"])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"-"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"/"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"$"])
+   {
+      direction = AltKeysViewDirectionCenter;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"&"])
+   {
+      direction = AltKeysViewDirectionRight;
+   }
+   else if ([uppercaseCharacter isEqualToString:@"\""])
+   {
+      direction = AltKeysViewDirectionLeft;
+   }
+   return direction;
 }
 
 CGPathRef _centerAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame)
@@ -60,18 +157,24 @@ CGPathRef _centerAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternat
    return keyPath;
 }
 
-CGPathRef _leftEnlargedKeyPathWithFrame(CGRect frame)
+CGPathRef _leftAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame)
 {
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
+   CGFloat minX = CGRectGetMinX(bottomFrame);
+   CGFloat minY = CGRectGetMinY(bottomFrame);
+   CGFloat maxX = CGRectGetMaxX(bottomFrame);
+   CGFloat maxY = CGRectGetMaxY(bottomFrame);
    
    CGMutablePathRef keyPath = CGPathCreateMutable();
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
+   
+   CGPathMoveToPoint(keyPath, nil, minX, minY);
+   CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame) - 4, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame) - 4, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, maxX + 8, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
+   
+   CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, maxX, minY);
    CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
    CGPathAddLineToPoint(keyPath, nil, minX, maxY);
    CGPathCloseSubpath(keyPath);
@@ -79,70 +182,90 @@ CGPathRef _leftEnlargedKeyPathWithFrame(CGRect frame)
    return keyPath;
 }
 
-CGPathRef _rightEnlargedKeyPathWithFrame(CGRect frame)
+CGPathRef _rightAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame)
 {
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
+   CGFloat minX = CGRectGetMinX(bottomFrame);
+   CGFloat minY = CGRectGetMinY(bottomFrame);
+   CGFloat maxX = CGRectGetMaxX(bottomFrame);
+   CGFloat maxY = CGRectGetMaxY(bottomFrame);
    
    CGMutablePathRef keyPath = CGPathCreateMutable();
    
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 52);
+   CGPathMoveToPoint(keyPath, nil, minX, minY);
+   CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, minX - 8, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame) + 4, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame) + 4, minY - 8);
+   
+   CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
+   CGPathAddLineToPoint(keyPath, nil, maxX, minY);
    CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
    CGPathAddLineToPoint(keyPath, nil, minX, maxY);
    CGPathCloseSubpath(keyPath);
    
    return keyPath;
+}
+
+CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame, AltKeysViewDirection direction)
+{
+   CGPathRef backgroundPath = nil;
+   switch (direction)
+   {
+      case AltKeysViewDirectionCenter:
+         backgroundPath = _centerAlternateKeysBackgroundPath(bottomFrame, alternateKeysFrame);
+         break;
+         
+      case AltKeysViewDirectionLeft:
+         backgroundPath = _leftAlternateKeysBackgroundPath(bottomFrame, alternateKeysFrame);
+         break;
+         
+      case AltKeysViewDirectionRight:
+         backgroundPath = _rightAlternateKeysBackgroundPath(bottomFrame, alternateKeysFrame);
+         break;
+         
+      default:
+         break;
+   }
+
+   return backgroundPath;
 }
 
 @interface AlternateKeysView ()
-// FOR DEBUGGING:
 @property (nonatomic) CAShapeLayer* alternateKeysViewBackgroundLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
-
-@property (nonatomic) CALayer* alternateCharactersLayer;
-@property (nonatomic) NSArray* characterArray;
+@property (nonatomic) NSArray* altCharacters;
 @property (nonatomic) KeyViewCollection* alternateKeysCollection;
+@property (nonatomic) AltKeysViewDirection direction;
 @end
 
 @implementation AlternateKeysView
 
 #pragma mark - Init
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithKeyView:(KeyView*)keyView
 {
-   if (self = [super initWithFrame:frame])
+   if (self = [super initWithFrame:keyView.bounds])
    {
-      [self setupEnlargedKeyViewLayer];
+      [self setupAlternateKeysViewBackgroundLayer];
       [self setupShadowLayer];
       
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.alternateKeysViewBackgroundLayer];
       
-      // FOR DEBUGGING:
-      self.characterArray = @[@"1", @"2", @"3", @"4", @"5"];
-      self.alternateKeysCollection = [KeyViewCollection collectionWithCharacterArray:self.characterArray];
-      [self addSubview:self.alternateKeysCollection];
-      
-      self.alternateCharactersLayer = [CALayer layer];
-      self.alternateCharactersLayer.backgroundColor = [UIColor redColor].CGColor;
-      [self.alternateKeysViewBackgroundLayer addSublayer:self.alternateCharactersLayer];
-      
+      self.direction = _directionForCharacter(keyView.displayText);
+      [self setupAlternateCharactersCollectionWithCharacter:keyView.displayText];
    }
    return self;
 }
 
 #pragma mark - Class Init
-+ (instancetype)viewWithKeyView:(KeyView*)keyView direction:(AltKeysViewDirection)direction
++ (instancetype)viewWithKeyView:(KeyView*)keyView
 {
-   return [[self alloc] initWithFrame:keyView.bounds];
+   return [[self alloc] initWithKeyView:keyView];
 }
 
 #pragma mark - Setup
-- (void)setupEnlargedKeyViewLayer
+- (void)setupAlternateKeysViewBackgroundLayer
 {
    self.alternateKeysViewBackgroundLayer = [CAShapeLayer layer];
    
@@ -166,20 +289,58 @@ CGPathRef _rightEnlargedKeyPathWithFrame(CGRect frame)
    self.shadowContainerLayer.shadowOffset = CGSizeMake(0, .5f);
 }
 
-#pragma mark - Public
-- (void)updateFrame:(CGRect)frame
+- (void)setupAlternateCharactersCollectionWithCharacter:(NSString*)character
 {
-   self.frame = frame;
+   self.altCharacters = _altCharactersArray(self.direction, character);
+   self.alternateKeysCollection = [KeyViewCollection collectionWithCharacterArray:self.altCharacters];
    
-   CGFloat width = CGRectGetWidth(frame) * self.characterArray.count;
-   CGFloat height = CGRectGetHeight(frame);
-   CGFloat x = width * -.5 + CGRectGetWidth(frame)*.5;
+   [self addSubview:self.alternateKeysCollection];
+}
+
+#pragma mark - Private
+- (void)updateAlternateKeysBackgroundPath
+{
+   CGFloat width = CGRectGetWidth(self.frame) * self.altCharacters.count;
+   CGFloat height = CGRectGetHeight(self.frame);
+   
+   CGFloat x = 0;
+   switch (self.direction)
+   {
+      case AltKeysViewDirectionCenter:
+         x = width * -.5 + CGRectGetWidth(self.frame)*.5;
+         break;
+         
+      case AltKeysViewDirectionLeft:
+         x = -width + CGRectGetWidth(self.frame);
+         break;
+         
+      default:
+         break;
+   }
    
    CGRect keyViewFrame = CGRectInset(self.bounds, 4, 8);
    CGRect alternateKeysBackgroundFrame = CGRectMake(x, -54, width, height);
    
    [self.alternateKeysCollection updateFrame:alternateKeysBackgroundFrame];
-   self.alternateKeysViewBackgroundLayer.path = _centerAlternateKeysBackgroundPath(keyViewFrame, alternateKeysBackgroundFrame);
+   
+   CGPathRef backgroundPath = _alternateKeysBackgroundPath(keyViewFrame, alternateKeysBackgroundFrame, self.direction);
+   self.alternateKeysViewBackgroundLayer.path = backgroundPath;
+   CGPathRelease(backgroundPath);
+}
+
+#pragma mark - Public
+- (void)updateFrame:(CGRect)frame
+{
+   self.frame = frame;
+   [self updateAlternateKeysBackgroundPath];
+}
+
+- (void)updateForShiftMode:(KeyboardShiftMode)mode
+{
+   for (LetterSymbolKeyView* keyView in self.alternateKeysCollection.keyViews)
+   {
+      [keyView updateForShiftMode:mode];
+   }
 }
 
 @end

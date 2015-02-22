@@ -7,19 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardTypedefs.h"
 
 typedef NS_ENUM(NSUInteger, AltKeysViewDirection)
 {
    AltKeysViewDirectionCenter = 0,
-   AltKeysViewViewDirectionLeft,
+   AltKeysViewDirectionLeft,
    AltKeysViewDirectionRight
 };
 
 @class KeyView;
 @interface AlternateKeysView : UIView
 
-+ (instancetype)viewWithKeyView:(KeyView*)keyView direction:(AltKeysViewDirection)direction;
++ (instancetype)viewWithKeyView:(KeyView*)keyView;
 - (void)updateFrame:(CGRect)frame;
-
-@property (nonatomic) AltKeysViewDirection direction;
+- (void)updateForShiftMode:(KeyboardShiftMode)mode;
 @end
