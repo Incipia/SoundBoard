@@ -173,6 +173,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    }
    
    [self.alternateKeysView updateForShiftMode:shiftMode];
+   [self.enlargedKeyView updateForShiftMode:shiftMode];
 }
 
 - (NSString*)stringForShiftMode:(KeyboardShiftMode)mode
