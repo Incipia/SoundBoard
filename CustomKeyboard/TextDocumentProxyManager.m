@@ -147,6 +147,7 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 //      NSLog(@"There is no more text to delete to the left of the cursor!");
 //      NSLog(@"      is this a lie? deleting 5 characters every time now!");
       charactersToDelete = 5;
+      deletedUppercase = YES;
    }
    
 //   NSLog(@"repeatCount = %ld", (long)repeatCount);
