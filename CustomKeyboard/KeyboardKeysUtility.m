@@ -101,6 +101,102 @@ static NSArray* _symbolArray(KeyboardRow row)
    return characterArray;
 }
 
++ (NSArray*)altCharacterArrayForCharacter:(NSString*)character
+{
+   NSArray* characterArray = nil;
+   NSString* uppercaseCharacter = character.uppercaseString;
+   
+   if ([uppercaseCharacter isEqualToString:@"E"])
+   {
+      characterArray = @[@"È", @"É", @"Ê", @"Ë", @"Ē", @"Ė", @"Ę"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"Y"])
+   {
+      characterArray = @[@"Ÿ"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"U"])
+   {
+      characterArray = @[@"Ū", @"Ú", @"Ù", @"Ü", @"Û"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"I"])
+   {
+      characterArray = @[@"Ì", @"Į", @"Ī", @"Í", @"Ï", @"Î"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"O"])
+   {
+      characterArray = @[@"Õ", @"Ō", @"Ø", @"Œ", @"Ó", @"Ò", @"Ö", @"Ô"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"A"])
+   {
+      characterArray = @[@"À", @"Á", @"Â", @"Ä", @"Æ", @"Ã", @"Å", @"Ā"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"S"])
+   {
+      characterArray = @[@"Ś", @"Š"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"L"])
+   {
+      characterArray = @[@"Ł"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"Z"])
+   {
+      characterArray = @[@"Ž", @"Ź", @"Ż"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"C"])
+   {
+      characterArray = @[@"Ç", @"Ć", @"Č"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"N"])
+   {
+      characterArray = @[@"Ń", @"Ñ"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"%"])
+   {
+      characterArray = @[@"‰"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"."])
+   {
+      characterArray = @[@"…"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"?"])
+   {
+      characterArray = @[@"¿"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"!"])
+   {
+      characterArray = @[@"¡"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"'"])
+   {
+      characterArray = @[@"`", @"‘", @"’"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"0"])
+   {
+      characterArray = @[@"°"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"-"])
+   {
+      characterArray = @[@"–", @"—", @"•"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"/"])
+   {
+      characterArray = @[@"\\"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"$"])
+   {
+      characterArray = @[@"₽", @"¥", @"€", @"¢", @"£", @"₩"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"&"])
+   {
+      characterArray = @[@"§"];
+   }
+   else if ([uppercaseCharacter isEqualToString:@"\""])
+   {
+      characterArray = @[@"«", @"»", @"„", @"“", @"”"];
+   }
+   return characterArray;
+}
+
 + (NSUInteger)numKeysForMode:(KeyboardMode)mode row:(KeyboardRow)row
 {
    NSUInteger numKeys = [KeyboardKeysUtility characterArrayForMode:mode row:row].count;
