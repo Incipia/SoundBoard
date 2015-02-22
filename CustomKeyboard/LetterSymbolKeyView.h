@@ -10,5 +10,8 @@
 #import "KeyboardTypedefs.h"
 
 @interface LetterSymbolKeyView : KeyView
+
 - (void)updateForShiftMode:(KeyboardShiftMode)shiftMode;
+- (void)initializeAlternateKeysView;
+
 @end

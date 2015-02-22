@@ -47,7 +47,6 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
 
    [letterSymbolView setupEnlargedKeyView];
-   [letterSymbolView setupAlternateKeysView];
    
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
    [letterSymbolView setActionBlock:^(NSInteger repeatCount)
@@ -71,7 +70,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    [self addSubview:self.enlargedKeyView];
 }
 
-- (void)setupAlternateKeysView
+- (void)initializeAlternateKeysView
 {
    self.alternateKeysView = [AlternateKeysView viewWithKeyView:self direction:AltKeysViewDirectionCenter];
    self.alternateKeysView.hidden = YES;
@@ -101,6 +100,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
          dispatch_async(dispatch_get_main_queue(), ^{
             
+            self.enlargedKeyView.hidden = YES;
             self.alternateKeysView.hidden = NO;
             self.isShowingAlternateKeys = YES;
          });
