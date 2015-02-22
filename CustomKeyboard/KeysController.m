@@ -8,6 +8,7 @@
 
 #import "KeysController.h"
 #import "KeyViewCollection.h"
+#import "LetterSymbolKeyView.h"
 
 @interface KeysController ()
 @property (nonatomic) KeyboardLayoutDimensonsProvider* dimensionsProvider;
@@ -37,5 +38,22 @@
    self.view.frame = frame;
 }
 
+- (void)initializeAlternateKeyViews
+{
+}
+
+#pragma mark - Property Overrides
+- (NSArray*)keyViews
+{
+   NSMutableArray* keyViewArray = [NSMutableArray array];
+   for (KeyViewCollection* collection in self.keyViewCollections)
+   {
+      for (KeyView* keyView in collection.keyViews)
+      {
+         [keyViewArray addObject:keyView];
+      }
+   }
+   return keyViewArray;
+}
 
 @end

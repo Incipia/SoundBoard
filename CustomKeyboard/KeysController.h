@@ -16,6 +16,7 @@
 - (instancetype)initWithDimensionsProvider:(KeyboardLayoutDimensonsProvider*)provider;
 
 - (void)updateFrame:(CGRect)frame;
+- (void)initializeAlternateKeyViews;
 
 @property (readonly) NSArray* keyViews;
 @property (readonly) NSArray* keyViewCollections;
