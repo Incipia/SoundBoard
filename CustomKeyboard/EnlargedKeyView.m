@@ -11,6 +11,67 @@
 #import "CALayer+DisableAnimations.h"
 #import "KeyView.h"
 
+static CGPathRef _defaultEnlargedKeyPath(CGRect sourceFrame)
+{
+   CGFloat minX = CGRectGetMinX(sourceFrame);
+   CGFloat minY = CGRectGetMinY(sourceFrame);
+   CGFloat maxX = CGRectGetMaxX(sourceFrame);
+   CGFloat maxY = CGRectGetMaxY(sourceFrame);
+   
+   CGMutablePathRef keyPath = CGPathCreateMutable();
+   
+   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
+   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
+   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
+   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
+   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
+   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
+   CGPathCloseSubpath(keyPath);
+   
+   return keyPath;
+}
+
+static CGPathRef _leftEnlargedKeyPath(CGRect sourceFrame)
+{
+   CGFloat minX = CGRectGetMinX(sourceFrame);
+   CGFloat minY = CGRectGetMinY(sourceFrame);
+   CGFloat maxX = CGRectGetMaxX(sourceFrame);
+   CGFloat maxY = CGRectGetMaxY(sourceFrame);
+   
+   CGMutablePathRef keyPath = CGPathCreateMutable();
+   CGPathMoveToPoint(keyPath, nil, minX, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
+   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
+   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
+   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
+   CGPathCloseSubpath(keyPath);
+   
+   return keyPath;
+}
+
+static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
+{
+   CGFloat minX = CGRectGetMinX(sourceFrame);
+   CGFloat minY = CGRectGetMinY(sourceFrame);
+   CGFloat maxX = CGRectGetMaxX(sourceFrame);
+   CGFloat maxY = CGRectGetMaxY(sourceFrame);
+   
+   CGMutablePathRef keyPath = CGPathCreateMutable();
+   
+   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
+   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
+   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 52);
+   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
+   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
+   CGPathCloseSubpath(keyPath);
+   
+   return keyPath;
+}
+
 @interface EnlargedKeyView ()
 @property (nonatomic) CAShapeLayer* enlargedKeyViewLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
@@ -84,7 +145,29 @@
    [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 4, 8)];
 
    CGRect letterLayerFrame = self.bounds;
-   letterLayerFrame.origin.y -= 38;
+   letterLayerFrame.origin.y = -38;
+   letterLayerFrame.origin.x += [self letterLayerXPositionOffsetForKeyType:self.keyType];
+   self.letterLayer.frame = letterLayerFrame;
+}
+
+- (void)updateForShiftMode:(KeyboardShiftMode)mode
+{
+   switch (mode)
+   {
+      case ShiftModeApplied:
+      case ShiftModeCapsLock:
+         [self.letterLayer makeTextUppercase];
+         break;
+         
+      case ShiftModeNotApplied:
+         [self.letterLayer makeTextLowercase];
+      default:
+         break;
+   }
+   
+   // WHAT THE HELL IS UP WITH THIS???
+   CGRect letterLayerFrame = self.bounds;
+   letterLayerFrame.origin.y = -52;
    letterLayerFrame.origin.x += [self letterLayerXPositionOffsetForKeyType:self.keyType];
    self.letterLayer.frame = letterLayerFrame;
 }
@@ -96,15 +179,15 @@
    switch (keyType)
    {
       case EnlargedKeyTypeDefault:
-         keyPath = [self defaultEnlargedKeyPathWithFrame:frame];
+         keyPath = _defaultEnlargedKeyPath(frame);
          break;
          
       case EnlargedKeyTypeLeft:
-         keyPath = [self leftEnlargedKeyPathWithFrame:frame];
+         keyPath = _leftEnlargedKeyPath(frame);
          break;
          
       case EnlargedKeyTypeRight:
-         keyPath = [self rightEnlargedKeyPathWithFrame:frame];
+         keyPath = _rightEnlargedKeyPath(frame);
          break;
          
       default:
@@ -133,67 +216,6 @@
          break;
    }
    return offset;
-}
-
-- (CGPathRef)defaultEnlargedKeyPathWithFrame:(CGRect)frame
-{
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
-   
-   CGMutablePathRef keyPath = CGPathCreateMutable();
-   
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
-   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
-   CGPathCloseSubpath(keyPath);
-   
-   return keyPath;
-}
-
-- (CGPathRef)leftEnlargedKeyPathWithFrame:(CGRect)frame
-{
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
-   
-   CGMutablePathRef keyPath = CGPathCreateMutable();
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX + 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
-   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
-   CGPathCloseSubpath(keyPath);
-   
-   return keyPath;
-}
-
-- (CGPathRef)rightEnlargedKeyPathWithFrame:(CGRect)frame
-{
-   CGFloat minX = CGRectGetMinX(frame);
-   CGFloat minY = CGRectGetMinY(frame);
-   CGFloat maxX = CGRectGetMaxX(frame);
-   CGFloat maxY = CGRectGetMaxY(frame);
-   
-   CGMutablePathRef keyPath = CGPathCreateMutable();
-   
-   CGPathMoveToPoint(keyPath, nil, minX, minY - 4);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 14);
-   CGPathAddLineToPoint(keyPath, nil, minX - 12, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX, minY - 52);
-   CGPathAddLineToPoint(keyPath, nil, maxX, maxY);
-   CGPathAddLineToPoint(keyPath, nil, minX, maxY);
-   CGPathCloseSubpath(keyPath);
-   
-   return keyPath;
 }
 
 @end

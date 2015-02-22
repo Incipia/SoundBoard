@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardTypedefs.h"
 
 typedef  NS_ENUM(NSUInteger, EnlargedKeyType)
 {
@@ -20,6 +21,7 @@ typedef  NS_ENUM(NSUInteger, EnlargedKeyType)
 
 + (instancetype)viewWithKeyView:(KeyView*)keyView;
 - (void)updateFrame:(CGRect)frame;
+- (void)updateForShiftMode:(KeyboardShiftMode)mode;
 
 @property (nonatomic) EnlargedKeyType keyType;
 
