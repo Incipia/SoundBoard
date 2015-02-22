@@ -184,6 +184,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B0721411A9A9C4200BF4E2E /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
+				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		5B537E901A73417F0006AEF8 /* Key Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +345,7 @@
 				EDD185B11A930139001EE182 /* Timers */,
 				8EECE81A1A7D86A000DF93C0 /* Touch Events */,
 				5B537E9D1A7351910006AEF8 /* Utility Objects */,
+				5B0721411A9A9C4200BF4E2E /* Categories */,
 				8EECE8191A7D868600DF93C0 /* Views and Layers */,
 			);
 			path = CustomKeyboard;
@@ -354,18 +364,16 @@
 			children = (
 				5B0721321A99335C00BF4E2E /* AlternateKeysView.h */,
 				5B0721331A99335C00BF4E2E /* AlternateKeysView.m */,
-				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
-				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
+				8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */,
+				8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */,
+				5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */,
+				5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */,
+				8E7662C81A701D4F006410E7 /* KeyView.h */,
+				8E7662C91A701D4F006410E7 /* KeyView.m */,
 				8E7662E61A72212A006410E7 /* KeyViewCollection.h */,
 				8E7662E71A72212A006410E7 /* KeyViewCollection.m */,
 				5BE1E8D41A7D75B00094E050 /* LetterSymbolKeyView.h */,
 				5BE1E8D51A7D75B00094E050 /* LetterSymbolKeyView.m */,
-				8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */,
-				8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */,
-				8E7662C81A701D4F006410E7 /* KeyView.h */,
-				8E7662C91A701D4F006410E7 /* KeyView.m */,
-				5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */,
-				5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */,
 			);
 			name = "Views and Layers";
 			sourceTree = "<group>";
