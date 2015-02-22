@@ -13,6 +13,7 @@
 #import "EnlargedKeyView.h"
 #import "KeyboardTimer.h"
 #import "AlternateKeysView.h"
+#import "KeyboardKeysUtility.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
 static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
@@ -72,10 +73,13 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)initializeAlternateKeysView
 {
-   self.alternateKeysView = [AlternateKeysView viewWithKeyView:self direction:AltKeysViewDirectionCenter];
-   self.alternateKeysView.hidden = YES;
-   
-   [self addSubview:self.alternateKeysView];
+   if ([KeyboardKeysUtility altCharacterArrayForCharacter:self.displayText].count)
+   {
+      self.alternateKeysView = [AlternateKeysView viewWithKeyView:self];
+      self.alternateKeysView.hidden = YES;
+      
+      [self addSubview:self.alternateKeysView];
+   }
 }
 
 #pragma mark - Helper
@@ -95,7 +99,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)fireAlterKeyTimerIfNeeded
 {
-   if (self.alternateKeysTimer == nil)
+   if (self.alternateKeysTimer == nil && self.alternateKeysView)
    {
       self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
          dispatch_async(dispatch_get_main_queue(), ^{
@@ -110,7 +114,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)killAlternateKeyTimer
 {
-   if (self.alternateKeysTimer)
+   if (self.alternateKeysTimer && self.alternateKeysView)
    {
       self.alternateKeysView.hidden = YES;
       self.isShowingAlternateKeys = NO;
@@ -142,10 +146,6 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)updateForShiftMode:(KeyboardShiftMode)shiftMode
 {
-   // Disabling this for now -- removing this retrun will make the letters that display on the keyboard
-   // lowercase when shift is not being applied
-   return;
-   
    BOOL capitalized = NO;
    switch (shiftMode)
    {
@@ -171,6 +171,8 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       [self.keyLayer makeTextLowercase];
       self.displayText = self.displayText.lowercaseString;
    }
+   
+   [self.alternateKeysView updateForShiftMode:shiftMode];
 }
 
 - (NSString*)stringForShiftMode:(KeyboardShiftMode)mode
