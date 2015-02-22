@@ -81,7 +81,7 @@ static const NSUInteger s_landscapeHeight = 215;
       
       CGFloat height = self.isLandscape ? s_landscapeHeight : s_portraitHeight;
       self.heightConstraint.constant = height;
-      
+
       [self.inputView addConstraint:self.heightConstraint];
       [self updateControllerViewFrames];
    }
@@ -136,7 +136,6 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)updateKeysViewFrame
 {
-   
    CGFloat keysViewHeight = self.heightConstraint.constant - CGRectGetHeight(self.auxController.view.bounds);
    CGFloat keysViewYPosition = CGRectGetMaxY(self.auxController.view.bounds);
    self.keysController.view.frame = CGRectMake(0, keysViewYPosition, CGRectGetWidth(self.inputView.bounds), keysViewHeight);
