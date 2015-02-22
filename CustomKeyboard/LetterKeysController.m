@@ -95,20 +95,15 @@ static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
    }
 }
 
-#pragma mark - Property Overrides
-- (NSArray*)keyViews
+- (void)initializeAlternateKeyViews
 {
-   NSMutableArray* keyViewArray = [NSMutableArray array];
-   for (KeyViewCollection* collection in self.keyViewCollections)
+   for (LetterSymbolKeyView* keyView in self.keyViews)
    {
-      for (KeyView* keyView in collection.keyViews)
-      {
-         [keyViewArray addObject:keyView];
-      }
+      [keyView initializeAlternateKeysView];
    }
-   return keyViewArray;
 }
 
+#pragma mark - Property Overrides
 - (NSArray*)keyViewCollections
 {
    return @[self.topLettersCollection, self.middleLettersCollection, self.bottomLettersCollection];

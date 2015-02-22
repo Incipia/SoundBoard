@@ -9,6 +9,7 @@
 #import "NumberSymbolKeysController.h"
 #import "KeyViewCollectionCreator.h"
 #import "KeyViewCollection.h"
+#import "LetterSymbolKeyView.h"
 
 static KeyViewCollection* _collection(KeyboardMode mode, KeyboardRow row)
 {
@@ -130,6 +131,14 @@ static void _hideCollectionArray(NSArray* array, BOOL hidden)
 
    _hideCollectionArray(collectionToShow, NO);
    _hideCollectionArray(collectionToHide, YES);
+}
+
+- (void)initializeAlternateKeyViews
+{
+   for (LetterSymbolKeyView* keyView in self.keyViews)
+   {
+      [keyView initializeAlternateKeysView];
+   }
 }
 
 #pragma mark - Property Overrides
