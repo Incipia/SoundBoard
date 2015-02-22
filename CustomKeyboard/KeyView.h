@@ -13,7 +13,6 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 
 @interface KeyView : UIView
 - (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
-
 + (instancetype)viewWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
 
 - (void)updateFrame:(CGRect)frame;
@@ -30,6 +29,5 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 @property (readonly) BOOL wantsToHandleTouchEvents;
 
 @property (nonatomic, readonly) KeyboardKeyLayer* keyLayer;
-@property (nonatomic, readonly) CALayer* backgroundLayer;
 
 @end

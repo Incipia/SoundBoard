@@ -14,6 +14,8 @@
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @property (nonatomic, copy) keyActionBlock actionBlock;
+@property (nonatomic) UIColor* defaultBackgroundColor;
+@property (nonatomic) UIColor* defaultHighlightedBackgroundColor;
 @end
 
 @implementation KeyView
@@ -23,6 +25,8 @@
 {
    if (self = [super initWithFrame:frame])
    {
+      self.defaultBackgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
+      self.defaultHighlightedBackgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
       [self setupBackgroundLayer];
    }
    return self;
@@ -56,8 +60,8 @@
 - (void)setupBackgroundLayer
 {
    self.backgroundLayer = [CALayer layer];
-   self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
-   self.backgroundLayer.cornerRadius = 4.f;
+   self.backgroundLayer.backgroundColor = self.defaultBackgroundColor.CGColor;
+   self.backgroundLayer.cornerRadius = 1.5f;
    
    self.backgroundLayer.shadowOpacity = .25f;
    self.backgroundLayer.shadowRadius = 1.5f;
@@ -71,7 +75,7 @@
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   self.backgroundLayer.frame = CGRectInset(self.bounds, 4, 8);
+   self.backgroundLayer.frame = CGRectInset(self.bounds, 1, 1);
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -91,13 +95,13 @@
 - (void)giveFocus
 {
    self.hasFocus = YES;
-   self.backgroundLayer.backgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1].CGColor;
+   self.backgroundLayer.backgroundColor = self.defaultHighlightedBackgroundColor.CGColor;
 }
 
 - (void)removeFocus
 {
    self.hasFocus = NO;
-   self.backgroundLayer.backgroundColor = [UIColor clearColor].CGColor;
+   self.backgroundLayer.backgroundColor = self.defaultBackgroundColor.CGColor;
 }
 
 #pragma mark - Property Overrides
