@@ -17,6 +17,7 @@
 #import "NumberSymbolKeysController.h"
 #import "KeyboardLayoutDimensonsProvider.h"
 #import "KeyboardKeyFrameTextMap.h"
+#import "LetterSymbolKeyView.h"
 
 @interface KeyboardKeysController ()
 
@@ -96,9 +97,11 @@
 - (void)setupKeysControllers
 {
    self.letterKeysController = [LetterKeysController controllerWithDimensionsProvider:self.dimensionsProvider];
+   [self.letterKeysController initializeAlternateKeyViews];
    [self.view addSubview:self.letterKeysController.view];
 
    self.numberSymbolKeysController = [NumberSymbolKeysController controllerWithDimensionsProvider:self.dimensionsProvider];
+   [self.numberSymbolKeysController initializeAlternateKeyViews];
    [self.view addSubview:self.numberSymbolKeysController.view];
 }
 
