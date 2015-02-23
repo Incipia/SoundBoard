@@ -9,6 +9,14 @@
 #ifndef SoundBoard_KeyboardTypedefs_h
 #define SoundBoard_KeyboardTypedefs_h
 
+typedef NS_ENUM(NSUInteger, KeyboardKeyType)
+{
+   KeyTypeLetterSymbol,
+   KeyTypeFunctional,
+   KeyTypeEnlarged,
+   KeyTypeAlternate
+};
+
 typedef NS_ENUM(NSUInteger, KeyboardFunctionalKeyType)
 {
    KeyboardShiftKey,
