@@ -75,10 +75,10 @@ static NSDictionary* _defaultKeyAttributes()
 static NSDictionary* _functionalKeyAttributes()
 {
    return @{kThemeAttributesFontName : @"HelveticaNeue",
-            kThemeAttributesFontSize : @18,
+            kThemeAttributesFontSize : @14,
             kThemeAttributesFontColor : [UIColor whiteColor],
             kThemeAttributesHighlightedFontColor : [UIColor whiteColor],
-            kThemeAttributesBackgroundColor : [UIColor colorWithWhite:1 alpha:.9],
+            kThemeAttributesBackgroundColor : [UIColor clearColor],
             kThemeAttributesHighlightedBackgroundColor : [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1],
             kThemeAttributesBackgroundEdgeInsets : [NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(1, 1, 1, 1)],
             kThemeAttributesCornerRadius : @1.5f,
@@ -124,8 +124,8 @@ static NSDictionary* _alternateKeyAttributes()
             kThemeAttributesShadowOpacity : @.25f,
             kThemeAttributesShadowRadius : @1.5f,
             kThemeAttributesShadowOffset : [NSValue valueWithCGSize:CGSizeMake(0, .5f)],
-            kThemeAttributesBorderColor : [UIColor colorWithWhite:.2 alpha:1],
-            kThemeAttributesBorderWidth : @2
+            kThemeAttributesBorderColor : [UIColor clearColor],
+            kThemeAttributesBorderWidth : @0
             };
 }
 
