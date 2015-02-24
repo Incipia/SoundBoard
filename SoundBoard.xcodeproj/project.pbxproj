@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B0721341A99335C00BF4E2E /* AlternateKeysView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0721331A99335C00BF4E2E /* AlternateKeysView.m */; };
 		5B07214A1A9B9FD800BF4E2E /* ThemeAttributesProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0721491A9B9FD800BF4E2E /* ThemeAttributesProvider.m */; };
+		5B07214D1A9C13DB00BF4E2E /* CALayer+KeyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B07214C1A9C13DB00BF4E2E /* CALayer+KeyType.m */; };
 		5B0FB5891A7B1EEA00D2854F /* TextDocumentProxyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */; };
 		5B2534621A72BC3000384E69 /* KeyboardKeyLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B2534611A72BC3000384E69 /* KeyboardKeyLayer.m */; };
 		5B4D23B91A845E7D00ECE9AD /* LetterKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B4D23B81A845E7D00ECE9AD /* LetterKeysController.m */; };
@@ -84,6 +85,8 @@
 		5B0721331A99335C00BF4E2E /* AlternateKeysView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlternateKeysView.m; sourceTree = "<group>"; };
 		5B0721481A9B9FD800BF4E2E /* ThemeAttributesProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeAttributesProvider.h; sourceTree = "<group>"; };
 		5B0721491A9B9FD800BF4E2E /* ThemeAttributesProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeAttributesProvider.m; sourceTree = "<group>"; };
+		5B07214B1A9C13DB00BF4E2E /* CALayer+KeyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+KeyType.h"; sourceTree = "<group>"; };
+		5B07214C1A9C13DB00BF4E2E /* CALayer+KeyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+KeyType.m"; sourceTree = "<group>"; };
 		5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextDocumentProxyManager.h; sourceTree = "<group>"; };
 		5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextDocumentProxyManager.m; sourceTree = "<group>"; };
 		5B2534601A72BC3000384E69 /* KeyboardKeyLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeyLayer.h; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 		5B0721411A9A9C4200BF4E2E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				5B07214B1A9C13DB00BF4E2E /* CALayer+KeyType.h */,
+				5B07214C1A9C13DB00BF4E2E /* CALayer+KeyType.m */,
 				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
 				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
 			);
@@ -578,6 +583,7 @@
 				5B537E891A73255C0006AEF8 /* DeleteKeyController.m in Sources */,
 				5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */,
 				5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */,
+				5B07214D1A9C13DB00BF4E2E /* CALayer+KeyType.m in Sources */,
 				8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */,
 				5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */,
 				8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */,
