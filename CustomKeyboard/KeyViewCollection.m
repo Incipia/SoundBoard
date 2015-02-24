@@ -10,6 +10,7 @@
 #import "LetterSymbolKeyView.h"
 
 @interface KeyViewCollection ()
+@property (nonatomic) KeyboardKeyType type;
 @property (nonatomic) NSArray* characterArray;
 @property (nonatomic) NSMutableArray* mutableLetterViewArray;
 @end
@@ -17,14 +18,14 @@
 @implementation KeyViewCollection
 
 #pragma mark - Init
-- (instancetype)initWithCharacterArray:(NSArray*)array
+- (instancetype)initWithCharacterArray:(NSArray*)array keyType:(KeyboardKeyType)type
 {
    if (self = [super init])
    {
       self.characterArray = array;
       self.mutableLetterViewArray = [NSMutableArray array];
 
-      [self setupLetterViews];
+      [self setupLetterViewsWithKeyType:type];
    }
    return self;
 }
@@ -32,15 +33,20 @@
 #pragma mark - Class Init
 + (instancetype)collectionWithCharacterArray:(NSArray*)array
 {
-   return [[KeyViewCollection alloc] initWithCharacterArray:array];
+   return [KeyViewCollection collectionWithCharacterArray:array forKeyType:KeyTypeDefault];
+}
+
++ (instancetype)collectionWithCharacterArray:(NSArray *)array forKeyType:(KeyboardKeyType)type
+{
+   return [[KeyViewCollection alloc] initWithCharacterArray:array keyType:type];
 }
 
 #pragma mark - Setup
-- (void)setupLetterViews
+- (void)setupLetterViewsWithKeyType:(KeyboardKeyType)type
 {
    for (NSString* letter in self.characterArray)
    {
-      LetterSymbolKeyView* letterView = [LetterSymbolKeyView viewWithText:letter fontSize:20.f frame:CGRectZero];
+      LetterSymbolKeyView* letterView = [LetterSymbolKeyView viewWithText:letter keyType:type];
 
       [self.mutableLetterViewArray addObject:letterView];
       [self addSubview:letterView];

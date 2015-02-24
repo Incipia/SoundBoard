@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyboardTypedefs.h"
 
 @interface KeyViewCollection : UIView
 
 + (instancetype)collectionWithCharacterArray:(NSArray*)array;
++ (instancetype)collectionWithCharacterArray:(NSArray*)array forKeyType:(KeyboardKeyType)type;
+
 - (void)updateFrame:(CGRect)frame;
 
 @property (nonatomic, readonly) NSArray* keyViews;
