@@ -7,11 +7,13 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "KeyboardTypedefs.h"
 @import UIKit;
 
 @interface KeyboardKeyLayer : CATextLayer
 
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color;
++ (instancetype)layerWithText:(NSString*)text keyType:(KeyboardKeyType)type;
 
 - (void)makeTextBold;
 - (void)makeTextRegular;

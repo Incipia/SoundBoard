@@ -8,6 +8,7 @@
 
 #import "KeyboardKeyLayer.h"
 #import "CALayer+DisableAnimations.h"
+#import "ThemeAttributesProvider.h"
 @import UIKit;
 
 @interface KeyboardKeyLayer ()
@@ -27,6 +28,13 @@
    [layer updateFrame];
 
    return layer;
+}
+
++ (instancetype)layerWithText:(NSString *)text keyType:(KeyboardKeyType)type
+{
+   CGFloat fontSize = [ThemeAttributesProvider fontSizeForKeyType:type];
+   UIColor* color = [ThemeAttributesProvider fontColorForKeyType:type];
+   return [[self class] layerWithText:text fontSize:fontSize color:color];
 }
 
 #pragma mark - Setup
