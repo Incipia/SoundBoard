@@ -8,7 +8,7 @@
 
 #import "KeyView.h"
 #import "CALayer+KeyType.h"
-#import "KeyLayer.h"
+#import "KeyBackgroundLayer.h"
 #import "KeyboardKeyLayer.h"
 #import "ThemeAttributesProvider.h"
 
@@ -16,7 +16,7 @@
 @property (nonatomic) BOOL hasFocus;
 @property (nonatomic) KeyboardKeyType type;
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
-@property (nonatomic) KeyLayer* backgroundLayer;
+@property (nonatomic) KeyBackgroundLayer* backgroundLayer;
 @property (nonatomic, copy) keyActionBlock actionBlock;
 @end
 
@@ -67,7 +67,7 @@
 
 - (void)setupBackgroundLayerWithKeyType:(KeyboardKeyType)type
 {
-   self.backgroundLayer = [KeyLayer layerWithKeyType:type];
+   self.backgroundLayer = [KeyBackgroundLayer layerWithKeyType:type];
    [self.layer addSublayer:self.backgroundLayer];
 }
 

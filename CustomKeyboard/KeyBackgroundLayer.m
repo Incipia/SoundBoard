@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 Pure Virtual Studios, LLC. All rights reserved.
 //
 
-#import "KeyLayer.h"
+#import "KeyBackgroundLayer.h"
 #import "ThemeAttributesProvider.h"
 #import "CALayer+DisableAnimations.h"
 
-@interface KeyLayer ()
+@interface KeyBackgroundLayer ()
 @property (nonatomic) KeyboardKeyType type;
 @end
 
-@implementation KeyLayer
+@implementation KeyBackgroundLayer
 
 #pragma mark - Class Init
 + (instancetype)layerWithKeyType:(KeyboardKeyType)type
 {
-   KeyLayer* layer = [self layer];
+   KeyBackgroundLayer* layer = [self layer];
    layer.type = type;
    
    layer.backgroundColor = [ThemeAttributesProvider backgroundColorForKeyType:type].CGColor;

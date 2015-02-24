@@ -13,7 +13,7 @@
 #import "LetterSymbolKeyView.h"
 #import "KeyViewCollection.h"
 #import "KeyboardKeysUtility.h"
-#import "KeyLayer.h"
+#import "KeyBackgroundLayer.h"
 
 static NSArray* _altCharactersArray(AltKeysViewDirection direction, NSString* primaryCharacter)
 {
@@ -233,7 +233,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 }
 
 @interface AlternateKeysView ()
-@property (nonatomic) KeyLayer* alternateKeysViewBackgroundLayer;
+@property (nonatomic) KeyBackgroundLayer* alternateKeysViewBackgroundLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
 @property (nonatomic) NSArray* altCharacters;
 @property (nonatomic) KeyViewCollection* alternateKeysCollection;
@@ -249,7 +249,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
    {
       [self setupShadowLayer];
       
-      self.alternateKeysViewBackgroundLayer = [KeyLayer layerWithKeyType:KeyTypeEnlarged];
+      self.alternateKeysViewBackgroundLayer = [KeyBackgroundLayer layerWithKeyType:KeyTypeEnlarged];
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.alternateKeysViewBackgroundLayer];
       

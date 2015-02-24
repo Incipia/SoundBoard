@@ -10,7 +10,7 @@
 #import "KeyboardKeyLayer.h"
 #import "CALayer+DisableAnimations.h"
 #import "KeyView.h"
-#import "KeyLayer.h"
+#import "KeyBackgroundLayer.h"
 
 static CGPathRef _defaultEnlargedKeyPath(CGRect sourceFrame)
 {
@@ -74,7 +74,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 }
 
 @interface EnlargedKeyView ()
-@property (nonatomic) KeyLayer* enlargedKeyViewLayer;
+@property (nonatomic) KeyBackgroundLayer* enlargedKeyViewLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
 @property (nonatomic) KeyboardKeyLayer* letterLayer;
 @end
@@ -88,7 +88,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
    {
       [self setupShadowContainerLayer];
       
-      self.enlargedKeyViewLayer = [KeyLayer layerWithKeyType:KeyTypeEnlarged];
+      self.enlargedKeyViewLayer = [KeyBackgroundLayer layerWithKeyType:KeyTypeEnlarged];
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.enlargedKeyViewLayer];
 

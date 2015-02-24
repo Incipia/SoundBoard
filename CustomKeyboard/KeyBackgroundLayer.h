@@ -9,7 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "KeyboardTypedefs.h"
 
-@interface KeyLayer : CAShapeLayer
+@interface KeyBackgroundLayer : CAShapeLayer
 
 + (instancetype)layerWithKeyType:(KeyboardKeyType)type;
 
