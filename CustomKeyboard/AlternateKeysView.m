@@ -303,7 +303,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
          break;
    }
    
-   CGRect keyViewFrame = CGRectInset(self.bounds, 1, 1);
+   CGRect keyViewFrame = CGRectInset(self.bounds, 4, 4);
    CGRect alternateKeysBackgroundFrame = CGRectMake(x, -56, width, height);
    
    [self.alternateKeysCollection updateFrame:alternateKeysBackgroundFrame];

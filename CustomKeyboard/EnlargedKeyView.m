@@ -128,7 +128,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 1, 1)];
+   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 4, 4)];
 
    CGRect letterLayerFrame = self.bounds;
    letterLayerFrame.origin.y = -38;
