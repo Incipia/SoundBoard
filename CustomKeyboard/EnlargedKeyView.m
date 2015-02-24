@@ -10,6 +10,7 @@
 #import "KeyboardKeyLayer.h"
 #import "CALayer+DisableAnimations.h"
 #import "KeyView.h"
+#import "KeyLayer.h"
 
 static CGPathRef _defaultEnlargedKeyPath(CGRect sourceFrame)
 {
@@ -73,7 +74,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 }
 
 @interface EnlargedKeyView ()
-@property (nonatomic) CAShapeLayer* enlargedKeyViewLayer;
+@property (nonatomic) KeyLayer* enlargedKeyViewLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
 @property (nonatomic) KeyboardKeyLayer* letterLayer;
 @end
@@ -85,9 +86,9 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 {
    if (self = [super initWithFrame:frame])
    {
-      [self setupEnlargedKeyViewLayer];
-      [self setupShadowLayer];
-
+      [self setupShadowContainerLayer];
+      
+      self.enlargedKeyViewLayer = [KeyLayer layerWithKeyType:KeyTypeEnlarged];
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.enlargedKeyViewLayer];
 
@@ -107,22 +108,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 }
 
 #pragma mark - Setup
-- (void)setupEnlargedKeyViewLayer
-{
-   self.enlargedKeyViewLayer = [CAShapeLayer layer];
-
-   self.enlargedKeyViewLayer.lineWidth = 2.f;
-   self.enlargedKeyViewLayer.strokeColor = [UIColor colorWithWhite:.2 alpha:1].CGColor;
-   self.enlargedKeyViewLayer.fillColor = [UIColor colorWithWhite:1 alpha:.9].CGColor;
-
-   self.enlargedKeyViewLayer.shadowOpacity = .1f;
-   self.enlargedKeyViewLayer.shadowRadius = 1.5f;
-   self.enlargedKeyViewLayer.shadowOffset = CGSizeMake(0, .5f);
-
-   [self.enlargedKeyViewLayer disableAnimations];
-}
-
-- (void)setupShadowLayer
+- (void)setupShadowContainerLayer
 {
    self.shadowContainerLayer = [CALayer layer];
    self.shadowContainerLayer.shadowOpacity = .25f;
@@ -142,7 +128,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 4, 8)];
+   [self updateEnlargedKeyPathWithFrame:CGRectInset(self.bounds, 1, 1)];
 
    CGRect letterLayerFrame = self.bounds;
    letterLayerFrame.origin.y = -38;

@@ -13,6 +13,7 @@
 #import "LetterSymbolKeyView.h"
 #import "KeyViewCollection.h"
 #import "KeyboardKeysUtility.h"
+#import "KeyLayer.h"
 
 static NSArray* _altCharactersArray(AltKeysViewDirection direction, NSString* primaryCharacter)
 {
@@ -232,7 +233,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 }
 
 @interface AlternateKeysView ()
-@property (nonatomic) CAShapeLayer* alternateKeysViewBackgroundLayer;
+@property (nonatomic) KeyLayer* alternateKeysViewBackgroundLayer;
 @property (nonatomic) CALayer* shadowContainerLayer;
 @property (nonatomic) NSArray* altCharacters;
 @property (nonatomic) KeyViewCollection* alternateKeysCollection;
@@ -246,9 +247,9 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 {
    if (self = [super initWithFrame:keyView.bounds])
    {
-      [self setupAlternateKeysViewBackgroundLayer];
       [self setupShadowLayer];
       
+      self.alternateKeysViewBackgroundLayer = [KeyLayer layerWithKeyType:KeyTypeEnlarged];
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.alternateKeysViewBackgroundLayer];
       
@@ -265,22 +266,6 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 }
 
 #pragma mark - Setup
-- (void)setupAlternateKeysViewBackgroundLayer
-{
-   self.alternateKeysViewBackgroundLayer = [CAShapeLayer layer];
-   
-   self.alternateKeysViewBackgroundLayer.lineWidth = 2.f;
-   self.alternateKeysViewBackgroundLayer.strokeColor =  [UIColor colorWithWhite:.2 alpha:1].CGColor;
-   self.alternateKeysViewBackgroundLayer.fillColor = [UIColor colorWithWhite:1 alpha:.9].CGColor;
-   
-   self.alternateKeysViewBackgroundLayer.shadowOpacity = .1f;
-   self.alternateKeysViewBackgroundLayer.shadowRadius = 1.5f;
-   self.alternateKeysViewBackgroundLayer.shadowOffset = CGSizeMake(0, .5f);
-   
-   [self.alternateKeysViewBackgroundLayer disableAnimations];
-   self.alternateKeysViewBackgroundLayer.backgroundColor = [UIColor redColor].CGColor;
-}
-
 - (void)setupShadowLayer
 {
    self.shadowContainerLayer = [CALayer layer];
@@ -292,7 +277,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 - (void)setupAlternateCharactersCollectionWithCharacter:(NSString*)character
 {
    self.altCharacters = _altCharactersArray(self.direction, character);
-   self.alternateKeysCollection = [KeyViewCollection collectionWithCharacterArray:self.altCharacters];
+   self.alternateKeysCollection = [KeyViewCollection collectionWithCharacterArray:self.altCharacters forKeyType:KeyTypeAlternate];
    
    [self addSubview:self.alternateKeysCollection];
 }
@@ -318,8 +303,8 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
          break;
    }
    
-   CGRect keyViewFrame = CGRectInset(self.bounds, 4, 8);
-   CGRect alternateKeysBackgroundFrame = CGRectMake(x, -54, width, height);
+   CGRect keyViewFrame = CGRectInset(self.bounds, 1, 1);
+   CGRect alternateKeysBackgroundFrame = CGRectMake(x, -56, width, height);
    
    [self.alternateKeysCollection updateFrame:alternateKeysBackgroundFrame];
    
