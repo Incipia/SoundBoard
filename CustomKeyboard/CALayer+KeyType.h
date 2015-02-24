@@ -7,7 +7,10 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "KeyboardTypedefs.h"
 
 @interface CALayer (KeyType)
+
++ (instancetype)layerWithKeyType:(KeyboardKeyType)type;
 
 @end
