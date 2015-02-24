@@ -12,7 +12,6 @@
 
 @interface KeyboardKeyLayer : CATextLayer
 
-+ (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color;
 + (instancetype)layerWithText:(NSString*)text keyType:(KeyboardKeyType)type;
 
 - (void)makeTextBold;

@@ -92,8 +92,7 @@ static CGPathRef _rightEnlargedKeyPath(CGRect sourceFrame)
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.enlargedKeyViewLayer];
 
-      UIColor* letterLayerColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
-      self.letterLayer = [KeyboardKeyLayer layerWithText:text fontSize:24.f color:letterLayerColor];
+      self.letterLayer = [KeyboardKeyLayer layerWithText:text keyType:KeyTypeEnlarged];
       [self.layer addSublayer:self.letterLayer];
    }
    return self;
