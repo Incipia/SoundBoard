@@ -14,8 +14,6 @@
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
 @property (nonatomic) CALayer* backgroundLayer;
 @property (nonatomic, copy) keyActionBlock actionBlock;
-@property (nonatomic) UIColor* defaultBackgroundColor;
-@property (nonatomic) UIColor* defaultHighlightedBackgroundColor;
 @end
 
 @implementation KeyView
@@ -25,8 +23,6 @@
 {
    if (self = [super initWithFrame:frame])
    {
-      self.defaultBackgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
-      self.defaultHighlightedBackgroundColor = [UIColor colorWithRed:31/255.f green:32/255.f blue:34/255.f alpha:1];
       [self setupBackgroundLayer];
    }
    return self;
@@ -87,13 +83,11 @@
 - (void)giveFocus
 {
    self.hasFocus = YES;
-   self.backgroundLayer.backgroundColor = self.defaultHighlightedBackgroundColor.CGColor;
 }
 
 - (void)removeFocus
 {
    self.hasFocus = NO;
-   self.backgroundLayer.backgroundColor = self.defaultBackgroundColor.CGColor;
 }
 
 #pragma mark - Property Overrides
