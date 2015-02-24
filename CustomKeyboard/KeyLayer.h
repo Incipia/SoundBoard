@@ -7,7 +7,13 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import "KeyboardTypedefs.h"
 
 @interface KeyLayer : CAShapeLayer
+
++ (instancetype)layerWithKeyType:(KeyboardKeyType)type;
+
+- (void)applyHighlight;
+- (void)removeHighlight;
 
 @end
