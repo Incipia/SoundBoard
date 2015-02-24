@@ -24,9 +24,9 @@
 
 @implementation DeleteKeyView
 
-- (instancetype)initWithFontSize:(CGFloat)fontSize frame:(CGRect)frame
+- (instancetype)initWithText:(NSString *)text keyType:(KeyboardKeyType)type
 {
-   if (self = [self initWithText:@"del" fontSize:fontSize frame:frame])
+   if (self = [super initWithText:text keyType:type])
    {
       self.shouldTriggerActionOnTouchDown = YES;
       [self setActionBlock:^(NSInteger repeatCount)
@@ -38,11 +38,6 @@
        }];
    }
    return self;
-}
-
-+ (instancetype)viewWithFontSize:(CGFloat)fontSize frame:(CGRect)frame
-{
-   return [[[self class] alloc] initWithFontSize:fontSize frame:frame];
 }
 
 - (void)dealloc
@@ -86,7 +81,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.deleteView = [DeleteKeyView viewWithFontSize:14.f frame:self.view.bounds];
+   self.deleteView = [DeleteKeyView viewWithText:@"del" keyType:KeyTypeFunctional];
    self.keyViewArray = @[self.deleteView];
    
    [self.view addSubview:self.deleteView];

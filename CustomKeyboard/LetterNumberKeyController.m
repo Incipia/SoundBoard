@@ -35,7 +35,7 @@
 
 - (void)setupNumbersKeyView
 {
-   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   self.numbersKeyView = [KeyView viewWithText:@"123" keyType:KeyTypeFunctional];
    self.numbersKeyView.hidden = YES;
    self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
    
@@ -47,7 +47,7 @@
 
 - (void)setupLettersKeyView
 {
-   self.lettersKeyView = [KeyView viewWithText:@"ABC" fontSize:14.f frame:CGRectZero];
+   self.lettersKeyView = [KeyView viewWithText:@"ABC" keyType:KeyTypeFunctional];
    self.lettersKeyView.hidden = YES;
    self.lettersKeyView.shouldTriggerActionOnTouchDown = YES;
    

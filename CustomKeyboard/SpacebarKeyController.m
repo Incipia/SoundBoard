@@ -21,7 +21,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.spacebarKeyView = [KeyView viewWithText:@"" fontSize:14.f frame:CGRectZero];
+   self.spacebarKeyView = [KeyView viewWithText:@"" keyType:KeyTypeFunctional];
    [self.spacebarKeyView setActionBlock:^(NSInteger repeatCount)
     {
        if (repeatCount == -1)

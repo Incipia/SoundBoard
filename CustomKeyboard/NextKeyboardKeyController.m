@@ -19,7 +19,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.nextKeyboardKeyView = [KeyView viewWithText:@"next" fontSize:14.f frame:CGRectZero];
+   self.nextKeyboardKeyView = [KeyView viewWithText:@"next" keyType:KeyTypeFunctional];
    [self.nextKeyboardKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [KeyboardModeManager advanceToNextKeyboard];

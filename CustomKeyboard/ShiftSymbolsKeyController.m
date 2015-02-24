@@ -8,6 +8,7 @@
 
 #import "ShiftSymbolsKeyController.h"
 #import "KeyboardModeManager.h"
+#import "KeyboardKeyLayer.h"
 #import "KeyView.h"
 
 @interface ShiftSymbolsKeyController ()
@@ -36,7 +37,7 @@
 
 - (void)setupShiftLetterView
 {
-   self.shiftKeyView = [KeyView viewWithText:@"shift" fontSize:14.f frame:CGRectZero];
+   self.shiftKeyView = [KeyView viewWithText:@"shift" keyType:KeyTypeFunctional];
    self.shiftKeyView.shouldTriggerActionOnTouchDown = YES;
    self.shiftKeyView.hidden = YES;
    
@@ -53,7 +54,7 @@
 
 - (void)setupSymbolsLetterView
 {
-   self.symbolsKeyView = [KeyView viewWithText:@"#+=" fontSize:14.f frame:CGRectZero];
+   self.symbolsKeyView = [KeyView viewWithText:@"#+=" keyType:KeyTypeFunctional];
    self.symbolsKeyView.hidden = YES;
    self.symbolsKeyView.shouldTriggerActionOnTouchDown = YES;
    
@@ -65,7 +66,7 @@
 
 - (void)setupNumbersLetterView
 {
-   self.numbersKeyView = [KeyView viewWithText:@"123" fontSize:14.f frame:CGRectZero];
+   self.numbersKeyView = [KeyView viewWithText:@"123" keyType:KeyTypeFunctional];
    self.numbersKeyView.hidden = YES;
    self.numbersKeyView.shouldTriggerActionOnTouchDown = YES;
    

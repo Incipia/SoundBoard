@@ -19,7 +19,7 @@
 #pragma mark - Setup
 - (void)setupKeyViews
 {
-   self.returnKeyView = [KeyView viewWithText:@"return" fontSize:14.f frame:CGRectZero];
+   self.returnKeyView = [KeyView viewWithText:@"return" keyType:KeyTypeFunctional];
    [self.returnKeyView setActionBlock:^(NSInteger repeatCount)
    {
       [TextDocumentProxyManager insertText:@"\n"];
