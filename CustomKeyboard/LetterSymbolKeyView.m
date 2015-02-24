@@ -14,6 +14,7 @@
 #import "KeyboardTimer.h"
 #import "AlternateKeysView.h"
 #import "KeyboardKeysUtility.h"
+#import "KeyboardKeyLayer.h"
 
 static NSString* const s_leftEdgeLetterKeys = @"Q1-[_";
 static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
@@ -43,10 +44,10 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 }
 
 #pragma mark - Class Init
-+ (instancetype)viewWithText:(NSString *)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
++ (instancetype)viewWithText:(NSString *)text keyType:(KeyboardKeyType)type
 {
-   LetterSymbolKeyView* letterSymbolView = [super viewWithText:text fontSize:fontSize frame:frame];
-
+   LetterSymbolKeyView* letterSymbolView = [super viewWithText:text keyType:type];
+   
    [letterSymbolView setupEnlargedKeyView];
    
    __weak LetterSymbolKeyView* weakLetterView = letterSymbolView;
@@ -57,7 +58,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
        [KeyboardModeTransitioner giveTextInput:text];
        [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
     }];
-
+   
    return letterSymbolView;
 }
 
