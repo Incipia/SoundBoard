@@ -17,16 +17,6 @@
 @implementation KeyboardKeyLayer
 
 #pragma mark - Class Init
-+ (instancetype)layerWithText:(NSString*)string
-{
-   return [KeyboardKeyLayer layerWithText:string fontSize:22.f];
-}
-
-+ (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize
-{
-   return [[self class] layerWithText:text fontSize:fontSize color:[UIColor whiteColor]];
-}
-
 + (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
 {
    KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
