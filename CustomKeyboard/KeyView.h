@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KeyboardKeyLayer.h"
+#import "KeyboardTypedefs.h"
 
 typedef void (^keyActionBlock)(NSInteger repeatCount);
 
+@class KeyboardKeyLayer;
 @interface KeyView : UIView
-- (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
-+ (instancetype)viewWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame;
+
+- (instancetype)initWithText:(NSString *)text keyType:(KeyboardKeyType)type;
++ (instancetype)viewWithText:(NSString*)text keyType:(KeyboardKeyType)type;
 
 - (void)updateFrame:(CGRect)frame;
 - (void)setActionBlock:(keyActionBlock)block;

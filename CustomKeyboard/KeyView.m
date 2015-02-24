@@ -8,32 +8,39 @@
 
 #import "KeyView.h"
 #import "CALayer+KeyType.h"
+#import "KeyLayer.h"
+#import "KeyboardKeyLayer.h"
+#import "ThemeAttributesProvider.h"
 
 @interface KeyView ()
 @property (nonatomic) BOOL hasFocus;
+@property (nonatomic) KeyboardKeyType type;
 @property (nonatomic) KeyboardKeyLayer* keyLayer;
-@property (nonatomic) CALayer* backgroundLayer;
+@property (nonatomic) KeyLayer* backgroundLayer;
 @property (nonatomic, copy) keyActionBlock actionBlock;
 @end
 
 @implementation KeyView
 
 #pragma mark - Init
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
 {
-   if (self = [super initWithFrame:frame])
+   if (self = [self initWithFrame:CGRectZero])
    {
-      [self setupBackgroundLayer];
+      self.displayText = text;
+      [self setupBackgroundLayerWithKeyType:KeyTypeDefault];
+      [self setupLetterLayerWithText:text keyType:KeyTypeDefault];
    }
    return self;
 }
 
-- (instancetype)initWithText:(NSString*)text fontSize:(CGFloat)fontSize frame:(CGRect)frame
+- (instancetype)initWithText:(NSString *)text keyType:(KeyboardKeyType)type
 {
-   if (self = [self initWithFrame:frame])
+   if (self = [super init])
    {
       self.displayText = text;
-      [self setupLetterLayerWithText:text fontSize:fontSize];
+      [self setupBackgroundLayerWithKeyType:type];
+      [self setupLetterLayerWithText:text keyType:type];
    }
    return self;
 }
@@ -44,18 +51,23 @@
    return [[[self class] alloc] initWithText:text fontSize:fontSize frame:frame];
 }
 
-#pragma mark - Setup
-- (void)setupLetterLayerWithText:(NSString*)text fontSize:(CGFloat)fontSize
++ (instancetype)viewWithText:(NSString*)text keyType:(KeyboardKeyType)type
 {
-   self.keyLayer = [KeyboardKeyLayer layerWithText:text fontSize:fontSize color:[UIColor whiteColor]];
+   return [[[self class] alloc] initWithText:text keyType:type];
+}
+
+#pragma mark - Setup
+- (void)setupLetterLayerWithText:(NSString*)text keyType:(KeyboardKeyType)type
+{
+   self.keyLayer = [KeyboardKeyLayer layerWithText:text keyType:type];
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
    [self.layer addSublayer:self.keyLayer];
 }
 
-- (void)setupBackgroundLayer
+- (void)setupBackgroundLayerWithKeyType:(KeyboardKeyType)type
 {
-   self.backgroundLayer = [CALayer layerWithKeyType:KeyTypeDefault];
+   self.backgroundLayer = [KeyLayer layerWithKeyType:type];
    [self.layer addSublayer:self.backgroundLayer];
 }
 
@@ -63,7 +75,8 @@
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   self.backgroundLayer.frame = CGRectInset(self.bounds, 1, 1);
+   UIEdgeInsets edgeInsets = [ThemeAttributesProvider backgroundEdgeInsetsForKeyType:self.type];
+   self.backgroundLayer.frame = CGRectInset(self.bounds, edgeInsets.left, edgeInsets.top);
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -83,11 +96,13 @@
 - (void)giveFocus
 {
    self.hasFocus = YES;
+   [self.backgroundLayer applyHighlight];
 }
 
 - (void)removeFocus
 {
    self.hasFocus = NO;
+   [self.backgroundLayer removeHighlight];
 }
 
 #pragma mark - Property Overrides
