@@ -11,7 +11,7 @@
 
 typedef NS_ENUM(NSUInteger, KeyboardKeyType)
 {
-   KeyTypeLetterSymbol,
+   KeyTypeDefault,
    KeyTypeFunctional,
    KeyTypeEnlarged,
    KeyTypeAlternate
