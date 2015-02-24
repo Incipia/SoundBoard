@@ -7,7 +7,6 @@
 //
 
 #import "KeyView.h"
-#import "CALayer+KeyType.h"
 #import "KeyBackgroundLayer.h"
 #import "KeyboardKeyLayer.h"
 #import "ThemeAttributesProvider.h"
