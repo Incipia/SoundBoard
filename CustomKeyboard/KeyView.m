@@ -7,7 +7,7 @@
 //
 
 #import "KeyView.h"
-#import "CALayer+DisableAnimations.h"
+#import "CALayer+KeyType.h"
 
 @interface KeyView ()
 @property (nonatomic) BOOL hasFocus;
@@ -51,7 +51,7 @@
 #pragma mark - Setup
 - (void)setupLetterLayerWithText:(NSString*)text fontSize:(CGFloat)fontSize
 {
-   self.keyLayer = [KeyboardKeyLayer layerWithText:text fontSize:fontSize];
+   self.keyLayer = [KeyboardKeyLayer layerWithText:text fontSize:fontSize color:[UIColor whiteColor]];
    self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 
    [self.layer addSublayer:self.keyLayer];
@@ -59,15 +59,7 @@
 
 - (void)setupBackgroundLayer
 {
-   self.backgroundLayer = [CALayer layer];
-   self.backgroundLayer.backgroundColor = self.defaultBackgroundColor.CGColor;
-   self.backgroundLayer.cornerRadius = 1.5f;
-   
-   self.backgroundLayer.shadowOpacity = .25f;
-   self.backgroundLayer.shadowRadius = 1.5f;
-   self.backgroundLayer.shadowOffset = CGSizeMake(0, .5f);
-   [self.backgroundLayer disableAnimations];
-   
+   self.backgroundLayer = [CALayer layerWithKeyType:KeyTypeDefault];
    [self.layer addSublayer:self.backgroundLayer];
 }
 
