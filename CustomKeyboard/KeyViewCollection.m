@@ -31,12 +31,12 @@
 }
 
 #pragma mark - Class Init
-+ (instancetype)collectionWithCharacterArray:(NSArray*)array
++ (instancetype)collectionWithCharacters:(NSArray*)array
 {
-   return [KeyViewCollection collectionWithCharacterArray:array forKeyType:KeyTypeDefault];
+   return [KeyViewCollection collectionWithCharacters:array forKeyType:KeyTypeDefault];
 }
 
-+ (instancetype)collectionWithCharacterArray:(NSArray *)array forKeyType:(KeyboardKeyType)type
++ (instancetype)collectionWithCharacters:(NSArray*)array forKeyType:(KeyboardKeyType)type
 {
    return [[KeyViewCollection alloc] initWithCharacterArray:array keyType:type];
 }

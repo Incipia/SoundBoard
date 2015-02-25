@@ -11,8 +11,8 @@
 
 @interface KeyViewCollection : UIView
 
-+ (instancetype)collectionWithCharacterArray:(NSArray*)array;
-+ (instancetype)collectionWithCharacterArray:(NSArray*)array forKeyType:(KeyboardKeyType)type;
++ (instancetype)collectionWithCharacters:(NSArray*)array;
++ (instancetype)collectionWithCharacters:(NSArray*)array forKeyType:(KeyboardKeyType)type;
 
 - (void)updateFrame:(CGRect)frame;
 

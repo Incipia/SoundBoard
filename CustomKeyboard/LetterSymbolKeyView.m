@@ -74,7 +74,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 
 - (void)initializeAlternateKeysView
 {
-   if ([KeyboardKeysUtility altCharacterArrayForCharacter:self.displayText].count)
+   if ([KeyboardKeysUtility altCharactersForCharacter:self.displayText].count)
    {
       self.alternateKeysView = [AlternateKeysView viewWithKeyView:self];
       self.alternateKeysView.hidden = YES;

@@ -15,124 +15,6 @@
 #import "KeyboardKeysUtility.h"
 #import "KeyBackgroundLayer.h"
 
-static NSArray* _altCharactersArray(AltKeysViewDirection direction, NSString* primaryCharacter)
-{
-   NSMutableArray* mutableAltCharacters = [[KeyboardKeysUtility altCharacterArrayForCharacter:primaryCharacter] mutableCopy];
-   NSUInteger indexToInsert = 0;
-   switch (direction)
-   {
-      case AltKeysViewDirectionCenter:
-         indexToInsert = mutableAltCharacters.count * .5f;
-         break;
-         
-      case AltKeysViewDirectionLeft:
-         indexToInsert = mutableAltCharacters.count;
-         break;
-         
-      case AltKeysViewDirectionRight:
-      default:
-         break;
-   }
-   [mutableAltCharacters insertObject:primaryCharacter atIndex:indexToInsert];
-   return mutableAltCharacters;
-}
-
-static AltKeysViewDirection _directionForCharacter(NSString* character)
-{
-   AltKeysViewDirection direction = AltKeysViewDirectionCenter;
-   NSString* uppercaseCharacter = character.uppercaseString;
-   
-   if ([uppercaseCharacter isEqualToString:@"E"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"Y"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"U"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"I"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"O"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"A"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"S"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"L"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"Z"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"C"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"N"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"%"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"."])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"?"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"!"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"'"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"0"])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"-"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"/"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"$"])
-   {
-      direction = AltKeysViewDirectionCenter;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"&"])
-   {
-      direction = AltKeysViewDirectionRight;
-   }
-   else if ([uppercaseCharacter isEqualToString:@"\""])
-   {
-      direction = AltKeysViewDirectionLeft;
-   }
-   return direction;
-}
-
 CGPathRef _centerAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame)
 {
    CGFloat minX = CGRectGetMinX(bottomFrame);
@@ -253,8 +135,8 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
       [self.layer addSublayer:self.shadowContainerLayer];
       [self.shadowContainerLayer addSublayer:self.alternateKeysViewBackgroundLayer];
       
-      self.direction = _directionForCharacter(keyView.displayText);
-      [self setupAlternateCharactersCollectionWithCharacter:keyView.displayText];
+      self.direction = [KeyboardKeysUtility directionForCharacter:keyView.displayText];
+      [self setupAltCharactersCollectionWithCharacter:keyView.displayText direction:self.direction];
    }
    return self;
 }
@@ -274,10 +156,10 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
    self.shadowContainerLayer.shadowOffset = CGSizeMake(0, .5f);
 }
 
-- (void)setupAlternateCharactersCollectionWithCharacter:(NSString*)character
+- (void)setupAltCharactersCollectionWithCharacter:(NSString*)character direction:(AltKeysViewDirection)direction
 {
-   self.altCharacters = _altCharactersArray(self.direction, character);
-   self.alternateKeysCollection = [KeyViewCollection collectionWithCharacterArray:self.altCharacters forKeyType:KeyTypeAlternate];
+   self.altCharacters = [KeyboardKeysUtility altCharactersForCharacter:character direction:direction];
+   self.alternateKeysCollection = [KeyViewCollection collectionWithCharacters:self.altCharacters forKeyType:KeyTypeAlternate];
    
    [self addSubview:self.alternateKeysCollection];
 }

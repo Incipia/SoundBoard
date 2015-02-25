@@ -9,6 +9,13 @@
 #ifndef SoundBoard_KeyboardTypedefs_h
 #define SoundBoard_KeyboardTypedefs_h
 
+typedef NS_ENUM(NSUInteger, AltKeysViewDirection)
+{
+   AltKeysViewDirectionCenter = 0,
+   AltKeysViewDirectionLeft,
+   AltKeysViewDirectionRight
+};
+
 typedef NS_ENUM(NSUInteger, KeyboardKeyType)
 {
    KeyTypeDefault,

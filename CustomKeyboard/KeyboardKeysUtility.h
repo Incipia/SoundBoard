@@ -11,9 +11,12 @@
 
 @interface KeyboardKeysUtility : NSObject
 
-+ (NSArray*)characterArrayForMode:(KeyboardMode)mode row:(KeyboardRow)row;
-+ (NSArray*)altCharacterArrayForCharacter:(NSString*)character;
++ (NSArray*)charactersForMode:(KeyboardMode)mode row:(KeyboardRow)row;
+
++ (NSArray*)altCharactersForCharacter:(NSString*)character;
++ (NSArray*)altCharactersForCharacter:(NSString*)character direction:(AltKeysViewDirection)direction;
 
 + (NSUInteger)numKeysForMode:(KeyboardMode)mode row:(KeyboardRow)row;
++ (AltKeysViewDirection)directionForCharacter:(NSString*)character;
 
 @end
