@@ -71,6 +71,7 @@
       {
          [self handleTouch:self.currentActiveTouch onTouchDown:NO];
       }
+      
       [self handleTouch:touches.anyObject onTouchDown:YES];
    }
    self.currentActiveTouch = touches.anyObject;
@@ -78,30 +79,36 @@
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
-   if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
-   {
-      return;
-   }
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
-   KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-   [self drawEnlargedKeyView:targetKeyView];
+   
+   if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+   {  // TODO:LEA: pass the touchLocation to the currentFocusedKeyView so it can do it's thing
+   }
+   else
+   {  // perform the standard functionality
+      KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
+      [self drawEnlargedKeyView:targetKeyView];
+   }
 }
 
 - (void)touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event
 {
-   if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+   if (self.currentActiveTouch == touches.anyObject)
    {
-      [self.currentFocusedKeyView removeFocus];
-      [self.currentFocusedKeyView executeActionBlock:1];
-      self.currentFocusedKeyView = nil;
-      self.currentActiveTouch = nil;
-   }
-   else if (self.currentActiveTouch == touches.anyObject)
-   {
-      [self.currentFocusedKeyView removeFocus];
-      self.currentFocusedKeyView = nil;
-      [self handleTouch:self.currentActiveTouch onTouchDown:NO];
-      self.currentActiveTouch = nil;
+      if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
+      {
+         [self.currentFocusedKeyView removeFocus];
+         [self executeActionBlockForKey:self.currentFocusedKeyView];
+         self.currentFocusedKeyView = nil;
+         self.currentActiveTouch = nil;
+      }
+      else
+      {
+         [self.currentFocusedKeyView removeFocus];
+         self.currentFocusedKeyView = nil;
+         [self handleTouch:self.currentActiveTouch onTouchDown:NO];
+         self.currentActiveTouch = nil;
+      }
    }
 }
 
@@ -128,6 +135,22 @@
 }
 
 #pragma mark - Helper
+- (void)executeActionBlockForKey:(KeyView *)keyView
+{
+   [self executeActionBlockForKey:keyView withRepeatCount:1];
+}
+
+- (void)executeActionBlockForKey:(KeyView *)keyView withRepeatCount:(NSInteger)repeatCount
+{
+   if (keyView)
+   {
+      dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+         [keyView executeActionBlock:repeatCount];
+         [self playSoundForKeyView:keyView];
+      });
+   }
+}
+
 - (void)handleTouch:(UITouch*)touch onTouchDown:(BOOL)touchDown
 {
    if (touch != nil)
@@ -138,21 +161,9 @@
       BOOL shouldTrigger = touchDown? targetKeyView.shouldTriggerActionOnTouchDown :
                                       !targetKeyView.shouldTriggerActionOnTouchDown;
       
-      if (targetKeyView != nil && shouldTrigger)
-      {
-         dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            [targetKeyView executeActionBlock:1];
-         });
-      }
+      if (shouldTrigger) [self executeActionBlockForKey:targetKeyView];
       
-      if (touchDown == YES)
-      {
-         [self drawEnlargedKeyView:targetKeyView];
-      }
-      else
-      {
-         [self playSoundForKeyView:targetKeyView];
-      }
+      if (touchDown == YES) [self drawEnlargedKeyView:targetKeyView];
    }
 }
 
@@ -202,16 +213,14 @@
 {
    if (_gestureView == self.shiftKeyView)
    {
-      [self.shiftKeyView removeFocus];
+      [_gestureView removeFocus];
       [KeyboardModeManager updateKeyboardShiftMode:ShiftModeCapsLock];
       self.currentActiveTouch = nil;
    }
    else if (_gestureView == self.spaceKeyView)
    {
-      [self.spaceKeyView removeFocus];
-      dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-         [self.spaceKeyView executeActionBlock:-1];
-      });
+      [_gestureView removeFocus];
+      [self executeActionBlockForKey:_gestureView withRepeatCount:-1];
    }
 }
 
