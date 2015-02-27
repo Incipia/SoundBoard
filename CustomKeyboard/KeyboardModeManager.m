@@ -8,8 +8,6 @@
 
 #import "KeyboardModeManager.h"
 
-static KeyboardModeManager* s_manager = nil;
-
 @interface KeyboardModeManager ()
 @property (weak, nonatomic) NSObject<KeyboardModeUpdater>* updater;
 @property (nonatomic) KeyboardMode currentMode;
@@ -19,50 +17,51 @@ static KeyboardModeManager* s_manager = nil;
 @implementation KeyboardModeManager
 
 #pragma mark - Helper
-+ (KeyboardModeManager*)manager
++ (KeyboardModeManager*)sharedManager
 {
-   if (s_manager == nil)
-   {
-      s_manager = [KeyboardModeManager new];
-   }
-   return s_manager;
+   static KeyboardModeManager* manager = nil;
+   static dispatch_once_t onceToken;
+   dispatch_once(&onceToken, ^{
+      manager = [KeyboardModeManager new];
+   });
+   return manager;
 }
 
 #pragma mark - Class Methods
 + (void)setKeyboardModeUpdater:(NSObject<KeyboardModeUpdater>*)updater
 {
-   [[self class] manager].updater = updater;
+   [[self class] sharedManager].updater = updater;
 }
 
 + (void)updateKeyboardMode:(KeyboardMode)mode
 {
-   [[self class] manager].currentMode = mode;
+   [[self class] sharedManager].currentMode = mode;
    dispatch_async(dispatch_get_main_queue(), ^{
-      [[[self class] manager].updater updateKeyboardMode:mode];
+      [[[self class] sharedManager].updater updateKeyboardMode:mode];
    });
 }
 
 + (KeyboardMode)currentMode
 {
-   return [[self class] manager].currentMode;
+   return [[self class] sharedManager].currentMode;
 }
 
 + (void)updateKeyboardShiftMode:(KeyboardShiftMode)shiftMode
 {
-   [[self class] manager].currentShiftMode = shiftMode;
+   [[self class] sharedManager].currentShiftMode = shiftMode;
    dispatch_async(dispatch_get_main_queue(), ^{
-      [[[self class] manager].updater updateKeyboardShiftMode:shiftMode];
+      [[[self class] sharedManager].updater updateKeyboardShiftMode:shiftMode];
    });
 }
 
 + (KeyboardShiftMode)currentShiftMode
 {
-   return [[self class] manager].currentShiftMode;
+   return [[self class] sharedManager].currentShiftMode;
 }
 
 + (void)advanceToNextKeyboard
 {
-   [[[self class] manager].updater advanceToNextKeyboard];
+   [[[self class] sharedManager].updater advanceToNextKeyboard];
 }
 
 @end
