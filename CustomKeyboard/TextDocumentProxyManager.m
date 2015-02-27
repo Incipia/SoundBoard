@@ -9,8 +9,6 @@
 #import "TextDocumentProxyManager.h"
 #import "KeyboardModeManager.h"
 
-static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
-
 @interface TextDocumentProxyManager ()
 @property (weak, nonatomic) id<UITextDocumentProxy> proxy;
 @end
@@ -18,25 +16,26 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 @implementation TextDocumentProxyManager
 
 #pragma mark - Helper
-+ (TextDocumentProxyManager*)lazyLoadedManager
++ (TextDocumentProxyManager*)sharedManager
 {
-   if (s_textDocumentProxyManager == nil)
-   {
-      s_textDocumentProxyManager = [TextDocumentProxyManager new];
-   }
-   return s_textDocumentProxyManager;
+   static TextDocumentProxyManager* manager = nil;
+   static dispatch_once_t onceToken;
+   dispatch_once(&onceToken, ^{
+      manager = [TextDocumentProxyManager new];
+   });
+   return manager;
 }
 
 #pragma mark - Class Init
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy
 {
-   [[self class] lazyLoadedManager].proxy = proxy;
+   [[self class] sharedManager].proxy = proxy;
 }
 
 #pragma mark - Class Methods
 + (void)insertText:(NSString*)text;
 {
-   [[[self class] lazyLoadedManager].proxy insertText:text];
+   [[[self class] sharedManager].proxy insertText:text];
    if ([KeyboardModeManager currentShiftMode] == ShiftModeApplied)
       if (![text isEqualToString:@" "])
          [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
@@ -59,7 +58,7 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
          if (![TextDocumentProxyManager isWhitespace:character])
          {
             [TextDocumentProxyManager deleteBackward:1];
-            [[[self class] lazyLoadedManager].proxy insertText:@". "];
+            [[[self class] sharedManager].proxy insertText:@". "];
             
             if ([KeyboardModeManager currentShiftMode] == ShiftModeNotApplied)
                [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
@@ -155,7 +154,7 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
    
    while(--charactersToDelete >= 0)
    {
-      [[[self class] lazyLoadedManager].proxy deleteBackward];
+      [[[self class] sharedManager].proxy deleteBackward];
    }
    
    return deletedUppercase;
@@ -163,18 +162,18 @@ static TextDocumentProxyManager* s_textDocumentProxyManager = nil;
 
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset
 {
-   [[[self class] lazyLoadedManager].proxy adjustTextPositionByCharacterOffset:offset];
+   [[[self class] sharedManager].proxy adjustTextPositionByCharacterOffset:offset];
 }
 
 #pragma mark - Property Overrides
 + (NSString*)documentContextBeforeInput
 {
-   return [[self class] lazyLoadedManager].proxy.documentContextBeforeInput;
+   return [[self class] sharedManager].proxy.documentContextBeforeInput;
 }
 
 + (NSString*)documentContextAfterInput
 {
-   return [[self class] lazyLoadedManager].proxy.documentContextAfterInput;
+   return [[self class] sharedManager].proxy.documentContextAfterInput;
 }
 
 @end
