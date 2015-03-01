@@ -37,6 +37,7 @@
 {
    if (self = [super init])
    {
+      self.type = type;
       self.displayText = text;
       [self setupBackgroundLayerWithKeyType:type];
       [self setupLetterLayerWithText:text keyType:type];
@@ -70,13 +71,19 @@
    [self.layer addSublayer:self.backgroundLayer];
 }
 
+#pragma mark - Update
+- (void)updateKeyLayers
+{
+   UIEdgeInsets edgeInsets = [ThemeAttributesProvider backgroundEdgeInsetsForKeyType:self.type];
+   self.backgroundLayer.frame = CGRectInset(self.bounds, edgeInsets.left, edgeInsets.top);
+   self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+}
+
 #pragma mark - Public
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
-   UIEdgeInsets edgeInsets = [ThemeAttributesProvider backgroundEdgeInsetsForKeyType:self.type];
-   self.backgroundLayer.frame = CGRectInset(self.bounds, edgeInsets.left, edgeInsets.top);
-   self.keyLayer.position = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+   [self updateKeyLayers];
 }
 
 - (void)setActionBlock:(keyActionBlock)block
@@ -100,12 +107,14 @@
 {
    self.hasFocus = YES;
    [self.backgroundLayer applyHighlight];
+   [self.keyLayer applyHighlight];
 }
 
 - (void)removeFocus
 {
    self.hasFocus = NO;
    [self.backgroundLayer removeHighlight];
+   [self.keyLayer removeHighlight];
 }
 
 #pragma mark - Property Overrides
