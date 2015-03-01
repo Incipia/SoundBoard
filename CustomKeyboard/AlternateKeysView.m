@@ -220,7 +220,7 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 
 - (void)updateCurrentSelectedKeyViewIfNecessary:(KeyView*)keyView
 {
-   if (self.currentSelectedAltKeyView != keyView)
+   if (self.currentSelectedAltKeyView != keyView && keyView != nil)
    {
       [self.currentSelectedAltKeyView removeFocus];
       self.currentSelectedAltKeyView = keyView;
@@ -231,7 +231,8 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 #pragma mark - Public
 - (void)show
 {
-   [self.mainKeyView giveFocus];
+   self.currentSelectedAltKeyView = self.mainKeyView;
+   [self.currentSelectedAltKeyView giveFocus];
    self.hidden = NO;
 }
 
