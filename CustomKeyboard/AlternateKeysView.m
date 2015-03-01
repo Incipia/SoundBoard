@@ -14,6 +14,7 @@
 #import "KeyViewCollection.h"
 #import "KeyboardKeysUtility.h"
 #import "KeyBackgroundLayer.h"
+#import "KeyboardKeyFrameTextMap.h"
 
 CGPathRef _centerAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysFrame)
 {
@@ -27,8 +28,8 @@ CGPathRef _centerAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternat
    CGPathMoveToPoint(keyPath, nil, minX, minY);
    CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
    CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame), minY - 8);
-   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame), CGRectGetMinY(alternateKeysFrame));
-   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame), CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame), CGRectGetMinY(alternateKeysFrame) + 2);
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame), CGRectGetMinY(alternateKeysFrame) + 2);
    CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame), minY - 8);
    
    CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
@@ -52,8 +53,8 @@ CGPathRef _leftAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateK
    CGPathMoveToPoint(keyPath, nil, minX, minY);
    CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
    CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame) - 4, minY - 8);
-   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame) - 4, CGRectGetMinY(alternateKeysFrame));
-   CGPathAddLineToPoint(keyPath, nil, maxX + 8, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMinX(alternateKeysFrame) - 4, CGRectGetMinY(alternateKeysFrame) + 2);
+   CGPathAddLineToPoint(keyPath, nil, maxX + 8, CGRectGetMinY(alternateKeysFrame) + 2);
    CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
    
    CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
@@ -77,8 +78,8 @@ CGPathRef _rightAlternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternate
    CGPathMoveToPoint(keyPath, nil, minX, minY);
    CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
    CGPathAddLineToPoint(keyPath, nil, minX - 8, minY - 8);
-   CGPathAddLineToPoint(keyPath, nil, minX - 8, CGRectGetMinY(alternateKeysFrame));
-   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame) + 4, CGRectGetMinY(alternateKeysFrame));
+   CGPathAddLineToPoint(keyPath, nil, minX - 8, CGRectGetMinY(alternateKeysFrame) + 2);
+   CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame) + 4, CGRectGetMinY(alternateKeysFrame) + 2);
    CGPathAddLineToPoint(keyPath, nil, CGRectGetMaxX(alternateKeysFrame) + 4, minY - 8);
    
    CGPathAddLineToPoint(keyPath, nil, maxX + 8, minY - 8);
@@ -120,6 +121,9 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 @property (nonatomic) NSArray* altCharacters;
 @property (nonatomic) KeyViewCollection* alternateKeysCollection;
 @property (nonatomic) AltKeysViewDirection direction;
+@property (nonatomic) KeyboardKeyFrameTextMap* keyFrameMap;
+@property (nonatomic) KeyView* currentSelectedAltKeyView;
+@property (nonatomic) KeyView* mainKeyView;
 @end
 
 @implementation AlternateKeysView
@@ -137,6 +141,9 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
       
       self.direction = [KeyboardKeysUtility directionForCharacter:keyView.displayText];
       [self setupAltCharactersCollectionWithCharacter:keyView.displayText direction:self.direction];
+
+      self.keyFrameMap = [KeyboardKeyFrameTextMap map];
+      [self.keyFrameMap addFramesForKeyViewCollection:self.alternateKeysCollection];
    }
    return self;
 }
@@ -160,6 +167,14 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 {
    self.altCharacters = [KeyboardKeysUtility altCharactersForCharacter:character direction:direction];
    self.alternateKeysCollection = [KeyViewCollection collectionWithCharacters:self.altCharacters forKeyType:KeyTypeAlternate];
+   for (KeyView* keyView in self.alternateKeysCollection.keyViews)
+   {
+      keyView.shouldShowEnlargedKeyOnTouchDown = NO;
+      if ([keyView.displayText isEqualToString:character])
+      {
+         self.mainKeyView = keyView;
+      }
+   }
    
    [self addSubview:self.alternateKeysCollection];
 }
@@ -189,16 +204,47 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
    CGRect alternateKeysBackgroundFrame = CGRectMake(x, -56, width, height);
    
    [self.alternateKeysCollection updateFrame:alternateKeysBackgroundFrame];
+   [self.keyFrameMap reset];
+   [self.keyFrameMap addFramesForKeyViewCollection:self.alternateKeysCollection];
    
    CGPathRef backgroundPath = _alternateKeysBackgroundPath(keyViewFrame, alternateKeysBackgroundFrame, self.direction);
    self.alternateKeysViewBackgroundLayer.path = backgroundPath;
    CGPathRelease(backgroundPath);
 }
 
+- (KeyView*)hitTestKeyViewWithTouchEvent:(UITouch*)touch
+{
+   CGPoint location = [touch locationInView:nil];
+   return [self.keyFrameMap keyViewAtPointX:location];
+}
+
+- (void)updateCurrentSelectedKeyViewIfNecessary:(KeyView*)keyView
+{
+   if (self.currentSelectedAltKeyView != keyView)
+   {
+      [self.currentSelectedAltKeyView removeFocus];
+      self.currentSelectedAltKeyView = keyView;
+      [self.currentSelectedAltKeyView giveFocus];
+   }
+}
+
 #pragma mark - Public
+- (void)show
+{
+   self.hidden = NO;
+   [self.mainKeyView giveFocus];
+}
+
+- (void)hide
+{
+   self.hidden = YES;
+   self.currentSelectedAltKeyView = nil;
+}
+
 - (void)updateFrame:(CGRect)frame
 {
    self.frame = frame;
+
    [self updateAlternateKeysBackgroundPath];
 }
 
@@ -208,6 +254,12 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
    {
       [keyView updateForShiftMode:mode];
    }
+}
+
+- (void)handleTouchEvent:(UITouch*)touch
+{
+   KeyView* targetKeyView = [self hitTestKeyViewWithTouchEvent:touch];
+   [self updateCurrentSelectedKeyViewIfNecessary:targetKeyView];
 }
 
 @end

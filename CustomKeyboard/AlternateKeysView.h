@@ -12,8 +12,16 @@
 @class KeyView;
 @interface AlternateKeysView : UIView
 
+@property (nonatomic, readonly) NSArray* alternateKeyViews;
+@property (nonatomic, readonly) KeyView* selectedKeyView;
+
 + (instancetype)viewWithKeyView:(KeyView*)keyView;
+
+- (void)show;
+- (void)hide;
+
 - (void)updateFrame:(CGRect)frame;
 - (void)updateForShiftMode:(KeyboardShiftMode)mode;
+- (void)handleTouchEvent:(UITouch*)touch;
 
 @end
