@@ -74,6 +74,21 @@
    return targetKeyView;
 }
 
+- (KeyView*)keyViewAtPointX:(CGPoint)point
+{
+   KeyView* targetKeyView = nil;
+   for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
+   {
+      CGRect frame = [frameValue CGRectValue];
+      if (CGRectGetMinX(frame) <= point.x && CGRectGetMaxX(frame) >= point.x)
+      {
+         targetKeyView = self.keyFrameTextDictionary[frameValue];
+         break;
+      }
+   }
+   return targetKeyView;
+}
+
 - (NSArray*)keyViews
 {
    return self.keyFrameTextDictionary.allValues;

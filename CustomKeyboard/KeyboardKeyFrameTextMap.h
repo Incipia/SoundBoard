@@ -20,6 +20,7 @@
 - (void)addFrameForKeyView:(KeyView*)keyView;
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection;
 
+- (KeyView*)keyViewAtPointX:(CGPoint)point;
 - (KeyView*)keyViewAtPoint:(CGPoint)point;
 - (NSArray*)keyViews;
 
