@@ -231,13 +231,14 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 #pragma mark - Public
 - (void)show
 {
-   self.hidden = NO;
    [self.mainKeyView giveFocus];
+   self.hidden = NO;
 }
 
 - (void)hide
 {
    self.hidden = YES;
+   [self.currentSelectedAltKeyView removeFocus];
    self.currentSelectedAltKeyView = nil;
 }
 
@@ -260,6 +261,17 @@ CGPathRef _alternateKeysBackgroundPath(CGRect bottomFrame, CGRect alternateKeysF
 {
    KeyView* targetKeyView = [self hitTestKeyViewWithTouchEvent:touch];
    [self updateCurrentSelectedKeyViewIfNecessary:targetKeyView];
+}
+
+#pragma mark - Property Overrides
+- (NSArray*)alternateKeyViews
+{
+   return self.alternateKeysCollection.keyViews;
+}
+
+- (KeyView*)selectedKeyView
+{
+   return self.currentSelectedAltKeyView;
 }
 
 @end
