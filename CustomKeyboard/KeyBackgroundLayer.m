@@ -39,12 +39,16 @@
 #pragma mark - Public
 - (void)applyHighlight
 {
-   self.backgroundColor = [ThemeAttributesProvider highlightedBackgroundColorForKeyType:self.type].CGColor;
+   dispatch_async(dispatch_get_main_queue(), ^{
+      self.backgroundColor = [ThemeAttributesProvider highlightedBackgroundColorForKeyType:self.type].CGColor;
+   });
 }
 
 - (void)removeHighlight
 {
-   self.backgroundColor = [ThemeAttributesProvider backgroundColorForKeyType:self.type].CGColor;
+   dispatch_async(dispatch_get_main_queue(), ^{
+      self.backgroundColor = [ThemeAttributesProvider backgroundColorForKeyType:self.type].CGColor;
+   });
 }
 
 @end
