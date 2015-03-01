@@ -17,6 +17,7 @@
 @property (nonatomic) UIColor* highlightedTextColor;
 @property (nonatomic) UIColor* textColor;
 @property (nonatomic) KeyboardKeyType keyType;
+@property (nonatomic) NSString* currentFontName;
 @end
 
 @implementation KeyboardKeyLayer
@@ -42,6 +43,7 @@
 - (void)setupPropertiesWithType:(KeyboardKeyType)type
 {
    self.keyType = type;
+   self.currentFontName = [ThemeAttributesProvider fontNameForKeyType:type];
    self.fontSize = [ThemeAttributesProvider fontSizeForKeyType:type];
    self.textColor = [ThemeAttributesProvider fontColorForKeyType:type];
    self.highlightedTextColor = [ThemeAttributesProvider highlightedFontColorForKeyType:type];
@@ -54,7 +56,7 @@
 {
    self.fontSize = fontSize;
    NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                      NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:fontSize]};
+                                      NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:fontSize]};
    
    NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:text attributes:textAttributes];
    self.string = attributedText;
@@ -77,12 +79,22 @@
    [self updateFrame];
 }
 
+- (void)updateStringWithAttributesDictionary:(NSDictionary*)attributes
+{
+   NSString* string = ((NSAttributedString*)self.string).string;
+
+   NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:string attributes:attributes];
+   self.string = attributedText;
+   [self updateFrame];
+}
+
 #pragma mark - Public
 - (void)makeTextBold
 {
+   self.currentFontName = @"HelveticaNeue-Bold";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize]};
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize]};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
@@ -90,9 +102,10 @@
 
 - (void)makeTextRegular
 {
+   self.currentFontName = @"HelveticaNeue";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize]};
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize]};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
@@ -100,11 +113,12 @@
 
 - (void)makeTextUnderlined
 {
+   self.currentFontName = @"HelveticaNeue-Bold";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Bold" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleSingle),
-                                       NSUnderlineColorAttributeName : [UIColor whiteColor]};
+                                       NSUnderlineColorAttributeName : self.textColor};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
    });
@@ -112,9 +126,10 @@
 
 - (void)removeTextUnderline
 {
+   self.currentFontName = @"HelveticaNeue";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : self.textColor};
       
@@ -124,9 +139,10 @@
 
 - (void)makeTextUppercase
 {
+   self.currentFontName = @"HelveticaNeue";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : self.textColor};
       
@@ -136,9 +152,10 @@
 
 - (void)makeTextLowercase
 {
+   self.currentFontName = @"HelveticaNeue";
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : self.textColor};
       
@@ -150,12 +167,11 @@
 {
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.highlightedTextColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : self.highlightedTextColor};
 
-      BOOL capitalized = [KeyboardModeManager currentShiftMode] != ShiftModeNotApplied;
-      [self updateStringWithAttributesDictionary:textAttributes capitalized:capitalized];
+      [self updateStringWithAttributesDictionary:textAttributes];
    });
 }
 
@@ -163,12 +179,11 @@
 {
    dispatch_async(dispatch_get_main_queue(), ^{
       NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
-                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
                                        NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
                                        NSUnderlineColorAttributeName : self.textColor};
 
-      BOOL capitalized = [KeyboardModeManager currentShiftMode] != ShiftModeNotApplied;
-      [self updateStringWithAttributesDictionary:textAttributes capitalized:capitalized];
+      [self updateStringWithAttributesDictionary:textAttributes];
    });
 }
 
