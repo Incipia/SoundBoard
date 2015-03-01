@@ -20,6 +20,7 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 - (void)updateFrame:(CGRect)frame;
 - (void)setActionBlock:(keyActionBlock)block;
 - (void)executeActionBlock:(NSInteger)repeatCount;
+- (void)handleTouchEvent:(UITouch*)touch;
 
 - (void)giveFocus;
 - (void)removeFocus;

@@ -92,6 +92,10 @@
    }
 }
 
+- (void)handleTouchEvent:(UITouch *)touch
+{
+}
+
 - (void)giveFocus
 {
    self.hasFocus = YES;
