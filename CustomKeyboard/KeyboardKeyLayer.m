@@ -9,37 +9,42 @@
 #import "KeyboardKeyLayer.h"
 #import "CALayer+DisableAnimations.h"
 #import "ThemeAttributesProvider.h"
+#import "KeyboardModeManager.h"
+#import "KeyboardTypedefs.h"
 @import UIKit;
 
 @interface KeyboardKeyLayer ()
+@property (nonatomic) UIColor* highlightedTextColor;
 @property (nonatomic) UIColor* textColor;
+@property (nonatomic) KeyboardKeyType keyType;
 @end
 
 @implementation KeyboardKeyLayer
 
 #pragma mark - Class Init
-+ (instancetype)layerWithText:(NSString*)text fontSize:(CGFloat)fontSize color:(UIColor*)color
+- (instancetype)initWithText:(NSString*)text keyType:(KeyboardKeyType)type
 {
-   KeyboardKeyLayer* layer = [KeyboardKeyLayer layer];
-   layer.textColor = color;
-
-   [layer setupProperties];
-   [layer setText:text fontSize:fontSize];
-   [layer updateFrame];
-
-   return layer;
+   if (self = [super init])
+   {
+      [self setupPropertiesWithType:type];
+      [self setText:text fontSize:self.fontSize];
+      [self updateFrame];
+   }
+   return self;
 }
 
 + (instancetype)layerWithText:(NSString *)text keyType:(KeyboardKeyType)type
 {
-   CGFloat fontSize = [ThemeAttributesProvider fontSizeForKeyType:type];
-   UIColor* color = [ThemeAttributesProvider fontColorForKeyType:type];
-   return [[self class] layerWithText:text fontSize:fontSize color:color];
+   return [[self alloc] initWithText:text keyType:type];
 }
 
 #pragma mark - Setup
-- (void)setupProperties
+- (void)setupPropertiesWithType:(KeyboardKeyType)type
 {
+   self.keyType = type;
+   self.fontSize = [ThemeAttributesProvider fontSizeForKeyType:type];
+   self.textColor = [ThemeAttributesProvider fontColorForKeyType:type];
+   self.highlightedTextColor = [ThemeAttributesProvider highlightedFontColorForKeyType:type];
    self.alignmentMode = kCAAlignmentCenter;
    self.contentsScale = [UIScreen mainScreen].scale;
    [self disableAnimations];
@@ -138,6 +143,32 @@
                                        NSUnderlineColorAttributeName : self.textColor};
       
       [self updateStringWithAttributesDictionary:textAttributes capitalized:NO];
+   });
+}
+
+- (void)applyHighlight
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.highlightedTextColor,
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
+                                       NSUnderlineColorAttributeName : self.highlightedTextColor};
+
+      BOOL capitalized = [KeyboardModeManager currentShiftMode] != ShiftModeNotApplied;
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:capitalized];
+   });
+}
+
+- (void)removeHighlight
+{
+   dispatch_async(dispatch_get_main_queue(), ^{
+      NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
+                                       NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue" size:self.fontSize],
+                                       NSUnderlineStyleAttributeName : @(NSUnderlineStyleNone),
+                                       NSUnderlineColorAttributeName : self.textColor};
+
+      BOOL capitalized = [KeyboardModeManager currentShiftMode] != ShiftModeNotApplied;
+      [self updateStringWithAttributesDictionary:textAttributes capitalized:capitalized];
    });
 }
 

@@ -21,4 +21,7 @@
 - (void)makeTextUppercase;
 - (void)makeTextLowercase;
 
+- (void)applyHighlight;
+- (void)removeHighlight;
+
 @end
