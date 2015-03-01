@@ -77,7 +77,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    if ([KeyboardKeysUtility altCharactersForCharacter:self.displayText].count)
    {
       self.alternateKeysView = [AlternateKeysView viewWithKeyView:self];
-      self.alternateKeysView.hidden = YES;
+      [self.alternateKeysView hide];
       
       [self addSubview:self.alternateKeysView];
    }
@@ -106,7 +106,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
          dispatch_async(dispatch_get_main_queue(), ^{
             
             self.enlargedKeyView.hidden = YES;
-            self.alternateKeysView.hidden = NO;
+            [self.alternateKeysView show];
             self.isShowingAlternateKeys = YES;
          });
       } andDelay:.9f];
@@ -117,7 +117,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 {
    if (self.alternateKeysTimer && self.alternateKeysView)
    {
-      self.alternateKeysView.hidden = YES;
+      [self.alternateKeysView hide];
       self.isShowingAlternateKeys = NO;
       [self.alternateKeysTimer stopTimer];
       self.alternateKeysTimer = nil;
@@ -133,15 +133,28 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    [self.enlargedKeyView updateFrame:self.bounds];
 }
 
+- (void)handleTouchEvent:(UITouch*)touch
+{
+   [self.alternateKeysView handleTouchEvent:touch];
+}
+
 - (void)giveFocus
 {
-   self.enlargedKeyView.hidden = NO;
+   [super giveFocus];
+   if (self.shouldShowEnlargedKeyOnTouchDown)
+   {
+      self.enlargedKeyView.hidden = NO;
+   }
    [self fireAlterKeyTimerIfNeeded];
 }
 
 - (void)removeFocus
 {
-   self.enlargedKeyView.hidden = YES;
+   [super removeFocus];
+   if (self.shouldShowEnlargedKeyOnTouchDown)
+   {
+      self.enlargedKeyView.hidden = YES;
+   }
    [self killAlternateKeyTimer];
 }
 
