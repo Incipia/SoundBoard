@@ -24,6 +24,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 @property (nonatomic) AlternateKeysView* alternateKeysView;
 @property (nonatomic) KeyboardTimer* alternateKeysTimer;
 @property (nonatomic) BOOL isShowingAlternateKeys;
+@property (nonatomic) NSString* alternateKeyText;
 @end
 
 @implementation LetterSymbolKeyView
@@ -104,7 +105,8 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
    {
       self.alternateKeysTimer = [KeyboardTimer startOneShotTimerWithBlock:^{
          dispatch_async(dispatch_get_main_queue(), ^{
-            
+
+            self.alternateKeyText = nil;
             self.enlargedKeyView.hidden = YES;
             [self.alternateKeysView show];
             self.isShowingAlternateKeys = YES;
@@ -117,6 +119,7 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
 {
    if (self.alternateKeysTimer && self.alternateKeysView)
    {
+      self.alternateKeyText = self.alternateKeysView.selectedKeyView.displayText;
       [self.alternateKeysView hide];
       self.isShowingAlternateKeys = NO;
       [self.alternateKeysTimer stopTimer];
@@ -206,7 +209,9 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
       default:
          break;
    }
-   return capitalized ? self.displayText.capitalizedString : self.displayText.lowercaseString;
+
+   NSString* text = self.alternateKeyText ?: self.displayText;
+   return capitalized ? text.capitalizedString : text.lowercaseString;
 }
 
 #pragma mark - Property Overrides
