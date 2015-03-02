@@ -88,7 +88,7 @@
    else
    {  // perform the standard functionality
       KeyView* targetKeyView = [self.keyFrameTextMap keyViewAtPoint:touchLocation];
-      [self drawEnlargedKeyView:targetKeyView];
+      [self updateFocusedKeyView:targetKeyView];
    }
 }
 
@@ -105,8 +105,6 @@
       }
       else
       {
-         [self.currentFocusedKeyView removeFocus];
-         self.currentFocusedKeyView = nil;
          [self handleTouch:self.currentActiveTouch onTouchDown:NO];
          self.currentActiveTouch = nil;
       }
@@ -161,14 +159,20 @@
 
       BOOL shouldTrigger = touchDown? targetKeyView.shouldTriggerActionOnTouchDown :
                                       !targetKeyView.shouldTriggerActionOnTouchDown;
-      
+
+      if (touchDown == NO)
+      {
+         [self.currentFocusedKeyView removeFocus];
+         self.currentFocusedKeyView = nil;
+      }
+
       if (shouldTrigger) [self executeActionBlockForKey:targetKeyView];
       
-      if (touchDown == YES) [self drawEnlargedKeyView:targetKeyView];
+      if (touchDown == YES) [self updateFocusedKeyView:targetKeyView];
    }
 }
 
-- (void)drawEnlargedKeyView:(KeyView*)keyView
+- (void)updateFocusedKeyView:(KeyView*)keyView
 {
    if (keyView != nil)
    {
