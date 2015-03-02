@@ -11,6 +11,47 @@
 #import "KeyboardKeyLayer.h"
 #import "KeyView.h"
 
+@interface ShiftKeyView : KeyView
+@property (nonatomic) BOOL didTriggerOnKeyDown;
+@end
+
+@implementation ShiftKeyView
+
+- (BOOL)shouldTriggerActionOnTouchDown
+{
+   BOOL triggerOnTouchDown = NO;
+   switch ([KeyboardModeManager currentShiftMode])
+   {
+      case ShiftModeNotApplied:
+         triggerOnTouchDown = YES;
+         self.didTriggerOnKeyDown = YES;
+         break;
+
+      case ShiftModeApplied:
+         triggerOnTouchDown = self.didTriggerOnKeyDown;
+         self.didTriggerOnKeyDown = NO;
+         break;
+
+      case ShiftModeCapsLock:
+         triggerOnTouchDown = YES;
+         self.didTriggerOnKeyDown = NO;
+         break;
+
+      default:
+         triggerOnTouchDown = YES;
+         break;
+   }
+   return triggerOnTouchDown;
+}
+
+- (void)removeFocus
+{
+   [super removeFocus];
+   self.didTriggerOnKeyDown = NO;
+}
+
+@end
+
 @interface ShiftSymbolsKeyController ()
 @property (nonatomic) KeyView* shiftKeyView;
 @property (nonatomic) KeyView* symbolsKeyView;
@@ -37,7 +78,7 @@
 
 - (void)setupShiftLetterView
 {
-   self.shiftKeyView = [KeyView viewWithText:@"shift" keyType:KeyTypeFunctional];
+   self.shiftKeyView = [ShiftKeyView viewWithText:@"shift" keyType:KeyTypeFunctional];
    self.shiftKeyView.shouldTriggerActionOnTouchDown = YES;
    self.shiftKeyView.hidden = YES;
    
@@ -96,7 +137,7 @@
          break;
          
       case ShiftModeCapsLock:
-         nextMode = ShiftModeNotApplied;
+         nextMode = ShiftModeApplied;
          break;
          
       default:
