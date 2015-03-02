@@ -58,6 +58,8 @@ static NSString* const s_rightEdgeLetterKeys = @"P0\"=•";
        [TextDocumentProxyManager insertText:text];
        [KeyboardModeTransitioner giveTextInput:text];
        [KeyboardModeTransitioner requestTransitionToModeAfterNextSpacebarInput:KeyboardModeLetters];
+
+       weakLetterView.alternateKeyText = nil;
     }];
    
    return letterSymbolView;

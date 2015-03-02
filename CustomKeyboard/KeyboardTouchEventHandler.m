@@ -82,7 +82,7 @@
    CGPoint touchLocation = [self.currentActiveTouch locationInView:nil];
    
    if (self.currentFocusedKeyView.wantsToHandleTouchEvents)
-   {  // TODO:LEA: pass the touchLocation to the currentFocusedKeyView so it can do it's thing
+   {
       [self.currentFocusedKeyView handleTouchEvent:self.currentActiveTouch];
    }
    else
