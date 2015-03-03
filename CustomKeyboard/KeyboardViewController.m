@@ -14,7 +14,7 @@
 #import "KeyboardModeManager.h"
 #import "KeyboardModeTransitioner.h"
 
-static const CGFloat s_auxViewHeightPercentage = .21f;
+static const CGFloat s_auxViewHeightPercentage = .19f;
 static const NSUInteger s_portraitHeight = 270;
 static const NSUInteger s_landscapeHeight = 215;
 
