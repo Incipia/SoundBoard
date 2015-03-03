@@ -40,6 +40,7 @@
    self.spacebarIconLayer.strokeColor = [UIColor whiteColor].CGColor;
    self.spacebarIconLayer.fillColor = [UIColor clearColor].CGColor;
    self.spacebarIconLayer.lineCap = kCALineCapRound;
+   self.spacebarIconLayer.lineDashPattern = @[@8, @8];
 
    [self.view.layer addSublayer:self.spacebarIconLayer];
 }
