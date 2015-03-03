@@ -99,7 +99,7 @@
    }
 }
 
-- (void)handleTouchEvent:(UITouch *)touch
+- (void)handleTouchEvent:(UITouch*)touch
 {
 }
 
@@ -115,6 +115,15 @@
    self.hasFocus = NO;
    [self.backgroundLayer removeHighlight];
    [self.keyLayer removeHighlight];
+}
+
+- (void)updateDisplayText:(NSString*)text
+{
+   if (![self.displayText isEqualToString:text])
+   {
+      self.displayText = text;
+      [self.keyLayer updateText:text];
+   }
 }
 
 #pragma mark - Property Overrides

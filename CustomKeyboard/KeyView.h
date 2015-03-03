@@ -25,6 +25,8 @@ typedef void (^keyActionBlock)(NSInteger repeatCount);
 - (void)giveFocus;
 - (void)removeFocus;
 
+- (void)updateDisplayText:(NSString*)text;
+
 @property (readonly) BOOL hasFocus;
 @property (nonatomic, copy) NSString* displayText;
 @property (nonatomic) BOOL shouldTriggerActionOnTouchDown;
