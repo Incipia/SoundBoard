@@ -187,4 +187,14 @@
    });
 }
 
+- (void)updateText:(NSString*)text
+{
+   NSDictionary* textAttributes = @{NSForegroundColorAttributeName : self.textColor,
+                                    NSFontAttributeName : [UIFont fontWithName:self.currentFontName size:self.fontSize],
+                                    NSUnderlineColorAttributeName : self.textColor};
+   NSAttributedString* attributedText = [[NSAttributedString alloc] initWithString:text attributes:textAttributes];
+   self.string = attributedText;
+   [self updateFrame];
+}
+
 @end

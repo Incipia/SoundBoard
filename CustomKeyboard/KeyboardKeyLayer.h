@@ -24,4 +24,6 @@
 - (void)applyHighlight;
 - (void)removeHighlight;
 
+- (void)updateText:(NSString*)text;
+
 @end
