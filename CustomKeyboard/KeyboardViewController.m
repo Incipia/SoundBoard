@@ -59,8 +59,6 @@ static const NSUInteger s_landscapeHeight = 215;
    // height constraint of this view controller's view, so we're adding a dummy view with autolayout constraints
    [self setupAutolayoutView];
 
-   // temporary!
-   self.auxController.keysController = self.keysController;
    self.heightConstraint = [NSLayoutConstraint constraintWithItem:self.inputView
                                                         attribute:NSLayoutAttributeHeight
                                                         relatedBy:NSLayoutRelationEqual
@@ -118,6 +116,7 @@ static const NSUInteger s_landscapeHeight = 215;
    
    [self.inputView addSubview:self.touchEventHandler.view];
    self.keysController.keyboardMapUpdater = self.touchEventHandler;
+   self.auxController.keyboardMapUpdater = self.touchEventHandler;
 }
 
 #pragma mark - Update
@@ -125,7 +124,7 @@ static const NSUInteger s_landscapeHeight = 215;
 {
    [self updateAuxViewFrame];
    [self updateKeysViewFrame];
-   self.touchEventHandler.view.frame = self.keysController.view.frame;
+   self.touchEventHandler.view.frame = self.inputView.frame;
 }
 
 - (void)updateAuxViewFrame
