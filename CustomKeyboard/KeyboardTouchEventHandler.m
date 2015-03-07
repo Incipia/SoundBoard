@@ -34,6 +34,7 @@
 {
    if (self = [super init])
    {
+      self.keyFrameTextMap = [KeyboardKeyFrameTextMap map];
       self.view.multipleTouchEnabled = YES;
       
       self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapRecognized:)];
@@ -193,7 +194,8 @@
 #pragma mark - Keyboard Map Updater Protocol
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap
 {
-   self.keyFrameTextMap = keyFrameTexMap;
+   [self.keyFrameTextMap addFramesWithMap:keyFrameTexMap];
+
    for (KeyView* keyView in self.keyFrameTextMap.keyViews)
    {
       if ([keyView.displayText isEqualToString:@"shift"])
