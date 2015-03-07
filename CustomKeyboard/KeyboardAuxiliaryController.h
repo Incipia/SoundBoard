@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 @class KeyboardKeysController;
+#import "KeyboardMapUpdaterProtocol.h"
 
 @interface KeyboardAuxiliaryController : UIViewController
 
 + (instancetype)controller;
 
-// tempoary!
-@property (nonatomic) KeyboardKeysController* keysController;
+@property (nonatomic, weak) NSObject<KeyboardKeyFrameTextMapUpdater>* keyboardMapUpdater;
 
 @end

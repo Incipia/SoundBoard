@@ -7,14 +7,14 @@
 //
 
 #import "KeyboardAuxiliaryController.h"
+#import "KeyboardKeyFrameTextMap.h"
 #import "KeyboardKeysController.h"
-#import "KeyView.h"
+#import "AutocorrectKeyController.h"
 
 @interface KeyboardAuxiliaryController ()
-@property (nonatomic) UILabel* temporaryLabel;
-@property (nonatomic) KeyView* leftLabelView;
-@property (nonatomic) KeyView* centerLabelView;
-@property (nonatomic) KeyView* rightLabelView;
+@property (nonatomic) AutocorrectKeyController* leftAutocorrectController;
+@property (nonatomic) AutocorrectKeyController* centerAutocorrectController;
+@property (nonatomic) AutocorrectKeyController* rightAutocorrectController;
 @end
 
 @implementation KeyboardAuxiliaryController
@@ -24,8 +24,8 @@
 {
    if (self = [super init])
    {
-      [self setupLabelViews];
       self.view.backgroundColor = [UIColor colorWithRed:43/255.f green:44/255.f blue:48/255.f alpha:1];
+      [self setupAutocorectControllers];
    }
    return self;
 }
@@ -37,29 +37,19 @@
 }
 
 #pragma mark - Setup
-- (void)setupLabelViews
+- (void)setupAutocorectControllers
 {
-   self.leftLabelView = [KeyView viewWithText:@"first" keyType:KeyTypeFunctional];
-   [self.view addSubview:self.leftLabelView];
-   
-   self.centerLabelView = [KeyView viewWithText:@"\"second\"" keyType:KeyTypeFunctional];
-   [self.view addSubview:self.centerLabelView];
-   
-   self.rightLabelView = [KeyView viewWithText:@"third" keyType:KeyTypeFunctional];
-   [self.view addSubview:self.rightLabelView];
-}
+   self.leftAutocorrectController = [AutocorrectKeyController controller];
+   self.centerAutocorrectController = [AutocorrectKeyController controller];
+   self.rightAutocorrectController = [AutocorrectKeyController controller];
 
-- (void)setupTemporaryLabel
-{
-   self.temporaryLabel = [[UILabel alloc] init];
-   
-   NSDictionary* labelAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor],
-                                     NSFontAttributeName : [UIFont fontWithName:@"HelveticaNeue-Light" size:14.f]};
-   
-   NSAttributedString* attributedLetter = [[NSAttributedString alloc] initWithString:@"[Auxiliary View]" attributes:labelAttributes];
-   self.temporaryLabel.attributedText = attributedLetter;
-   self.temporaryLabel.textAlignment = NSTextAlignmentCenter;
-   self.temporaryLabel.backgroundColor = [UIColor colorWithRed:43/255.f green:44/255.f blue:48/255.f alpha:1];
+   [self.view addSubview:self.leftAutocorrectController.view];
+   [self.view addSubview:self.centerAutocorrectController.view];
+   [self.view addSubview:self.rightAutocorrectController.view];
+
+   [self.leftAutocorrectController updateText:@"Label"];
+   [self.centerAutocorrectController updateText:@"Label"];
+   [self.rightAutocorrectController updateText:@"Label"];
 }
 
 #pragma mark - Lifecycle
@@ -77,15 +67,16 @@
                                            CGRectGetWidth(self.view.bounds) - CGRectGetMaxX(centerLabelViewFrame),
                                            CGRectGetHeight(self.view.bounds));
    
-   [self.leftLabelView updateFrame:leftLabelViewFrame];
-   [self.centerLabelView updateFrame:centerLabelViewFrame];
-   [self.rightLabelView updateFrame:rightLabelViewFrame];
-}
+   [self.leftAutocorrectController updateFrame:leftLabelViewFrame];
+   [self.centerAutocorrectController updateFrame:centerLabelViewFrame];
+   [self.rightAutocorrectController updateFrame:rightLabelViewFrame];
 
-#pragma mark - Touch Events
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   [self.leftLabelView updateDisplayText:@"updated"];
+   KeyboardKeyFrameTextMap* map = [KeyboardKeyFrameTextMap map];
+   [map addFrameForKeyView:self.leftAutocorrectController.view];
+   [map addFrameForKeyView:self.centerAutocorrectController.view];
+   [map addFrameForKeyView:self.rightAutocorrectController.view];
+
+   [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:map];
 }
 
 @end
