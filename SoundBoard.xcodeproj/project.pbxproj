@@ -34,6 +34,7 @@
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
 		8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */; };
 		8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662E71A72212A006410E7 /* KeyViewCollection.m */; };
+		8E78D85E1AAB5C3300EDE134 /* AutocorrectKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */; };
 		8ED79DF61A7FFCB8002C5218 /* EnlargedKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
@@ -137,6 +138,8 @@
 		8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardKeysUtility.m; sourceTree = "<group>"; };
 		8E7662E61A72212A006410E7 /* KeyViewCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyViewCollection.h; sourceTree = "<group>"; };
 		8E7662E71A72212A006410E7 /* KeyViewCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyViewCollection.m; sourceTree = "<group>"; };
+		8E78D85C1AAB5C3300EDE134 /* AutocorrectKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocorrectKeyController.h; sourceTree = "<group>"; };
+		8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocorrectKeyController.m; sourceTree = "<group>"; };
 		8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
 		8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargedKeyView.h; sourceTree = "<group>"; };
 		8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargedKeyView.m; sourceTree = "<group>"; };
@@ -202,6 +205,8 @@
 		5B537E901A73417F0006AEF8 /* Key Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				8E78D85C1AAB5C3300EDE134 /* AutocorrectKeyController.h */,
+				8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */,
 				5B537E9A1A734D4B0006AEF8 /* ReturnKeyController.h */,
 				5B537E9B1A734D4B0006AEF8 /* ReturnKeyController.m */,
 				5B537E971A7348CB0006AEF8 /* SpacebarKeyController.h */,
@@ -588,6 +593,7 @@
 				5B0721781A9C45E600BF4E2E /* KeyBackgroundLayer.m in Sources */,
 				8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */,
 				5B4D23B91A845E7D00ECE9AD /* LetterKeysController.m in Sources */,
+				8E78D85E1AAB5C3300EDE134 /* AutocorrectKeyController.m in Sources */,
 				8ED79DF61A7FFCB8002C5218 /* EnlargedKeyView.m in Sources */,
 				5B537E9C1A734D4B0006AEF8 /* ReturnKeyController.m in Sources */,
 				5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */,
