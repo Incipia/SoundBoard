@@ -19,6 +19,7 @@
 
 - (void)addFrameForKeyView:(KeyView*)keyView;
 - (void)addFramesForKeyViewCollection:(KeyViewCollection*)collection;
+- (void)addFramesWithMap:(KeyboardKeyFrameTextMap*)map;
 
 - (KeyView*)keyViewAtPointX:(CGPoint)point;
 - (KeyView*)keyViewAtPoint:(CGPoint)point;

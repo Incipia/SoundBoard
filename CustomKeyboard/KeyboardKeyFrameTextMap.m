@@ -38,14 +38,32 @@
    return [keyView convertRect:keyView.bounds toView:nil];
 }
 
+- (void)removeValuesWithKeyView:(KeyView*)keyView
+{
+   NSMutableArray* keysToRemove = [NSMutableArray array];
+   [self.keyFrameTextDictionary enumerateKeysAndObjectsUsingBlock:^(NSValue* key, KeyView* obj, BOOL *stop) {
+      if (obj == keyView)
+      {
+         [keysToRemove addObject:key];
+      }
+   }];
+
+   for (NSValue* key in keysToRemove)
+   {
+      [self.keyFrameTextDictionary removeObjectForKey:key];
+   }
+}
+
 #pragma mark - Public
 - (void)reset
 {
    [self.keyFrameTextDictionary removeAllObjects];
 }
 
-- (void)addFrameForKeyView:(KeyView*)keyView
+- (void)updateFrameForKeyView:(KeyView*)keyView
 {
+   [self removeValuesWithKeyView:keyView];
+
    CGRect frame = [self convertedFrameFromKeyboardView:keyView];
    NSValue* frameValue = [NSValue valueWithCGRect:frame];
    self.keyFrameTextDictionary[frameValue] = keyView;
@@ -55,7 +73,15 @@
 {
    for (KeyView* keyView in collection.keyViews)
    {
-      [self addFrameForKeyView:keyView];
+      [self updateFrameForKeyView:keyView];
+   }
+}
+
+- (void)addFramesWithMap:(KeyboardKeyFrameTextMap *)map
+{
+   for (KeyView* keyView in map.keyViews)
+   {
+      [self updateFrameForKeyView:keyView];
    }
 }
 
