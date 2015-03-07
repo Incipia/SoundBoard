@@ -7,31 +7,56 @@
 //
 
 #import "AutocorrectKeyController.h"
+#import "KeyView.h"
+#import "ThemeAttributesProvider.h"
 
 @interface AutocorrectKeyController ()
-
+@property (nonatomic) UILabel* textLabel;
 @end
 
 @implementation AutocorrectKeyController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+#pragma mark - Init
+- (instancetype)init
+{
+   if (self = [super init])
+   {
+      self.view = [KeyView viewWithText:@"" keyType:KeyTypeFunctional];
+      [self setupLabel];
+   }
+   return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Class Init
++ (instancetype)controller
+{
+   return [[self alloc] init];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Setup
+- (void)setupLabel
+{
+   self.textLabel = [[UILabel alloc] init];
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+   self.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:15];
+   self.textLabel.textAlignment = NSTextAlignmentCenter;
+   self.textLabel.textColor = [UIColor whiteColor];
+   self.textLabel.adjustsFontSizeToFitWidth = YES;
+   self.textLabel.minimumScaleFactor = .8f;
+
+   [self.view addSubview:self.textLabel];
 }
-*/
+
+#pragma mark - Public
+- (void)updateFrame:(CGRect)frame
+{
+   [self.view updateFrame:frame];
+   self.textLabel.frame = CGRectInset(self.view.bounds, 12, 4);
+}
+
+- (void)updateText:(NSString*)text
+{
+   self.textLabel.text = text;
+}
 
 @end

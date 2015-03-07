@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KeyView.h"
 
 @interface AutocorrectKeyController : UIViewController
+
+@property (nonatomic) KeyView* view;
+
++ (instancetype)controller;
+
+- (void)updateFrame:(CGRect)frame;
+- (void)updateText:(NSString*)text;
 
 @end
