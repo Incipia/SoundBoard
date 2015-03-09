@@ -168,6 +168,8 @@
 #pragma mark - Helper
 - (void)updateKeyboardMapUpdaterWithMode:(KeyboardMode)mode
 {
+   [self resetKeyboardMapUpdaterWithMode:mode];
+
    KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
    for (KeyViewCollection* collection in [self keysCollectionArrayForMode:mode])
    {
@@ -177,13 +179,23 @@
    for (FunctionalKeyController* controller in self.functionalKeyControllers)
    {
       KeyView* keyView = [controller keyViewForMode:self.mode];
-      [keyFrameTextMap addFrameForKeyView:keyView];
+      [keyFrameTextMap updateFrameForKeyView:keyView];
    }
    
    if (self.keyboardMapUpdater != nil)
    {
       [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:keyFrameTextMap];
    }
+}
+
+- (void)resetKeyboardMapUpdaterWithMode:(KeyboardMode)mode
+{
+   KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
+   for (KeyViewCollection* collection in [self unusedKeysCollectionArrayForMode:mode])
+   {
+      [keyFrameTextMap addFramesForKeyViewCollection:collection];
+   }
+   [self.keyboardMapUpdater removeKeyViewsWithKeyFrameTextMap:keyFrameTextMap];
 }
 
 - (NSArray*)keysCollectionArrayForMode:(KeyboardMode)mode
@@ -205,6 +217,29 @@
          keysCollectionArray = [keysCollectionArray arrayByAddingObject:self.numberSymbolKeysController.punctuationKeysCollection];
          break;
          
+      default:
+         break;
+   }
+   return keysCollectionArray;
+}
+
+- (NSArray*)unusedKeysCollectionArrayForMode:(KeyboardMode)mode
+{
+   NSArray* keysCollectionArray = nil;
+   switch (mode)
+   {
+      case KeyboardModeLetters:
+         keysCollectionArray = self.numberSymbolKeysController.keyViewCollections;
+         break;
+
+      case KeyboardModeNumbers:
+         keysCollectionArray = self.letterKeysController.keyViewCollections;
+         break;
+
+      case KeyboardModeSymbols:
+         keysCollectionArray = self.letterKeysController.keyViewCollections;
+         break;
+
       default:
          break;
    }

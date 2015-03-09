@@ -15,6 +15,7 @@
 @protocol KeyboardKeyFrameTextMapUpdater <NSObject>
 @required
 - (void)updateKeyboardKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTexMap;
+- (void)removeKeyViewsWithKeyFrameTextMap:(KeyboardKeyFrameTextMap*)keyFrameTextMap;
 @end
 
 #endif

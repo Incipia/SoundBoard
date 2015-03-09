@@ -209,6 +209,11 @@
    }
 }
 
+- (void)removeKeyViewsWithKeyFrameTextMap:(KeyboardKeyFrameTextMap *)keyFrameTextMap
+{
+   [self.keyFrameTextMap removeFramesForMap:keyFrameTextMap];
+}
+
 #pragma mark - UIGestureRecognizer Delegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {

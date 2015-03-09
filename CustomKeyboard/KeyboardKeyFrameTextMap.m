@@ -85,6 +85,14 @@
    }
 }
 
+- (void)removeFramesForMap:(KeyboardKeyFrameTextMap*)map
+{
+   for (KeyView* keyView in map.keyViews)
+   {
+      [self removeValuesWithKeyView:keyView];
+   }
+}
+
 - (KeyView*)keyViewAtPoint:(CGPoint)point
 {
    KeyView* targetKeyView = nil;
