@@ -44,7 +44,7 @@
    for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
    {
       KeyView* view = [self.keyFrameTextDictionary objectForKey:frameValue];
-      if ([view.displayText isEqualToString:keyView.displayText])
+      if (view == keyView)
       {
          [keysToRemove addObject:frameValue];
       }
