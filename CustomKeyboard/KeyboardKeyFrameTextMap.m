@@ -41,17 +41,16 @@
 - (void)removeValuesWithKeyView:(KeyView*)keyView
 {
    NSMutableArray* keysToRemove = [NSMutableArray array];
-   [self.keyFrameTextDictionary enumerateKeysAndObjectsUsingBlock:^(NSValue* key, KeyView* obj, BOOL *stop) {
-      if (obj == keyView)
-      {
-         [keysToRemove addObject:key];
-      }
-   }];
-
-   for (NSValue* key in keysToRemove)
+   for (NSValue* frameValue in self.keyFrameTextDictionary.allKeys)
    {
-      [self.keyFrameTextDictionary removeObjectForKey:key];
+      KeyView* view = [self.keyFrameTextDictionary objectForKey:frameValue];
+      if ([view.displayText isEqualToString:keyView.displayText])
+      {
+         [keysToRemove addObject:frameValue];
+      }
    }
+
+   [self.keyFrameTextDictionary removeObjectsForKeys:keysToRemove];
 }
 
 #pragma mark - Public
