@@ -202,7 +202,7 @@
       {
          self.shiftKeyView = keyView;
       }
-      else if ([keyView.displayText isEqualToString:@""])
+      else if ([keyView.displayText isEqualToString:@" "])
       {
          self.spaceKeyView = keyView;
       }
