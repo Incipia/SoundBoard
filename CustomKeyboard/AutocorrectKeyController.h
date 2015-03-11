@@ -11,8 +11,6 @@
 
 @interface AutocorrectKeyController : UIViewController
 
-@property (nonatomic) KeyView* view;
-
 + (instancetype)controller;
 
 - (void)updateFrame:(CGRect)frame;

@@ -50,7 +50,11 @@
 #pragma mark - Public
 - (void)updateFrame:(CGRect)frame
 {
-   [self.view updateFrame:frame];
+   if ([self.view isKindOfClass:[KeyView class]])
+   {
+      KeyView* keyView = (KeyView*)self.view;
+      [keyView updateFrame:frame];
+   }
    self.textLabel.frame = CGRectInset(self.view.bounds, 12, 4);
 }
 
