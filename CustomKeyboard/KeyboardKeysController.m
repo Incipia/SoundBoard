@@ -168,7 +168,7 @@
 #pragma mark - Helper
 - (void)updateKeyboardMapUpdaterWithMode:(KeyboardMode)mode
 {
-   [self resetKeyboardMapUpdaterWithMode:mode];
+//   [self resetKeyboardMapUpdaterWithMode:mode];
 
    KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
    for (KeyViewCollection* collection in [self keysCollectionArrayForMode:mode])
@@ -178,7 +178,7 @@
    
    for (FunctionalKeyController* controller in self.functionalKeyControllers)
    {
-      KeyView* keyView = [controller keyViewForMode:self.mode];
+      KeyView* keyView = [controller keyViewForMode:mode];
       [keyFrameTextMap updateFrameForKeyView:keyView];
    }
    
@@ -191,7 +191,7 @@
 - (void)resetKeyboardMapUpdaterWithMode:(KeyboardMode)mode
 {
    KeyboardKeyFrameTextMap* keyFrameTextMap = [KeyboardKeyFrameTextMap map];
-   for (KeyViewCollection* collection in [self unusedKeysCollectionArrayForMode:mode])
+   for (KeyViewCollection* collection in [self keysCollectionArrayForMode:mode])
    {
       [keyFrameTextMap addFramesForKeyViewCollection:collection];
    }
@@ -262,10 +262,15 @@
 {
    if (mode != self.mode)
    {
-      self.mode = mode;
       [self updateKeysControllersWithMode:mode];
       [self updateFunctionalKeyControllersWithMode:mode];
+      
+      if (self.mode != 0)
+      {
+         [self resetKeyboardMapUpdaterWithMode:self.mode];
+      }
       [self updateKeyboardMapUpdaterWithMode:mode];
+      self.mode = mode;
    }
 }
 
