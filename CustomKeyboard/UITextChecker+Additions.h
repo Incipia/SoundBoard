@@ -10,4 +10,7 @@
 
 @interface UITextChecker (Additions)
 
+- (NSArray*)guessesForWord:(NSString*)word;
+- (NSArray*)completionsForWord:(NSString*)word;
+
 @end

@@ -8,6 +8,21 @@
 
 #import "UITextChecker+Additions.h"
 
+static NSString* _deviceLanguage()
+{
+   return [[NSLocale preferredLanguages] objectAtIndex:0];
+}
+
 @implementation UITextChecker (Additions)
+
+- (NSArray*)guessesForWord:(NSString *)word
+{
+   return [self guessesForWordRange:NSMakeRange(0, word.length) inString:word language:_deviceLanguage()];
+}
+
+- (NSArray*)completionsForWord:(NSString*)word
+{
+   return [self completionsForPartialWordRange:NSMakeRange(0, word.length) inString:word language:_deviceLanguage()];
+}
 
 @end
