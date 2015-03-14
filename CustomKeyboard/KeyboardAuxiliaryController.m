@@ -10,6 +10,7 @@
 #import "KeyboardKeyFrameTextMap.h"
 #import "KeyboardKeysController.h"
 #import "AutocorrectKeyController.h"
+#import "AutocorrectKeyManager.h"
 
 @interface KeyboardAuxiliaryController ()
 @property (nonatomic) AutocorrectKeyController* leftAutocorrectController;
@@ -26,6 +27,8 @@
    {
       self.view.backgroundColor = [UIColor colorWithRed:43/255.f green:44/255.f blue:48/255.f alpha:1];
       [self setupAutocorectControllers];
+
+      [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:@"helk"];
    }
    return self;
 }
