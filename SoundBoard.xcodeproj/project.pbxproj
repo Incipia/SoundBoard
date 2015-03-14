@@ -29,12 +29,17 @@
 		5BFB27901A7380DD00508C1F /* KeyViewCollectionCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB278F1A7380DD00508C1F /* KeyViewCollectionCreator.m */; };
 		5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27931A75725300508C1F /* KeyboardLayoutDimensonsProvider.m */; };
 		5BFB279A1A76B8DB00508C1F /* KeyboardTouchEventHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */; };
+		8E0BD2EE1AB4BAC0006D70F3 /* SpellCorrector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BD2EC1AB4BAC0006D70F3 /* SpellCorrector.cpp */; };
+		8E0BD2F11AB4BBA6006D70F3 /* SpellCorrectorBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BD2F01AB4BBA6006D70F3 /* SpellCorrectorBridge.mm */; };
+		8E0BD2F31AB4BCF9006D70F3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */; };
+		8E0BD2F41AB4BD04006D70F3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */; };
 		8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* KeyView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
 		8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */; };
 		8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662E71A72212A006410E7 /* KeyViewCollection.m */; };
 		8E78D85E1AAB5C3300EDE134 /* AutocorrectKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */; };
+		8ED38BD31AB4B6BF009DA1C6 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8ED38BD21AB4B6BF009DA1C6 /* big.txt */; };
 		8ED79DF61A7FFCB8002C5218 /* EnlargedKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
 		8EDFB7CD1A6B6BBA000AD00A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7CC1A6B6BBA000AD00A /* AppDelegate.m */; };
@@ -128,6 +133,11 @@
 		5BFB27981A76B8DB00508C1F /* KeyboardTouchEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardTouchEventHandler.h; sourceTree = "<group>"; };
 		5BFB27991A76B8DB00508C1F /* KeyboardTouchEventHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardTouchEventHandler.m; sourceTree = "<group>"; };
 		5BFB279B1A76BAA000508C1F /* KeyboardMapUpdaterProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyboardMapUpdaterProtocol.h; sourceTree = "<group>"; };
+		8E0BD2EC1AB4BAC0006D70F3 /* SpellCorrector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpellCorrector.cpp; sourceTree = "<group>"; };
+		8E0BD2ED1AB4BAC0006D70F3 /* SpellCorrector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpellCorrector.h; sourceTree = "<group>"; };
+		8E0BD2EF1AB4BBA6006D70F3 /* SpellCorrectorBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpellCorrectorBridge.h; sourceTree = "<group>"; };
+		8E0BD2F01AB4BBA6006D70F3 /* SpellCorrectorBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpellCorrectorBridge.mm; sourceTree = "<group>"; };
+		8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		8E7662C81A701D4F006410E7 /* KeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* KeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -141,6 +151,7 @@
 		8E78D85C1AAB5C3300EDE134 /* AutocorrectKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocorrectKeyController.h; sourceTree = "<group>"; };
 		8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocorrectKeyController.m; sourceTree = "<group>"; };
 		8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
+		8ED38BD21AB4B6BF009DA1C6 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargedKeyView.h; sourceTree = "<group>"; };
 		8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargedKeyView.m; sourceTree = "<group>"; };
 		8EDFB7C41A6B6BBA000AD00A /* SoundBoard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SoundBoard.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0BD2F41AB4BD04006D70F3 /* CoreMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E0BD2F31AB4BCF9006D70F3 /* CoreMedia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -241,6 +254,10 @@
 				8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */,
 				5BFB27921A75725300508C1F /* KeyboardLayoutDimensonsProvider.h */,
 				5BFB27931A75725300508C1F /* KeyboardLayoutDimensonsProvider.m */,
+				8E0BD2EC1AB4BAC0006D70F3 /* SpellCorrector.cpp */,
+				8E0BD2ED1AB4BAC0006D70F3 /* SpellCorrector.h */,
+				8E0BD2EF1AB4BBA6006D70F3 /* SpellCorrectorBridge.h */,
+				8E0BD2F01AB4BBA6006D70F3 /* SpellCorrectorBridge.mm */,
 			);
 			name = "Utility Objects";
 			sourceTree = "<group>";
@@ -254,6 +271,15 @@
 				5BE1E8D11A7D63C90094E050 /* KeyboardModeManager.m */,
 			);
 			name = Managers;
+			sourceTree = "<group>";
+		};
+		8ED38BD11AB4B6A5009DA1C6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8ED38BD21AB4B6BF009DA1C6 /* big.txt */,
+			);
+			name = Resources;
+			path = CustomKeyboard;
 			sourceTree = "<group>";
 		};
 		8ED831F61A7B523800F52238 /* Main View Controllers */ = {
@@ -286,6 +312,7 @@
 		8EDFB7BB1A6B6BBA000AD00A = {
 			isa = PBXGroup;
 			children = (
+				8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */,
 				8EDFB7ED1A6B6BFE000AD00A /* HomeViewController.h */,
 				8EDFB7EE1A6B6BFE000AD00A /* HomeViewController.m */,
 				8EDFB7EF1A6B6BFE000AD00A /* HomeViewController.xib */,
@@ -293,6 +320,7 @@
 				8EDFB7E01A6B6BBA000AD00A /* SoundBoardTests */,
 				8EDFB7F71A6B6E9F000AD00A /* CustomKeyboard */,
 				8EDFB7C51A6B6BBA000AD00A /* Products */,
+				8ED38BD11AB4B6A5009DA1C6 /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -552,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDD185B01A8F1D9C001EE182 /* tapClick.aiff in Resources */,
+				8ED38BD31AB4B6BF009DA1C6 /* big.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -581,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5BAF95111A771E7E00433B17 /* KeyboardKeyFrameTextMap.m in Sources */,
+				8E0BD2EE1AB4BAC0006D70F3 /* SpellCorrector.cpp in Sources */,
 				5BE1E8D21A7D63C90094E050 /* KeyboardModeManager.m in Sources */,
 				5B537E931A7341BA0006AEF8 /* LetterNumberKeyController.m in Sources */,
 				5B4D23C01A85329E00ECE9AD /* NumberSymbolKeysController.m in Sources */,
@@ -590,6 +620,7 @@
 				5BFB27941A75725300508C1F /* KeyboardLayoutDimensonsProvider.m in Sources */,
 				8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */,
 				5B537E8F1A7337F30006AEF8 /* FunctionalKeyController.m in Sources */,
+				8E0BD2F11AB4BBA6006D70F3 /* SpellCorrectorBridge.mm in Sources */,
 				5B0721781A9C45E600BF4E2E /* KeyBackgroundLayer.m in Sources */,
 				8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */,
 				5B4D23B91A845E7D00ECE9AD /* LetterKeysController.m in Sources */,
