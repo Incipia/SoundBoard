@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "KeyboardTypedefs.h"
 
+@class AutocorrectKeyController;
 @interface AutocorrectKeyManager : NSObject
+
++ (instancetype)sharedManager;
+
+- (void)setAutocorrectKeyController:(AutocorrectKeyController*)controller
+                       withPriority:(AutocorrectKeyControllerPriority)priority;
+
+- (void)updateControllersWithTextInput:(NSString*)text;
+
 
 @end
