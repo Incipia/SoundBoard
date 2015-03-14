@@ -39,6 +39,8 @@
 		8E7662DC1A71FF43006410E7 /* KeyboardKeysUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662DB1A71FF43006410E7 /* KeyboardKeysUtility.m */; };
 		8E7662E81A72212A006410E7 /* KeyViewCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662E71A72212A006410E7 /* KeyViewCollection.m */; };
 		8E78D85E1AAB5C3300EDE134 /* AutocorrectKeyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */; };
+		8E905BF51AB4D79800B56393 /* AutocorrectKeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E905BF41AB4D79800B56393 /* AutocorrectKeyManager.m */; };
+		8E905BF81AB4DF0A00B56393 /* UITextChecker+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */; };
 		8ED38BD31AB4B6BF009DA1C6 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8ED38BD21AB4B6BF009DA1C6 /* big.txt */; };
 		8ED79DF61A7FFCB8002C5218 /* EnlargedKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
@@ -151,6 +153,10 @@
 		8E78D85C1AAB5C3300EDE134 /* AutocorrectKeyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocorrectKeyController.h; sourceTree = "<group>"; };
 		8E78D85D1AAB5C3300EDE134 /* AutocorrectKeyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocorrectKeyController.m; sourceTree = "<group>"; };
 		8E840E781A77FDCE00EC9199 /* CustomKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = CustomKeyboard.entitlements; sourceTree = "<group>"; };
+		8E905BF31AB4D79800B56393 /* AutocorrectKeyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutocorrectKeyManager.h; sourceTree = "<group>"; };
+		8E905BF41AB4D79800B56393 /* AutocorrectKeyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutocorrectKeyManager.m; sourceTree = "<group>"; };
+		8E905BF61AB4DF0A00B56393 /* UITextChecker+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextChecker+Additions.h"; sourceTree = "<group>"; };
+		8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextChecker+Additions.m"; sourceTree = "<group>"; };
 		8ED38BD21AB4B6BF009DA1C6 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargedKeyView.h; sourceTree = "<group>"; };
 		8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargedKeyView.m; sourceTree = "<group>"; };
@@ -209,6 +215,8 @@
 		5B0721411A9A9C4200BF4E2E /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8E905BF61AB4DF0A00B56393 /* UITextChecker+Additions.h */,
+				8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */,
 				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
 				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
 			);
@@ -265,6 +273,8 @@
 		5BE1E8D31A7D63D90094E050 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8E905BF31AB4D79800B56393 /* AutocorrectKeyManager.h */,
+				8E905BF41AB4D79800B56393 /* AutocorrectKeyManager.m */,
 				5B0FB5871A7B1EEA00D2854F /* TextDocumentProxyManager.h */,
 				5B0FB5881A7B1EEA00D2854F /* TextDocumentProxyManager.m */,
 				5BE1E8D01A7D63C90094E050 /* KeyboardModeManager.h */,
@@ -611,6 +621,7 @@
 			files = (
 				5BAF95111A771E7E00433B17 /* KeyboardKeyFrameTextMap.m in Sources */,
 				8E0BD2EE1AB4BAC0006D70F3 /* SpellCorrector.cpp in Sources */,
+				8E905BF81AB4DF0A00B56393 /* UITextChecker+Additions.m in Sources */,
 				5BE1E8D21A7D63C90094E050 /* KeyboardModeManager.m in Sources */,
 				5B537E931A7341BA0006AEF8 /* LetterNumberKeyController.m in Sources */,
 				5B4D23C01A85329E00ECE9AD /* NumberSymbolKeysController.m in Sources */,
@@ -632,6 +643,7 @@
 				5BE1E8D61A7D75B00094E050 /* LetterSymbolKeyView.m in Sources */,
 				5B537E8C1A732BFA0006AEF8 /* ShiftSymbolsKeyController.m in Sources */,
 				5B537E961A7347410006AEF8 /* NextKeyboardKeyController.m in Sources */,
+				8E905BF51AB4D79800B56393 /* AutocorrectKeyManager.m in Sources */,
 				8EDFB7FC1A6B6E9F000AD00A /* KeyboardViewController.m in Sources */,
 				5B0721341A99335C00BF4E2E /* AlternateKeysView.m in Sources */,
 				8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */,
