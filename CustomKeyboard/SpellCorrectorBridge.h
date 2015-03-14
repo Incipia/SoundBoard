@@ -10,4 +10,7 @@
 
 @interface SpellCorrectorBridge : NSObject
 
++ (void)load;
++ (NSArray*)correctionsForText:(NSString*)text;
+
 @end
