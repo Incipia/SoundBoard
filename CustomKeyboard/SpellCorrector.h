@@ -9,6 +9,22 @@
 #ifndef __SoundBoard__SpellCorrector__
 #define __SoundBoard__SpellCorrector__
 
-#include <stdio.h>
+#include <vector>
+#include <map>
+
+typedef std::vector<std::string> Vector;
+typedef std::map<std::string, int> Dictionary;
+
+class SpellCorrector
+{
+private:
+   Dictionary dictionary;
+
+   void edits(const std::string& word, Vector& result);
+   void known(Vector& results, Dictionary& candidates);
+public:
+   void load(const std::string& filename);
+   Dictionary correct(const std::string& word);
+};
 
 #endif /* defined(__SoundBoard__SpellCorrector__) */
