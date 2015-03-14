@@ -65,5 +65,13 @@ typedef NS_ENUM(NSUInteger, KeyboardRepeatKeyCount)
 {
    KeyboardRepeatStartDeletingWords = 15,
 };
+
+
+typedef NS_ENUM(NSUInteger, AutocorrectKeyControllerPriority)
+{
+   AutocorrectControllerPrimary,
+   AutocorrectControllerSecondary,
+   AutocorrectControllerTertiary
+};
       
 #endif
