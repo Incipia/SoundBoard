@@ -13,6 +13,7 @@
 #import "TextDocumentProxyManager.h"
 #import "KeyboardModeManager.h"
 #import "KeyboardModeTransitioner.h"
+#import "SpellCorrectorBridge.h"
 
 static const CGFloat s_auxViewHeightPercentage = .19f;
 static const NSUInteger s_portraitHeight = 270;
@@ -44,6 +45,15 @@ static const NSUInteger s_landscapeHeight = 215;
 
       [KeyboardModeTransitioner disableRequestsWhileInMode:KeyboardModeLetters];
       [KeyboardModeTransitioner setCharacterArray:@[@"'"] forImmediateTransitionToMode:KeyboardModeLetters];
+
+      // For debugging and testing the spell corrector!
+
+//      [SpellCorrectorBridge load];
+//      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//         NSArray* correcitons = [SpellCorrectorBridge correctionsForText:@"hell"];
+//         correcitons = [SpellCorrectorBridge correctionsForText:@"hellm"];
+//         correcitons = [SpellCorrectorBridge correctionsForText:@"hoe"];
+//      });
    }
    return self;
 }
