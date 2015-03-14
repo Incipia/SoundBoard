@@ -50,7 +50,7 @@
 }
 
 #pragma mark - Public Class Methods
-+ (void)load
++ (void)loadForSpellCorrection
 {
    SpellCorrectorBridge* spellCorrector = [self spellCorrector];
    if (spellCorrector.isLoaded == NO)
@@ -75,7 +75,7 @@
 #pragma mark - Private
 - (NSArray*)corrections:(NSString*)text
 {
-   Dictionary candidates = _corrector.correct(text.UTF8String);
+   Dictionary candidates = _corrector.corrections(text.UTF8String);
 
    NSMutableArray* results = [NSMutableArray array];
    for (Dictionary::iterator it = candidates.begin(); it != candidates.end(); ++it)

@@ -18,13 +18,14 @@ typedef std::map<std::string, int> Dictionary;
 class SpellCorrector
 {
 private:
-   Dictionary dictionary;
-
    void edits(const std::string& word, Vector& result);
    void known(Vector& results, Dictionary& candidates);
+
+   Dictionary dictionary;
+
 public:
    void load(const std::string& filename);
-   Dictionary correct(const std::string& word);
+   Dictionary corrections(const std::string& word);
 };
 
 #endif /* defined(__SoundBoard__SpellCorrector__) */

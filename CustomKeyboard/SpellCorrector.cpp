@@ -62,7 +62,7 @@ void SpellCorrector::load(const std::string& filename)
    }
 }
 
-Dictionary SpellCorrector::correct(const std::string& word)
+Dictionary SpellCorrector::corrections(const std::string& word)
 {
    Vector result;
    Dictionary candidates;
@@ -81,7 +81,7 @@ Dictionary SpellCorrector::correct(const std::string& word)
       return candidates;
    }
 
-   for (unsigned int i = 0;i < result.size();i++)
+   for (unsigned int i = 0; i < result.size(); i++)
    {
       Vector subResult;
 
@@ -102,7 +102,7 @@ void SpellCorrector::known(Vector& results, Dictionary& candidates)
 {
    Dictionary::iterator end = dictionary.end();
 
-   for (unsigned int i = 0;i < results.size();i++)
+   for (unsigned int i = 0;i < results.size(); i++)
    {
       Dictionary::iterator value = dictionary.find(results[i]);
 
@@ -115,22 +115,22 @@ void SpellCorrector::known(Vector& results, Dictionary& candidates)
 
 void SpellCorrector::edits(const std::string& word, Vector& result)
 {
-   for (string::size_type i = 0;i < word.size(); i++)
+   for (string::size_type i = 0; i < word.size(); i++)
    {
       result.push_back(word.substr(0, i) + word.substr(i + 1)); // deletions
    }
-   for (string::size_type i = 0;i < word.size() - 1;i++)
+   for (string::size_type i = 0;i < word.size() - 1; i++)
    {
-      result.push_back(word.substr(0, i) + word[i+1] + word.substr(i + 2)); // transposition
+      result.push_back(word.substr(0, i) + word[i+1] + word[i] + word.substr(i + 2)); // transposition
    }
 
-   for (char j = 'a';j <= 'z';++j)
+   for (char j = 'a'; j <= 'z'; ++j)
    {
-      for (string::size_type i = 0;i < word.size(); i++)
+      for (string::size_type i = 0; i < word.size(); i++)
       {
          result.push_back(word.substr(0, i) + j + word.substr(i + 1)); // alterations
       }
-      for (string::size_type i = 0;i < word.size() + 1;i++)
+      for (string::size_type i = 0;i < word.size() + 1; i++)
       {
          result.push_back(word.substr(0, i) + j + word.substr(i)); // insertion
       }
