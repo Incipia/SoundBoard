@@ -22,7 +22,7 @@ public:
    Dictionary corrections(const std::string& word);
 
 private:
-   void edits(const std::string& word, Vector& result);
+   void editWord(const std::string& word, Vector& result);
    void known(Vector& results, Dictionary& candidates);
 
    Dictionary dictionary;

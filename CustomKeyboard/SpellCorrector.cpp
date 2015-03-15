@@ -25,7 +25,9 @@ bool sortBySecond(const pair<std::string, int>& left, const pair<std::string, in
 char filterNonAlphabetic(char& letter)
 {
    if (isalpha(letter))
+   {
       return tolower(letter);
+   }
    return '-';
 }
 
@@ -44,11 +46,11 @@ void SpellCorrector::load(const std::string& filename)
    transform(line.begin(), line.end(), line.begin(), filterNonAlphabetic);
 
    string::size_type begin = 0;
-   string::size_type end   = line.size();
+   string::size_type end = line.size();
 
    for (string::size_type i = 0;;)
    {
-      while (line[++i] == '-' && i < end); //find first '-' character
+      while (line[++i] == '-' && i < end); // find first '-' character
 
       if (i >= end)
       {
@@ -56,7 +58,7 @@ void SpellCorrector::load(const std::string& filename)
       }
 
       begin = i;
-      while (line[++i] != '-' && i < end); //find first not of '-' character
+      while (line[++i] != '-' && i < end); // find first character that is not '-'
 
       dictionary[line.substr(begin, i - begin)]++;
    }
@@ -67,13 +69,14 @@ Dictionary SpellCorrector::corrections(const std::string& word)
    Vector result;
    Dictionary candidates;
 
+   // if the word is correctly spelled, then don't try to find a correction
    if (dictionary.find(word) != dictionary.end())
    {
       result.push_back(word);
       return candidates;
    }
 
-   edits(word, result);
+   editWord(word, result);
    known(result, candidates);
 
    if (candidates.size() > 0)
@@ -85,7 +88,7 @@ Dictionary SpellCorrector::corrections(const std::string& word)
    {
       Vector subResult;
 
-      edits(result[i], subResult);
+      editWord(result[i], subResult);
       known(subResult, candidates);
    }
 
@@ -101,8 +104,7 @@ Dictionary SpellCorrector::corrections(const std::string& word)
 void SpellCorrector::known(Vector& results, Dictionary& candidates)
 {
    Dictionary::iterator end = dictionary.end();
-
-   for (unsigned int i = 0;i < results.size(); i++)
+   for (unsigned int i = 0; i < results.size(); i++)
    {
       Dictionary::iterator value = dictionary.find(results[i]);
 
@@ -113,15 +115,15 @@ void SpellCorrector::known(Vector& results, Dictionary& candidates)
    }
 }
 
-void SpellCorrector::edits(const std::string& word, Vector& result)
+void SpellCorrector::editWord(const std::string& word, Vector& result)
 {
-   for (string::size_type i = 0; i < word.size(); i++)
+   for (string::size_type characterIndex = 0; characterIndex < word.size(); characterIndex++)
    {
-      result.push_back(word.substr(0, i) + word.substr(i + 1)); // deletions
+      result.push_back(word.substr(0, characterIndex) + word.substr(characterIndex + 1)); // deletions
    }
-   for (string::size_type i = 0;i < word.size() - 1; i++)
+   for (string::size_type characterIndex = 0;characterIndex < word.size() - 1; characterIndex++)
    {
-      result.push_back(word.substr(0, i) + word[i+1] + word[i] + word.substr(i + 2)); // transposition
+      result.push_back(word.substr(0, characterIndex) + word[characterIndex + 1] + word[characterIndex] + word.substr(characterIndex + 2)); // transposition
    }
 
    for (char j = 'a'; j <= 'z'; ++j)
