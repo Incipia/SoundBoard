@@ -75,9 +75,9 @@
    [self.rightAutocorrectController updateFrame:rightLabelViewFrame];
 
    KeyboardKeyFrameTextMap* map = [KeyboardKeyFrameTextMap map];
-   [map updateFrameForKeyView:self.leftAutocorrectController.view];
-   [map updateFrameForKeyView:self.centerAutocorrectController.view];
-   [map updateFrameForKeyView:self.rightAutocorrectController.view];
+   [map updateFrameForKeyView:(KeyView*)self.leftAutocorrectController.view];
+   [map updateFrameForKeyView:(KeyView*)self.centerAutocorrectController.view];
+   [map updateFrameForKeyView:(KeyView*)self.rightAutocorrectController.view];
 
    [self.keyboardMapUpdater updateKeyboardKeyFrameTextMap:map];
 }
