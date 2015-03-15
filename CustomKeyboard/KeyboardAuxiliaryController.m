@@ -50,9 +50,9 @@
    [self.view addSubview:self.centerAutocorrectController.view];
    [self.view addSubview:self.rightAutocorrectController.view];
 
-   [self.leftAutocorrectController updateText:@"Label"];
-   [self.centerAutocorrectController updateText:@"Label"];
-   [self.rightAutocorrectController updateText:@"Label"];
+   [self.leftAutocorrectController updateText:@"Labels"];
+   [self.centerAutocorrectController updateText:@"For"];
+   [self.rightAutocorrectController updateText:@"Autocorrect"];
 }
 
 - (void)addControllersToAutocorrectKeyManager
