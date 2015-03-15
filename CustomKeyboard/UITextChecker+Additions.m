@@ -13,16 +13,21 @@ static NSString* _deviceLanguage()
    return [[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
+static NSRange _range(NSString* word)
+{
+   return NSMakeRange(0, word.length);
+}
+
 @implementation UITextChecker (Additions)
 
 - (NSArray*)guessesForWord:(NSString *)word
 {
-   return [self guessesForWordRange:NSMakeRange(0, word.length) inString:word language:_deviceLanguage()];
+   return [self guessesForWordRange:_range(word) inString:word language:_deviceLanguage()];
 }
 
 - (NSArray*)completionsForWord:(NSString*)word
 {
-   return [self completionsForPartialWordRange:NSMakeRange(0, word.length) inString:word language:_deviceLanguage()];
+   return [self completionsForPartialWordRange:_range(word) inString:word language:_deviceLanguage()];
 }
 
 @end
