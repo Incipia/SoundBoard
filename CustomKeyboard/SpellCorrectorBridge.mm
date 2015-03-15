@@ -55,8 +55,7 @@
    SpellCorrectorBridge* spellCorrector = [self spellCorrector];
    if (spellCorrector.isLoaded == NO)
    {
-      NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big" ofType:@"txt"];
-      spellCorrector->_corrector.load(filePath.fileSystemRepresentation);
+      [spellCorrector loadFileForCorrections];
       spellCorrector.isLoaded = YES;
    }
 }
@@ -73,6 +72,12 @@
 }
 
 #pragma mark - Private
+- (void)loadFileForCorrections
+{
+   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big" ofType:@"txt"];
+   _corrector.load(filePath.fileSystemRepresentation);
+}
+
 - (NSArray*)corrections:(NSString*)text
 {
    Dictionary candidates = _corrector.corrections(text.UTF8String);
