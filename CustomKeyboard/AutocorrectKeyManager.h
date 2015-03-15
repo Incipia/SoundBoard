@@ -19,5 +19,4 @@
 
 - (void)updateControllersWithTextInput:(NSString*)text;
 
-
 @end

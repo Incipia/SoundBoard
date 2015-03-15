@@ -26,9 +26,9 @@
    if (self = [super init])
    {
       self.view.backgroundColor = [UIColor colorWithRed:43/255.f green:44/255.f blue:48/255.f alpha:1];
-      [self setupAutocorectControllers];
 
-      [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:@"helk"];
+      [self setupAutocorectControllers];
+      [self addControllersToAutocorrectKeyManager];
    }
    return self;
 }
@@ -53,6 +53,15 @@
    [self.leftAutocorrectController updateText:@"Label"];
    [self.centerAutocorrectController updateText:@"Label"];
    [self.rightAutocorrectController updateText:@"Label"];
+}
+
+- (void)addControllersToAutocorrectKeyManager
+{
+   AutocorrectKeyManager* manager = [AutocorrectKeyManager sharedManager];
+
+   [manager setAutocorrectKeyController:self.centerAutocorrectController withPriority:AutocorrectControllerPrimary];
+   [manager setAutocorrectKeyController:self.leftAutocorrectController withPriority:AutocorrectControllerSecondary];
+   [manager setAutocorrectKeyController:self.rightAutocorrectController withPriority:AutocorrectControllerTertiary];
 }
 
 #pragma mark - Lifecycle
