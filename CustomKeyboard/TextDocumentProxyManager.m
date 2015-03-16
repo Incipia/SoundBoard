@@ -12,6 +12,7 @@
 
 @interface TextDocumentProxyManager ()
 @property (weak, nonatomic) id<UITextDocumentProxy> proxy;
+@property (nonatomic, readonly) NSString* lastWord;
 @end
 
 @implementation TextDocumentProxyManager
@@ -41,8 +42,19 @@
       if (![text isEqualToString:@" "])
          [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
 
-   NSString* lastWord = [[self sharedManager] lastWord];
+   NSString* lastWord = [self sharedManager].lastWord;
    [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:lastWord];
+}
+
++ (void)replaceCurrentWordWithText:(NSString*)text
+{
+   NSUInteger lastWordCount = [self sharedManager].lastWord.length;
+   for (int i = 0; i < lastWordCount; ++i)
+   {
+      [[self sharedManager].proxy deleteBackward];
+
+   }
+   [self insertText:text];
 }
 
 + (BOOL)isWhitespace:(unichar)character
@@ -160,7 +172,8 @@
    {
       [[[self class] sharedManager].proxy deleteBackward];
    }
-   
+
+   [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:[self sharedManager].lastWord];
    return deletedUppercase;
 }
 
@@ -169,7 +182,7 @@
    [[[self class] sharedManager].proxy adjustTextPositionByCharacterOffset:offset];
 }
 
-#pragma mark - Private
+#pragma mark - Property Overrides
 - (NSString*)lastWord
 {
    __block NSString *lastWord = nil;
