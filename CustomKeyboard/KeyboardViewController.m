@@ -161,7 +161,11 @@ static const NSUInteger s_landscapeHeight = 215;
 
 - (void)textDidChange:(id<UITextInput>)textInput
 {
-   [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+   NSString* text = self.textDocumentProxy.documentContextBeforeInput;
+   if (text.length == 0)
+   {
+      [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
+   }
 }
 
 #pragma mark - Keyboard Mode Updater
