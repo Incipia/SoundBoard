@@ -9,6 +9,7 @@
 #import "AutocorrectKeyController.h"
 #import "KeyView.h"
 #import "ThemeAttributesProvider.h"
+#import "TextDocumentProxyManager.h"
 
 @interface AutocorrectKeyController ()
 @property (nonatomic) UILabel* textLabel;
@@ -22,6 +23,15 @@
    if (self = [super init])
    {
       self.view = [KeyView viewWithText:@"" keyType:KeyTypeFunctional];
+
+      __weak typeof(self) weakSelf = self;
+      [(KeyView*)self.view setActionBlock:^(NSInteger repeatCount) {
+
+         NSString* text = [weakSelf.textLabel.text stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+         text = [text stringByAppendingString:@" "];
+
+         [TextDocumentProxyManager replaceCurrentWordWithText:text];
+      }];
       [self setupLabel];
    }
    return self;
