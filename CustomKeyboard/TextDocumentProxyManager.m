@@ -89,7 +89,10 @@
 
 + (void)insertSpace
 {
-   [TextDocumentProxyManager insertText:@" "];
+   if (![[AutocorrectKeyManager sharedManager] triggerPrimaryKeyIfPossible])
+   {
+      [TextDocumentProxyManager insertText:@" "];
+   }
    
    NSString * text = [self documentContextBeforeInput];
    if (text && text.length > 1)
