@@ -77,7 +77,7 @@ Dictionary SpellCorrector::corrections(const std::string& word)
    // if the word is correctly spelled, then don't try to find a correction
    if (dictionary.find(word) != dictionary.end())
    {
-      result.push_back(word);
+      candidates[word] = dictionary[word];
       return candidates;
    }
 
