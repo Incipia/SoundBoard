@@ -12,6 +12,11 @@
 #import "UITextChecker+Additions.h"
 #import "SpellCorrectionResult.h"
 
+static NSString* _quotedString(NSString* string)
+{
+   return [NSString stringWithFormat:@"\"%@\"", string];
+}
+
 @interface AutocorrectKeyManager ()
 @property (nonatomic) AutocorrectKeyController* primaryController;
 @property (nonatomic) AutocorrectKeyController* secondaryController;
@@ -75,50 +80,41 @@
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
          NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
-         NSArray* guesses = [self.textChecker guessesForWord:text];
-         NSArray* completions = [self.textChecker completionsForWord:text];
 
-         NSLog(@"results for word: %@", text);
-         for (SpellCorrectionResult* result in corrections)
+         // the word was found to be a real word
+         if (corrections.count == 1)
          {
-            NSLog(@"result: %@, %lu", result.word, (unsigned long)result.likelyhood);
+            SpellCorrectionResult* result = corrections[0];
+            NSArray* guesses = [self.textChecker guessesForWord:result.word];
+
+            if (guesses.count > 0)
+            {
+               // punctuation hopefully
+               [self.secondaryController updateText:guesses[0]];
+            }
+
+            [self.primaryController updateText:_quotedString(result.word)];
          }
-         if (corrections.count > 0)
-         {
-            SpellCorrectionResult* result = corrections.firstObject;
-            [self.primaryController updateText:result.word];
-         }
+
+         // the word was not found in the dictionary
          if (corrections.count > 1)
          {
-            SpellCorrectionResult* result = corrections[1];
-            [self.secondaryController updateText:result.word];
-         }
-         if (corrections.count > 2)
-         {
-            SpellCorrectionResult* result = corrections[2];
-            [self.tertiaryController updateText:result.word];
-         }
+            [self.secondaryController updateText:_quotedString(text)];
 
-         if (corrections.count == 0)
-         {
-            [self.primaryController updateText:[NSString stringWithFormat:@"\"%@\"", text]];
+            SpellCorrectionResult* firstResult = corrections[0];
+            [self.primaryController updateText:firstResult.word];
+
+            if (corrections.count > 2)
+            {
+               SpellCorrectionResult* secondResult = corrections[1];
+               [self.tertiaryController updateText:secondResult.word];
+            }
          }
-         //
-         //      if (guesses.count > 0)
-         //      {
-         //         SpellCorrectionResult* result = guesses[0];
-         //         [self.secondaryController updateText:result.word];
-         //      }
-         //      if (completions.count > 0)
-         //      {
-         //         SpellCorrectionResult* result = completions[0];
-         //         [self.tertiaryController updateText:result.word];
-         //      }
       });
    }
    else
    {
-      [self.primaryController updateText:text];
+      [self.primaryController updateText:@""];
       [self.secondaryController updateText:@""];
       [self.tertiaryController updateText:@""];
    }
