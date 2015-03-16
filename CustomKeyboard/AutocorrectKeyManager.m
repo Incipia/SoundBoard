@@ -91,10 +91,9 @@ static NSString* _quotedString(NSString* string)
          NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
 
          // the word was found to be a real word
-         if (corrections.count == 1)
+         if (corrections.count == 0)
          {
-            SpellCorrectionResult* result = corrections[0];
-            NSString* word = result.word;
+            NSString* word = text;
             if (isUppercase)
             {
                word = [word stringByReplacingCharactersInRange:NSMakeRange(0,1)
@@ -128,7 +127,7 @@ static NSString* _quotedString(NSString* string)
          }
 
          // the word was not found in the dictionary
-         if (corrections.count > 1)
+         if (corrections.count > 0)
          {
             [self.secondaryController updateText:_quotedString(text)];
 
