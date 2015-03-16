@@ -57,7 +57,7 @@
 #pragma mark - Private
 - (void)loadFileForCorrections
 {
-   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big2" ofType:@"txt"];
+   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big" ofType:@"txt"];
    _corrector.load(filePath.fileSystemRepresentation);
 }
 
