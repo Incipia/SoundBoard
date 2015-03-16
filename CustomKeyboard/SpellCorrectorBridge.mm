@@ -7,26 +7,9 @@
 //
 
 #import "SpellCorrectorBridge.h"
-
 #include "SpellCorrector.h"
+#import "SpellCorrectionResult.h"
 #include <string>
-
-// Private Class to wrap each pair in the map that is returned by the C++ spell corrector
-@interface SpellCorrectionResult : NSObject
-@property (nonatomic, copy) NSString* word;
-@property (nonatomic) NSUInteger likelyhood;
-+ (instancetype)resultWithWord:(NSString*)word likelyhood:(NSUInteger)likelyhood;
-@end;
-
-@implementation SpellCorrectionResult
-+ (instancetype)resultWithWord:(NSString *)word likelyhood:(NSUInteger)likelyhood
-{
-   SpellCorrectionResult* result = [SpellCorrectionResult new];
-   result.word = word;
-   result.likelyhood = likelyhood;
-   return result;
-}
-@end
 
 @interface SpellCorrectorBridge ()
 {
@@ -74,13 +57,13 @@
 #pragma mark - Private
 - (void)loadFileForCorrections
 {
-   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big" ofType:@"txt"];
+   NSString* filePath = [[NSBundle mainBundle] pathForResource:@"big2" ofType:@"txt"];
    _corrector.load(filePath.fileSystemRepresentation);
 }
 
 - (NSArray*)corrections:(NSString*)text
 {
-   Dictionary candidates = _corrector.corrections(text.UTF8String);
+   Dictionary candidates = _corrector.corrections(text.lowercaseString.UTF8String);
 
    NSMutableArray* results = [NSMutableArray array];
    for (Dictionary::iterator it = candidates.begin(); it != candidates.end(); ++it)

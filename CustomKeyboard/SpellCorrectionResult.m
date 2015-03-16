@@ -10,4 +10,13 @@
 
 @implementation SpellCorrectionResult
 
+#pragma mark - Class Init
++ (instancetype)resultWithWord:(NSString *)word likelyhood:(NSUInteger)likelyhood
+{
+   SpellCorrectionResult* result = [SpellCorrectionResult new];
+   result.word = word;
+   result.likelyhood = likelyhood;
+   return result;
+}
+
 @end

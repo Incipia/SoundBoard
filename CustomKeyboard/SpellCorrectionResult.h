@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+// Private Class to wrap each pair in the map that is returned by the C++ spell corrector
 @interface SpellCorrectionResult : NSObject
 
-@end
+@property (nonatomic, copy) NSString* word;
+@property (nonatomic) NSUInteger likelyhood;
++ (instancetype)resultWithWord:(NSString*)word likelyhood:(NSUInteger)likelyhood;
+
+@end;
