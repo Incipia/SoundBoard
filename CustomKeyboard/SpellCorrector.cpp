@@ -28,6 +28,10 @@ char filterNonAlphabetic(char& letter)
    {
       return tolower(letter);
    }
+   else if (letter == '\'')
+   {
+      return letter;
+   }
    return '-';
 }
 
@@ -43,6 +47,7 @@ void SpellCorrector::load(const std::string& filename)
 
    file.read(&line[0], length);
 
+   line.erase(std::remove(line.begin(), line.end(), '\''), line.end());
    transform(line.begin(), line.end(), line.begin(), filterNonAlphabetic);
 
    string::size_type begin = 0;
@@ -108,7 +113,7 @@ void SpellCorrector::known(Vector& results, Dictionary& candidates)
    {
       Dictionary::iterator value = dictionary.find(results[i]);
 
-      if (value != end)
+      if (value != end)// && value->second > 100)
       {
          candidates[value->first] = value->second;
       }
