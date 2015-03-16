@@ -42,7 +42,6 @@
 		8E905BF51AB4D79800B56393 /* AutocorrectKeyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E905BF41AB4D79800B56393 /* AutocorrectKeyManager.m */; };
 		8E905BF81AB4DF0A00B56393 /* UITextChecker+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */; };
 		8E905BFE1AB6457200B56393 /* SpellCorrectionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E905BFD1AB6457200B56393 /* SpellCorrectionResult.m */; };
-		8E905C001AB6567000B56393 /* big2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8E905BFF1AB6567000B56393 /* big2.txt */; };
 		8ED38BD31AB4B6BF009DA1C6 /* big.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8ED38BD21AB4B6BF009DA1C6 /* big.txt */; };
 		8ED79DF61A7FFCB8002C5218 /* EnlargedKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */; };
 		8EDFB7CA1A6B6BBA000AD00A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EDFB7C91A6B6BBA000AD00A /* main.m */; };
@@ -161,7 +160,6 @@
 		8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextChecker+Additions.m"; sourceTree = "<group>"; };
 		8E905BFC1AB6457200B56393 /* SpellCorrectionResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpellCorrectionResult.h; sourceTree = "<group>"; };
 		8E905BFD1AB6457200B56393 /* SpellCorrectionResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpellCorrectionResult.m; sourceTree = "<group>"; };
-		8E905BFF1AB6567000B56393 /* big2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big2.txt; sourceTree = "<group>"; };
 		8ED38BD21AB4B6BF009DA1C6 /* big.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = big.txt; sourceTree = "<group>"; };
 		8ED79DF41A7FFCB8002C5218 /* EnlargedKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnlargedKeyView.h; sourceTree = "<group>"; };
 		8ED79DF51A7FFCB8002C5218 /* EnlargedKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnlargedKeyView.m; sourceTree = "<group>"; };
@@ -293,7 +291,6 @@
 		8ED38BD11AB4B6A5009DA1C6 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8E905BFF1AB6567000B56393 /* big2.txt */,
 				8ED38BD21AB4B6BF009DA1C6 /* big.txt */,
 			);
 			name = Resources;
@@ -597,7 +594,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E905C001AB6567000B56393 /* big2.txt in Resources */,
 				EDD185B01A8F1D9C001EE182 /* tapClick.aiff in Resources */,
 				8ED38BD31AB4B6BF009DA1C6 /* big.txt in Resources */,
 			);
