@@ -105,7 +105,22 @@ static NSString* _quotedString(NSString* string)
             if (guesses.count > 0)
             {
                // punctuation hopefully
-               [self.secondaryController updateText:guesses[0]];
+               NSString* secondaryWord = guesses[0];
+               BOOL shouldUseGuess = NO;
+               for (int charIndex = 0; charIndex < secondaryWord.length; ++charIndex)
+               {
+                  if ([secondaryWord characterAtIndex:charIndex] == '\'')
+                  {
+                     shouldUseGuess = YES;
+                     break;
+                  }
+               }
+
+               if (shouldUseGuess == NO && ![text isEqualToString:word])
+               {
+                  secondaryWord = _quotedString(text);
+               }
+               [self.secondaryController updateText:secondaryWord];
             }
 
             [self.primaryController updateText:_quotedString(word)];
