@@ -77,6 +77,13 @@ static NSString* _quotedString(NSString* string)
 {
    if (text)
    {
+      BOOL isUppercase = NO;
+      if (text.length > 0)
+      {
+         unichar firstCharacter = [text characterAtIndex:0];
+         isUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:firstCharacter];
+      }
+
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
          NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
@@ -85,15 +92,21 @@ static NSString* _quotedString(NSString* string)
          if (corrections.count == 1)
          {
             SpellCorrectionResult* result = corrections[0];
-            NSArray* guesses = [self.textChecker guessesForWord:result.word];
+            NSString* word = result.word;
+            if (isUppercase)
+            {
+               word = [word stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                    withString:[[word substringToIndex:1] capitalizedString]];
+            }
 
+            NSArray* guesses = [self.textChecker guessesForWord:word];
             if (guesses.count > 0)
             {
                // punctuation hopefully
                [self.secondaryController updateText:guesses[0]];
             }
 
-            [self.primaryController updateText:_quotedString(result.word)];
+            [self.primaryController updateText:_quotedString(word)];
          }
 
          // the word was not found in the dictionary
@@ -102,22 +115,39 @@ static NSString* _quotedString(NSString* string)
             [self.secondaryController updateText:_quotedString(text)];
 
             SpellCorrectionResult* firstResult = corrections[0];
-            [self.primaryController updateText:firstResult.word];
+            NSString* word = firstResult.word;
+            if (isUppercase)
+            {
+               word = [word stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                    withString:[[word substringToIndex:1] capitalizedString]];
+            }
+            [self.primaryController updateText:word];
 
             if (corrections.count > 2)
             {
                SpellCorrectionResult* secondResult = corrections[1];
-               [self.tertiaryController updateText:secondResult.word];
+               NSString* secondWord = secondResult.word;
+               if (isUppercase)
+               {
+                  secondWord = [secondWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                       withString:[[secondWord substringToIndex:1] capitalizedString]];
+               }
+               [self.tertiaryController updateText:secondWord];
             }
          }
       });
    }
    else
    {
-      [self.primaryController updateText:@""];
-      [self.secondaryController updateText:@""];
-      [self.tertiaryController updateText:@""];
+      [self resetControllers];
    }
+}
+
+- (void)resetControllers
+{
+   [self.primaryController updateText:@""];
+   [self.secondaryController updateText:@""];
+   [self.tertiaryController updateText:@""];
 }
 
 @end
