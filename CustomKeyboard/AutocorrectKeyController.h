@@ -15,5 +15,6 @@
 
 - (void)updateFrame:(CGRect)frame;
 - (void)updateText:(NSString*)text;
+- (void)trigger;
 
 @end

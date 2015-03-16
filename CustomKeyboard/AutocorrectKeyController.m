@@ -75,4 +75,9 @@
    });
 }
 
+- (void)trigger
+{
+   [(KeyView*)self.view executeActionBlock:1];
+}
+
 @end
