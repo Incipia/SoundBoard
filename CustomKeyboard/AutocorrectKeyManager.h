@@ -18,5 +18,6 @@
                        withPriority:(AutocorrectKeyControllerPriority)priority;
 
 - (void)updateControllersWithTextInput:(NSString*)text;
+- (BOOL)triggerPrimaryKeyIfPossible;
 
 @end

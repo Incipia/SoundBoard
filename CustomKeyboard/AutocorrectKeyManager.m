@@ -22,6 +22,7 @@ static NSString* _quotedString(NSString* string)
 @property (nonatomic) AutocorrectKeyController* secondaryController;
 @property (nonatomic) AutocorrectKeyController* tertiaryController;
 @property (nonatomic) UITextChecker* textChecker;
+@property (nonatomic) BOOL primaryControllerCanTrigger;
 @end
 
 @implementation AutocorrectKeyManager
@@ -75,6 +76,7 @@ static NSString* _quotedString(NSString* string)
 
 - (void)updateControllersWithTextInput:(NSString*)text
 {
+   self.primaryControllerCanTrigger = NO;
    if (text)
    {
       BOOL isUppercase = NO;
@@ -107,6 +109,7 @@ static NSString* _quotedString(NSString* string)
             }
 
             [self.primaryController updateText:_quotedString(word)];
+            self.primaryControllerCanTrigger = YES;
          }
 
          // the word was not found in the dictionary
@@ -122,6 +125,7 @@ static NSString* _quotedString(NSString* string)
                                                     withString:[[word substringToIndex:1] capitalizedString]];
             }
             [self.primaryController updateText:word];
+            self.primaryControllerCanTrigger = YES;
 
             if (corrections.count > 2)
             {
@@ -145,9 +149,21 @@ static NSString* _quotedString(NSString* string)
 
 - (void)resetControllers
 {
+   self.primaryControllerCanTrigger = NO;
    [self.primaryController updateText:@""];
    [self.secondaryController updateText:@""];
    [self.tertiaryController updateText:@""];
+}
+
+- (BOOL)triggerPrimaryKeyIfPossible
+{
+   BOOL triggered = NO;
+   if (self.primaryControllerCanTrigger)
+   {
+      [self.primaryController trigger];
+      triggered = YES;
+   }
+   return triggered;
 }
 
 @end
