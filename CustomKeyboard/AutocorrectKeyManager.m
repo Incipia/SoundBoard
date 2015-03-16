@@ -141,7 +141,7 @@ static NSString* _quotedString(NSString* string)
             [self.primaryController updateText:word];
             self.primaryControllerCanTrigger = YES;
 
-            if (corrections.count > 2)
+            if (corrections.count > 1)
             {
                SpellCorrectionResult* secondResult = corrections[1];
                NSString* secondWord = secondResult.word;
