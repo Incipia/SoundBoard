@@ -7,6 +7,7 @@
 //
 
 #import "TextDocumentProxyManager.h"
+#import "AutocorrectKeyManager.h"
 #import "KeyboardModeManager.h"
 
 @interface TextDocumentProxyManager ()
@@ -39,6 +40,9 @@
    if ([KeyboardModeManager currentShiftMode] == ShiftModeApplied)
       if (![text isEqualToString:@" "])
          [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
+
+   NSString* lastWord = [[self sharedManager] lastWord];
+   [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:lastWord];
 }
 
 + (BOOL)isWhitespace:(unichar)character
@@ -163,6 +167,29 @@
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset
 {
    [[[self class] sharedManager].proxy adjustTextPositionByCharacterOffset:offset];
+}
+
+#pragma mark - Private
+- (NSString*)lastWord
+{
+   __block NSString *lastWord = nil;
+
+   NSString* textBeforeInput = self.proxy.documentContextBeforeInput;
+   if (textBeforeInput.length)
+   {
+      unichar character = [textBeforeInput characterAtIndex:textBeforeInput.length - 1];
+      if (![TextDocumentProxyManager isWhitespace:character])
+      {
+         [textBeforeInput enumerateSubstringsInRange:NSMakeRange(0, textBeforeInput.length)
+                                             options:NSStringEnumerationByWords | NSStringEnumerationReverse
+                                          usingBlock:^(NSString *substring, NSRange subrange, NSRange enclosingRange, BOOL *stop) {
+                                             lastWord = substring;
+                                             *stop = YES;
+                                          }];
+      };
+   }
+
+   return lastWord;
 }
 
 #pragma mark - Property Overrides
