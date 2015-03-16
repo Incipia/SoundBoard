@@ -60,7 +60,9 @@
 
 - (void)updateText:(NSString*)text
 {
-   self.textLabel.text = text;
+   dispatch_async(dispatch_get_main_queue(), ^{
+      self.textLabel.text = text;
+   });
 }
 
 @end
