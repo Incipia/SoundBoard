@@ -62,7 +62,66 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    return manager;
 }
 
-#pragma mark - Public Instance Methods
+#pragma mark - Private
+- (void)updateControllersWithRealWord:(NSString*)text
+{
+   NSString* word = text;
+   NSArray* guesses = [self.textChecker guessesForWord:_properCasing(word, text.isUppercase)];
+
+   if (guesses.count > 0)
+   {
+      // punctuation hopefully
+      NSString* secondaryWord = guesses[0];
+      BOOL shouldUseGuess = NO;
+      for (int charIndex = 0; charIndex < secondaryWord.length; ++charIndex)
+      {
+         if ([secondaryWord characterAtIndex:charIndex] == '\'')
+         {
+            shouldUseGuess = YES;
+            break;
+         }
+      }
+
+      if (shouldUseGuess == NO && ![text isEqualToString:word])
+      {
+         secondaryWord = _quotedString(text);
+      }
+      [self.secondaryController updateText:secondaryWord];
+
+      NSString* tertiaryWord = guesses.count > 1 ? guesses[1] : @"";
+      [self.tertiaryController updateText:_properCasing(tertiaryWord, text.isUppercase)];
+   }
+
+   [self.primaryController updateText:_quotedString(word)];
+   self.primaryControllerCanTrigger = YES;
+}
+
+- (void)updateControllersWithMisspelledWord:(NSString*)text corrections:(NSArray*)corrections
+{
+   [self.secondaryController updateText:_quotedString(text)];
+
+   SpellCorrectionResult* firstResult = corrections[0];
+   NSString* word = firstResult.word;
+
+   [self.primaryController updateText:_properCasing(word, text.isUppercase)];
+   self.primaryControllerCanTrigger = YES;
+
+   if (corrections.count > 1)
+   {
+      for (int correctionIndex = 1; correctionIndex < corrections.count; ++correctionIndex)
+      {
+         SpellCorrectionResult* result = corrections[correctionIndex];
+         NSString* resultWord = result.word;
+         if (![resultWord isEqualToString:word])
+         {
+            [self.tertiaryController updateText:_properCasing(resultWord, text.isUppercase)];
+            break;
+         }
+      }
+   }
+}
+
+#pragma mark - Public
 - (void)setAutocorrectKeyController:(AutocorrectKeyController *)controller withPriority:(AutocorrectKeyControllerPriority)priority
 {
    AutocorrectKeyManager* manager = [[self class] sharedManager];
@@ -90,13 +149,6 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    self.primaryControllerCanTrigger = NO;
    if (text)
    {
-      BOOL isUppercase = NO;
-      if (text.length > 0)
-      {
-         unichar firstCharacter = [text characterAtIndex:0];
-         isUppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:firstCharacter];
-      }
-
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
          NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
@@ -104,61 +156,12 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
          // the word was found to be a real word
          if (corrections.count == 0)
          {
-            NSString* word = text;
-            NSArray* guesses = [self.textChecker guessesForWord:_properCasing(word, isUppercase)];
-            
-            if (guesses.count > 0)
-            {
-               // punctuation hopefully
-               NSString* secondaryWord = guesses[0];
-               BOOL shouldUseGuess = NO;
-               for (int charIndex = 0; charIndex < secondaryWord.length; ++charIndex)
-               {
-                  if ([secondaryWord characterAtIndex:charIndex] == '\'')
-                  {
-                     shouldUseGuess = YES;
-                     break;
-                  }
-               }
-
-               if (shouldUseGuess == NO && ![text isEqualToString:word])
-               {
-                  secondaryWord = _quotedString(text);
-               }
-               [self.secondaryController updateText:secondaryWord];
-
-               NSString* tertiaryWord = guesses.count > 1 ? guesses[1] : @"";
-               [self.tertiaryController updateText:_properCasing(tertiaryWord, isUppercase)];
-            }
-
-            [self.primaryController updateText:_quotedString(word)];
-            self.primaryControllerCanTrigger = YES;
+            [self updateControllersWithRealWord:text];
          }
-
          // the word was not found in the dictionary
-         if (corrections.count > 0)
+         else
          {
-            [self.secondaryController updateText:_quotedString(text)];
-
-            SpellCorrectionResult* firstResult = corrections[0];
-            NSString* word = firstResult.word;
-
-            [self.primaryController updateText:_properCasing(word, isUppercase)];
-            self.primaryControllerCanTrigger = YES;
-
-            if (corrections.count > 1)
-            {
-               for (int correctionIndex = 1; correctionIndex < corrections.count; ++correctionIndex)
-               {
-                  SpellCorrectionResult* result = corrections[correctionIndex];
-                  NSString* resultWord = result.word;
-                  if (![resultWord isEqualToString:word])
-                  {
-                     [self.tertiaryController updateText:_properCasing(resultWord, isUppercase)];
-                     break;
-                  }
-               }
-            }
+            [self updateControllersWithMisspelledWord:text corrections:corrections];
          }
       });
    }
