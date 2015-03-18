@@ -33,6 +33,7 @@
 		8E0BD2F11AB4BBA6006D70F3 /* SpellCorrectorBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8E0BD2F01AB4BBA6006D70F3 /* SpellCorrectorBridge.mm */; };
 		8E0BD2F31AB4BCF9006D70F3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */; };
 		8E0BD2F41AB4BD04006D70F3 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */; };
+		8E36A1B21AB919CA004C9DFB /* NSString+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E36A1B11AB919CA004C9DFB /* NSString+Additions.m */; };
 		8E7662CA1A701D4F006410E7 /* KeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662C91A701D4F006410E7 /* KeyView.m */; };
 		8E7662D61A71F61C006410E7 /* KeyboardKeysController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D51A71F61C006410E7 /* KeyboardKeysController.m */; };
 		8E7662D91A71F7BA006410E7 /* KeyboardAuxiliaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E7662D81A71F7BA006410E7 /* KeyboardAuxiliaryController.m */; };
@@ -141,6 +142,8 @@
 		8E0BD2EF1AB4BBA6006D70F3 /* SpellCorrectorBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpellCorrectorBridge.h; sourceTree = "<group>"; };
 		8E0BD2F01AB4BBA6006D70F3 /* SpellCorrectorBridge.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SpellCorrectorBridge.mm; sourceTree = "<group>"; };
 		8E0BD2F21AB4BCF9006D70F3 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		8E36A1B01AB919CA004C9DFB /* NSString+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Additions.h"; sourceTree = "<group>"; };
+		8E36A1B11AB919CA004C9DFB /* NSString+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Additions.m"; sourceTree = "<group>"; };
 		8E7662C81A701D4F006410E7 /* KeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyView.h; sourceTree = "<group>"; };
 		8E7662C91A701D4F006410E7 /* KeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyView.m; sourceTree = "<group>"; };
 		8E7662D41A71F61C006410E7 /* KeyboardKeysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardKeysController.h; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				8E905BF71AB4DF0A00B56393 /* UITextChecker+Additions.m */,
 				5BE1E8DA1A7F2F5B0094E050 /* CALayer+DisableAnimations.h */,
 				5BE1E8DB1A7F2F5B0094E050 /* CALayer+DisableAnimations.m */,
+				8E36A1B01AB919CA004C9DFB /* NSString+Additions.h */,
+				8E36A1B11AB919CA004C9DFB /* NSString+Additions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -661,6 +666,7 @@
 				8E905BFE1AB6457200B56393 /* SpellCorrectionResult.m in Sources */,
 				5B537E991A7348CB0006AEF8 /* SpacebarKeyController.m in Sources */,
 				5B4D23C31A8532EB00ECE9AD /* KeysController.m in Sources */,
+				8E36A1B21AB919CA004C9DFB /* NSString+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
