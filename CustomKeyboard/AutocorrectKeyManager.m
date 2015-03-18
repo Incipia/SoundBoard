@@ -10,11 +10,22 @@
 #import "AutocorrectKeyController.h"
 #import "SpellCorrectorBridge.h"
 #import "UITextChecker+Additions.h"
+#import "NSString+Additions.h"
 #import "SpellCorrectionResult.h"
 
 static NSString* _quotedString(NSString* string)
 {
    return [NSString stringWithFormat:@"\"%@\"", string];
+}
+
+static NSString* _properCasing(NSString* string, BOOL uppercase)
+{
+   NSString* retVal = string;
+   if (uppercase)
+   {
+      retVal = string.titleCase;
+   }
+   return retVal;
 }
 
 @interface AutocorrectKeyManager ()
@@ -94,13 +105,8 @@ static NSString* _quotedString(NSString* string)
          if (corrections.count == 0)
          {
             NSString* word = text;
-            if (isUppercase)
-            {
-               word = [word stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                    withString:[[word substringToIndex:1] capitalizedString]];
-            }
-
-            NSArray* guesses = [self.textChecker guessesForWord:word];
+            NSArray* guesses = [self.textChecker guessesForWord:_properCasing(word, isUppercase)];
+            
             if (guesses.count > 0)
             {
                // punctuation hopefully
@@ -121,17 +127,8 @@ static NSString* _quotedString(NSString* string)
                }
                [self.secondaryController updateText:secondaryWord];
 
-               NSString* tertiaryWord = @"";
-               if (guesses.count > 1)
-               {
-                  tertiaryWord = guesses[1];
-                  if (isUppercase)
-                  {
-                     tertiaryWord = [tertiaryWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                                          withString:[[tertiaryWord substringToIndex:1] capitalizedString]];
-                  }
-               }
-               [self.tertiaryController updateText:tertiaryWord];
+               NSString* tertiaryWord = guesses.count > 1 ? guesses[1] : @"";
+               [self.tertiaryController updateText:_properCasing(tertiaryWord, isUppercase)];
             }
 
             [self.primaryController updateText:_quotedString(word)];
@@ -145,12 +142,8 @@ static NSString* _quotedString(NSString* string)
 
             SpellCorrectionResult* firstResult = corrections[0];
             NSString* word = firstResult.word;
-            if (isUppercase)
-            {
-               word = [word stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                    withString:[[word substringToIndex:1] capitalizedString]];
-            }
-            [self.primaryController updateText:word];
+
+            [self.primaryController updateText:_properCasing(word, isUppercase)];
             self.primaryControllerCanTrigger = YES;
 
             if (corrections.count > 1)
@@ -161,12 +154,7 @@ static NSString* _quotedString(NSString* string)
                   NSString* resultWord = result.word;
                   if (![resultWord isEqualToString:word])
                   {
-                     if (isUppercase)
-                     {
-                        resultWord = [resultWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                                         withString:[[resultWord substringToIndex:1] capitalizedString]];
-                     }
-                     [self.tertiaryController updateText:resultWord];
+                     [self.tertiaryController updateText:_properCasing(resultWord, isUppercase)];
                      break;
                   }
                }
