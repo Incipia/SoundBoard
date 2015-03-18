@@ -11,11 +11,11 @@
 @implementation SpellCorrectionResult
 
 #pragma mark - Class Init
-+ (instancetype)resultWithWord:(NSString *)word likelyhood:(NSUInteger)likelyhood
++ (instancetype)resultWithWord:(NSString *)word likelihood:(NSUInteger)likelihood
 {
    SpellCorrectionResult* result = [SpellCorrectionResult new];
    result.word = word;
-   result.likelyhood = likelyhood;
+   result.likelihood = likelihood;
    return result;
 }
 

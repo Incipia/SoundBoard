@@ -120,6 +120,18 @@ static NSString* _quotedString(NSString* string)
                   secondaryWord = _quotedString(text);
                }
                [self.secondaryController updateText:secondaryWord];
+
+               NSString* tertiaryWord = @"";
+               if (guesses.count > 1)
+               {
+                  tertiaryWord = guesses[1];
+                  if (isUppercase)
+                  {
+                     tertiaryWord = [tertiaryWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                          withString:[[tertiaryWord substringToIndex:1] capitalizedString]];
+                  }
+               }
+               [self.tertiaryController updateText:tertiaryWord];
             }
 
             [self.primaryController updateText:_quotedString(word)];
@@ -143,14 +155,21 @@ static NSString* _quotedString(NSString* string)
 
             if (corrections.count > 1)
             {
-               SpellCorrectionResult* secondResult = corrections[1];
-               NSString* secondWord = secondResult.word;
-               if (isUppercase)
+               for (int correctionIndex = 1; correctionIndex < corrections.count; ++correctionIndex)
                {
-                  secondWord = [secondWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                       withString:[[secondWord substringToIndex:1] capitalizedString]];
+                  SpellCorrectionResult* result = corrections[correctionIndex];
+                  NSString* resultWord = result.word;
+                  if (![resultWord isEqualToString:word])
+                  {
+                     if (isUppercase)
+                     {
+                        resultWord = [resultWord stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                         withString:[[resultWord substringToIndex:1] capitalizedString]];
+                     }
+                     [self.tertiaryController updateText:resultWord];
+                     break;
+                  }
                }
-               [self.tertiaryController updateText:secondWord];
             }
          }
       });

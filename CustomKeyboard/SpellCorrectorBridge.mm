@@ -69,18 +69,18 @@
    for (Dictionary::iterator it = candidates.begin(); it != candidates.end(); ++it)
    {
       NSString* word = [NSString stringWithUTF8String:it->first.c_str()];
-      SpellCorrectionResult* result = [SpellCorrectionResult resultWithWord:word likelyhood:it->second];
+      SpellCorrectionResult* result = [SpellCorrectionResult resultWithWord:word likelihood:it->second];
 
       [results addObject:result];
    }
 
    return [results sortedArrayUsingComparator:^NSComparisonResult(SpellCorrectionResult* obj1, SpellCorrectionResult* obj2) {
 
-      if (obj1.likelyhood == obj2.likelyhood)
+      if (obj1.likelihood == obj2.likelihood)
       {
          return NSOrderedSame;
       }
-      return (obj1.likelyhood > obj2.likelyhood) ? NSOrderedAscending : NSOrderedDescending;
+      return (obj1.likelihood > obj2.likelihood) ? NSOrderedAscending : NSOrderedDescending;
    }];
 }
 

@@ -12,7 +12,7 @@
 @interface SpellCorrectionResult : NSObject
 
 @property (nonatomic, copy) NSString* word;
-@property (nonatomic) NSUInteger likelyhood;
-+ (instancetype)resultWithWord:(NSString*)word likelyhood:(NSUInteger)likelyhood;
+@property (nonatomic) NSUInteger likelihood;
++ (instancetype)resultWithWord:(NSString*)word likelihood:(NSUInteger)likelihood;
 
 @end;
