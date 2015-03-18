@@ -28,6 +28,19 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    return retVal;
 }
 
+/*
+ Strings that are valid for correcting are in the following format:
+ 
+ letters-symbols  --  e.g. "abcdefg??"
+ symbols-letters  --  e.g. "??abcdefg"
+ 
+ invalid examples: ??abcdefg??, ??abc?d?efg??
+ */
+static BOOL _isValidForCorrecting(NSString* string)
+{
+   return YES;
+}
+
 @interface AutocorrectKeyManager ()
 @property (nonatomic) AutocorrectKeyController* primaryController;
 @property (nonatomic) AutocorrectKeyController* secondaryController;
@@ -151,17 +164,25 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    {
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-         NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
-
-         // the word was found to be a real word
-         if (corrections.count == 0)
+         if (_isValidForCorrecting(text))
          {
-            [self updateControllersWithRealWord:text];
+            NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
+            // the word was found to be a real word
+            if (corrections.count == 0)
+            {
+               [self updateControllersWithRealWord:text];
+            }
+            // the word was not found in the dictionary
+            else
+            {
+               [self updateControllersWithMisspelledWord:text corrections:corrections];
+            }
          }
-         // the word was not found in the dictionary
          else
          {
-            [self updateControllersWithMisspelledWord:text corrections:corrections];
+            [self.primaryController updateText:text];
+            [self.secondaryController updateText:@""];
+            [self.tertiaryController updateText:@""];
          }
       });
    }
