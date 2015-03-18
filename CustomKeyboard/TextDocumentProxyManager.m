@@ -13,6 +13,7 @@
 @interface TextDocumentProxyManager ()
 @property (weak, nonatomic) id<UITextDocumentProxy> proxy;
 @property (nonatomic, readonly) NSString* lastWord;
+@property (nonatomic, readonly) NSString* lastWordIncludingPunctuation;
 @end
 
 @implementation TextDocumentProxyManager
@@ -42,13 +43,13 @@
       if (![text isEqualToString:@" "])
          [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
 
-   NSString* lastWord = [self sharedManager].lastWord;
+   NSString* lastWord = [self sharedManager].lastWordIncludingPunctuation;
    [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:lastWord];
 }
 
 + (void)replaceCurrentWordWithText:(NSString*)text
 {
-   NSUInteger lastWordCount = [self sharedManager].lastWord.length;
+   NSUInteger lastWordCount = [self sharedManager].lastWordIncludingPunctuation.length;
    for (int i = 0; i < lastWordCount; ++i)
    {
       [[self sharedManager].proxy deleteBackward];
@@ -73,9 +74,9 @@
          character = [text characterAtIndex:text.length - 2];
          if (![TextDocumentProxyManager isWhitespace:character])
          {
-            [TextDocumentProxyManager deleteBackward:1];
-            [[[self class] sharedManager].proxy insertText:@". "];
-            
+            [[[self class] sharedManager].proxy deleteBackward];
+            [TextDocumentProxyManager insertText:@". "];
+
             if ([KeyboardModeManager currentShiftMode] == ShiftModeNotApplied)
                [KeyboardModeManager updateKeyboardShiftMode:ShiftModeApplied];
             
@@ -93,7 +94,11 @@
    {
       [TextDocumentProxyManager insertText:@" "];
    }
-   
+   [TextDocumentProxyManager updateShiftMode];
+}
+
++ (void)updateShiftMode
+{
    NSString * text = [self documentContextBeforeInput];
    if (text && text.length > 1)
    {
@@ -176,7 +181,7 @@
       [[[self class] sharedManager].proxy deleteBackward];
    }
 
-   [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:[self sharedManager].lastWord];
+   [[AutocorrectKeyManager sharedManager] updateControllersWithTextInput:[self sharedManager].lastWordIncludingPunctuation];
    return deletedUppercase;
 }
 
@@ -208,7 +213,53 @@
    return lastWord;
 }
 
-#pragma mark - Property Overrides
+- (NSString*)lastWordIncludingPunctuation
+{
+   NSString* lastWord = nil;
+   NSString* textBeforeInput = self.proxy.documentContextBeforeInput;
+
+   if (textBeforeInput.length > 0 && [TextDocumentProxyManager isWhitespace:[textBeforeInput characterAtIndex:textBeforeInput.length-1]])
+   {
+      return nil;
+   }
+
+
+   NSInteger firstCharacterIndex = -1;
+   NSInteger lastCharacterIndex = -1;
+
+   // get the last character index
+   NSInteger currentIndex = textBeforeInput.length - 1;
+   while (currentIndex >= 0)
+   {
+      unichar character = [textBeforeInput characterAtIndex:currentIndex];
+      if (![TextDocumentProxyManager isWhitespace:character])
+      {
+         break;
+      }
+      --currentIndex;
+   }
+   lastCharacterIndex = currentIndex;
+
+   while (currentIndex >= 0)
+   {
+      unichar character = [textBeforeInput characterAtIndex:currentIndex];
+      if ([TextDocumentProxyManager isWhitespace:character])
+      {
+         break;
+      }
+      --currentIndex;
+   }
+   firstCharacterIndex = currentIndex + 1;
+
+   if (firstCharacterIndex != -1 && lastCharacterIndex != -1)
+   {
+      NSUInteger numberOfCharacters = lastCharacterIndex - firstCharacterIndex + 1;
+      lastWord = [textBeforeInput substringWithRange:NSMakeRange(firstCharacterIndex, numberOfCharacters)];
+   }
+
+   return lastWord;
+}
+
 + (NSString*)documentContextBeforeInput
 {
    return [[self class] sharedManager].proxy.documentContextBeforeInput;

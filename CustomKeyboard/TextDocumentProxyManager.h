@@ -16,6 +16,7 @@
 
 + (void)setTextDocumentProxy:(id<UITextDocumentProxy>)proxy;
 + (void)insertText:(NSString*)text;
++ (void)updateShiftMode;
 + (void)replaceCurrentWordWithText:(NSString*)text;
 + (BOOL)deleteBackward:(NSInteger)repeatCount;
 + (void)adjustTextPositionByCharacterOffset:(NSInteger)offset;
