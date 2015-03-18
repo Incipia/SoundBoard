@@ -27,10 +27,13 @@
       __weak typeof(self) weakSelf = self;
       [(KeyView*)self.view setActionBlock:^(NSInteger repeatCount) {
 
-         NSString* text = [weakSelf.textLabel.text stringByReplacingOccurrencesOfString:@"\"" withString:@""];
-         text = [text stringByAppendingString:@" "];
+         if (weakSelf.textLabel.text.length > 0)
+         {
+            NSString* text = [weakSelf.textLabel.text stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            text = [text stringByAppendingString:@" "];
 
-         [TextDocumentProxyManager replaceCurrentWordWithText:text];
+            [TextDocumentProxyManager replaceCurrentWordWithText:text];
+         }
       }];
       [self setupLabel];
    }
