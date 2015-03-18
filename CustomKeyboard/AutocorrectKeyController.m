@@ -33,6 +33,7 @@
             text = [text stringByAppendingString:@" "];
 
             [TextDocumentProxyManager replaceCurrentWordWithText:text];
+            [TextDocumentProxyManager updateShiftMode];
          }
       }];
       [self setupLabel];
