@@ -180,7 +180,7 @@ static BOOL _isValidForCorrecting(NSString* string)
          }
          else
          {
-            [self.primaryController updateText:text];
+            [self.primaryController updateText:text];
             [self.secondaryController updateText:@""];
             [self.tertiaryController updateText:@""];
          }
