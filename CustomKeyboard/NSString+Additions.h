@@ -10,6 +10,7 @@
 
 @interface NSString (Additions)
 
+@property (nonatomic, readonly) BOOL isUppercase;
 @property (nonatomic, readonly) NSString* titleCase;
 
 @end

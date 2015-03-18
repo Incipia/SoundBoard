@@ -10,6 +10,17 @@
 
 @implementation NSString (Additions)
 
+- (BOOL)isUppercase
+{
+   BOOL uppercase = NO;
+   if (self.length > 0)
+   {
+      unichar firstCharacter = [self characterAtIndex:0];
+      uppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:firstCharacter];
+   }
+   return uppercase;
+}
+
 - (NSString*)titleCase
 {
    NSString* titleCaseString = nil;
