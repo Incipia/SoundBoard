@@ -32,4 +32,9 @@
    return titleCaseString;
 }
 
+- (NSString*)quotedString
+{
+   return [NSString stringWithFormat:@"\"%@\"", self];
+}
+
 @end

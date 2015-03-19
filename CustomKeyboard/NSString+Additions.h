@@ -12,5 +12,6 @@
 
 @property (nonatomic, readonly) BOOL isUppercase;
 @property (nonatomic, readonly) NSString* titleCase;
+@property (nonatomic, readonly) NSString* quotedString;
 
 @end
