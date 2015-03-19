@@ -23,6 +23,21 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    return retVal;
 }
 
+static BOOL _containsLetters(NSString* string)
+{
+   BOOL containsLetters = NO;
+   for (int i = 0; i < string.length; ++i)
+   {
+      unichar character = [string characterAtIndex:i];
+      if ([[NSCharacterSet letterCharacterSet] characterIsMember:character])
+      {
+         containsLetters = YES;
+         break;
+      }
+   }
+   return containsLetters;
+}
+
 /*
  Strings that are valid for correcting are in the following format:
  
@@ -80,7 +95,7 @@ static BOOL _isValidForCorrecting(NSString* string)
          }
       }
    }
-   return isValid;
+   return isValid && _containsLetters(string);
 }
 
 @interface AutocorrectKeyManager ()
@@ -176,6 +191,13 @@ static BOOL _isValidForCorrecting(NSString* string)
    }
 }
 
+- (void)updateControllersWithInvalidWord:(NSString*)word
+{
+   [self.primaryController updateText:word.quotedString];
+   [self.secondaryController updateText:@""];
+   [self.tertiaryController updateText:@""];
+}
+
 #pragma mark - Public
 - (void)setAutocorrectKeyController:(AutocorrectKeyController *)controller withPriority:(AutocorrectKeyControllerPriority)priority
 {
@@ -209,12 +231,10 @@ static BOOL _isValidForCorrecting(NSString* string)
          if (_isValidForCorrecting(text))
          {
             NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
-            // the word was found to be a real word
             if (corrections.count == 0)
             {
                [self updateControllersWithRealWord:text];
             }
-            // the word was not found in the dictionary
             else
             {
                [self updateControllersWithMisspelledWord:text corrections:corrections];
@@ -222,9 +242,7 @@ static BOOL _isValidForCorrecting(NSString* string)
          }
          else
          {
-            [self.primaryController updateText:text.quotedString];
-            [self.secondaryController updateText:@""];
-            [self.tertiaryController updateText:@""];
+            [self updateControllersWithInvalidWord:text];
          }
       });
    }
