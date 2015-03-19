@@ -23,81 +23,6 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
    return retVal;
 }
 
-static BOOL _containsLetters(NSString* string)
-{
-   BOOL containsLetters = NO;
-   for (int i = 0; i < string.length; ++i)
-   {
-      unichar character = [string characterAtIndex:i];
-      if ([[NSCharacterSet letterCharacterSet] characterIsMember:character])
-      {
-         containsLetters = YES;
-         break;
-      }
-   }
-   return containsLetters;
-}
-
-/*
- Strings that are valid for correcting are in the following format:
- 
- letters-symbols  --  e.g. "abcdefg??"
- symbols-letters  --  e.g. "??abcdefg"
- 
- invalid examples: ??abcdefg??, ??abc?d?efg??, abcd??efg
- */
-static BOOL _isValidForCorrecting(NSString* string)
-{
-   BOOL isValid = YES;
-   if (string.length > 0)
-   {
-      unichar firstCharacter = [string characterAtIndex:0];
-      if ([[NSCharacterSet letterCharacterSet] characterIsMember:firstCharacter])
-      {
-         NSInteger firstNonLetterCharacterIndex = -1;
-         NSInteger firstLetterCharacterIndexAfterNonLetterCharacter = -1;
-         for (NSUInteger charIndex = 0; charIndex < string.length; ++charIndex)
-         {
-            unichar currentChar = [string characterAtIndex:charIndex];
-            if (![[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstNonLetterCharacterIndex == -1)
-            {
-               firstNonLetterCharacterIndex = charIndex;
-            }
-            else if ([[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstNonLetterCharacterIndex > 0 && firstLetterCharacterIndexAfterNonLetterCharacter == -1)
-            {
-               firstLetterCharacterIndexAfterNonLetterCharacter = charIndex;
-            }
-         }
-         if (firstNonLetterCharacterIndex != -1 && firstLetterCharacterIndexAfterNonLetterCharacter != -1)
-         {
-            isValid = NO;
-         }
-      }
-      else
-      {
-         NSInteger firstLetterCharacterIndex = -1;
-         NSInteger firstNonLetterCharacterIndexAfterLetterCharacter = -1;
-         for (NSUInteger charIndex = 0; charIndex < string.length; ++charIndex)
-         {
-            unichar currentChar = [string characterAtIndex:charIndex];
-            if ([[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstLetterCharacterIndex == -1)
-            {
-               firstLetterCharacterIndex = charIndex;
-            }
-            else if (![[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstLetterCharacterIndex > 0 && firstNonLetterCharacterIndexAfterLetterCharacter == -1)
-            {
-               firstNonLetterCharacterIndexAfterLetterCharacter = charIndex;
-            }
-         }
-         if (firstLetterCharacterIndex != -1 && firstNonLetterCharacterIndexAfterLetterCharacter != -1)
-         {
-            isValid = NO;
-         }
-      }
-   }
-   return isValid && _containsLetters(string);
-}
-
 @interface AutocorrectKeyManager ()
 @property (nonatomic) AutocorrectKeyController* primaryController;
 @property (nonatomic) AutocorrectKeyController* secondaryController;
@@ -117,6 +42,22 @@ static BOOL _isValidForCorrecting(NSString* string)
       // here just in case the text file used for spell correction hasn't been loaded yet
       [SpellCorrectorBridge loadForSpellCorrection];
       self.textChecker = [UITextChecker new];
+
+      // For Debugging:
+//      NSString* string1 = @"1234abcd";
+//      NSString* string2 = @"abcd1234";
+//      NSString* string3 = @"a23445";
+//      NSString* string4 = @"b123434";
+//      NSString* string5 = @"hello";
+//
+//      NSArray* strings = @[string1, string2, string3, string4, string5];
+//      for (NSString* string in strings)
+//      {
+//         NSLog(@"%@, %@, %@, %@", string,
+//               string.letterCharacterString,
+//               string.nonLetterCharacterString,
+//               [string stringByReplacingLetterCharactersWithString:@"REPLACE"]);
+//      }
    }
    return self;
 }
@@ -136,7 +77,7 @@ static BOOL _isValidForCorrecting(NSString* string)
 - (void)updateControllersWithRealWord:(NSString*)text
 {
    NSString* word = text;
-   NSArray* guesses = [self.textChecker guessesForWord:_properCasing(word, text.isUppercase)];
+   NSArray* guesses = [self.textChecker guessesForWord:text.letterCharacterString];
 
    if (guesses.count > 0)
    {
@@ -156,10 +97,12 @@ static BOOL _isValidForCorrecting(NSString* string)
       {
          secondaryWord = text.quotedString;
       }
-      [self.secondaryController updateText:secondaryWord];
+      [self.secondaryController updateText:[text stringByReplacingLetterCharactersWithString:secondaryWord]];
 
-      NSString* tertiaryWord = guesses.count > 1 ? guesses[1] : @"";
-      [self.tertiaryController updateText:_properCasing(tertiaryWord, text.isUppercase)];
+      NSString* tertiaryWord = guesses.count > 1 ? _properCasing(guesses[1], text.isUppercase) : nil;
+      tertiaryWord = [text stringByReplacingLetterCharactersWithString:tertiaryWord];
+
+      [self.tertiaryController updateText:tertiaryWord];
    }
 
    [self.primaryController updateText:word.quotedString];
@@ -171,9 +114,10 @@ static BOOL _isValidForCorrecting(NSString* string)
    [self.secondaryController updateText:text.quotedString];
 
    SpellCorrectionResult* firstResult = corrections[0];
-   NSString* word = firstResult.word;
+   NSString* word = _properCasing(firstResult.word, text.isUppercase);
+   NSString* primaryWord = [text stringByReplacingLetterCharactersWithString:word];
 
-   [self.primaryController updateText:_properCasing(word, text.isUppercase)];
+   [self.primaryController updateText:primaryWord];
    self.primaryControllerCanTrigger = YES;
 
    if (corrections.count > 1)
@@ -181,10 +125,11 @@ static BOOL _isValidForCorrecting(NSString* string)
       for (int correctionIndex = 1; correctionIndex < corrections.count; ++correctionIndex)
       {
          SpellCorrectionResult* result = corrections[correctionIndex];
-         NSString* resultWord = result.word;
-         if (![resultWord isEqualToString:word])
+         NSString* resultWord = _properCasing(result.word, text.isUppercase);
+         if (![resultWord isEqualToString:word] && resultWord.length > 0)
          {
-            [self.tertiaryController updateText:_properCasing(resultWord, text.isUppercase)];
+            NSString* tertiaryWord = [text stringByReplacingLetterCharactersWithString:resultWord];
+            [self.tertiaryController updateText:tertiaryWord];
             break;
          }
       }
@@ -228,9 +173,9 @@ static BOOL _isValidForCorrecting(NSString* string)
    {
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 
-         if (_isValidForCorrecting(text))
+         if (text.isValidForCorrecting)
          {
-            NSArray* corrections = [SpellCorrectorBridge correctionsForText:text];
+            NSArray* corrections = [SpellCorrectorBridge correctionsForText:text.letterCharacterString];
             if (corrections.count == 0)
             {
                [self updateControllersWithRealWord:text];
