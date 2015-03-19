@@ -125,7 +125,7 @@ void SpellCorrector::editWord(const std::string& word, Vector& result)
    {
       result.push_back(word.substr(0, characterIndex) + word.substr(characterIndex + 1)); // deletions
    }
-   for (string::size_type characterIndex = 0;characterIndex < word.size() - 1; characterIndex++)
+   for (string::size_type characterIndex = 0; characterIndex < word.size() - 1; characterIndex++)
    {
       result.push_back(word.substr(0, characterIndex) + word[characterIndex + 1] + word[characterIndex] + word.substr(characterIndex + 2)); // transposition
    }
@@ -136,7 +136,7 @@ void SpellCorrector::editWord(const std::string& word, Vector& result)
       {
          result.push_back(word.substr(0, i) + j + word.substr(i + 1)); // alterations
       }
-      for (string::size_type i = 0;i < word.size() + 1; i++)
+      for (string::size_type i = 0; i < word.size() + 1; i++)
       {
          result.push_back(word.substr(0, i) + j + word.substr(i)); // insertion
       }
