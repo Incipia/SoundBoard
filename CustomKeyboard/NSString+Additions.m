@@ -28,9 +28,9 @@ static BOOL _containsLetters(NSString* string)
 - (BOOL)isUppercase
 {
    BOOL uppercase = NO;
-   if (self.length > 0)
+   if (self.letterCharacterString.length > 0)
    {
-      unichar firstCharacter = [self characterAtIndex:0];
+      unichar firstCharacter = [self.letterCharacterString characterAtIndex:0];
       uppercase = [[NSCharacterSet uppercaseLetterCharacterSet] characterIsMember:firstCharacter];
    }
    return uppercase;
@@ -39,18 +39,19 @@ static BOOL _containsLetters(NSString* string)
 - (NSString*)titleCase
 {
    NSString* titleCaseString = nil;
-   if (self.length > 0)
+   if (self.letterCharacterString.length > 0)
    {
-      titleCaseString = [self stringByReplacingCharactersInRange:NSMakeRange(0,1)
-                                                      withString:[[self substringToIndex:1] capitalizedString]];
+      titleCaseString = [self.letterCharacterString stringByReplacingCharactersInRange:NSMakeRange(0,1)
+                                                                            withString:[[self.letterCharacterString substringToIndex:1] capitalizedString]];
    }
-   return titleCaseString;
+   return [self stringByReplacingLetterCharactersWithString:titleCaseString];
 }
 
 - (NSString*)quotedString
 {
    return [NSString stringWithFormat:@"\"%@\"", self];
 }
+
 - (BOOL)isValidForCorrecting
 {
    BOOL isValid = YES;
@@ -108,8 +109,8 @@ static BOOL _containsLetters(NSString* string)
    NSString* string = [NSString stringWithString:self];
    if (self.length > 0)
    {
-      NSUInteger firstNonLetterCharIndex = -1;
-      NSUInteger lastNonLetterCharIndex = -1;
+      NSInteger firstNonLetterCharIndex = -1;
+      NSInteger lastNonLetterCharIndex = -1;
 
       for (int charIndex = 0; charIndex < string.length; ++charIndex)
       {
@@ -131,7 +132,7 @@ static BOOL _containsLetters(NSString* string)
       {
          string = [string substringFromIndex:lastNonLetterCharIndex + 1];
       }
-      else if (firstNonLetterCharIndex != -1 && lastNonLetterCharIndex != -1)
+      else if (firstNonLetterCharIndex != -1)
       {
          string = [string substringToIndex:firstNonLetterCharIndex];
       }
@@ -144,8 +145,8 @@ static BOOL _containsLetters(NSString* string)
    NSString* string = [NSString stringWithString:self];
    if (self.length > 0)
    {
-      NSUInteger firstNonLetterCharIndex = -1;
-      NSUInteger lastNonLetterCharIndex = -1;
+      NSInteger firstNonLetterCharIndex = -1;
+      NSInteger lastNonLetterCharIndex = -1;
 
       for (int charIndex = 0; charIndex < string.length; ++charIndex)
       {
@@ -167,7 +168,7 @@ static BOOL _containsLetters(NSString* string)
       {
          string = [string substringToIndex:lastNonLetterCharIndex + 1];
       }
-      else if (firstNonLetterCharIndex != -1 && lastNonLetterCharIndex != -1)
+      else if (firstNonLetterCharIndex != -1)
       {
          string = [string substringFromIndex:firstNonLetterCharIndex];
       }
@@ -182,7 +183,7 @@ static BOOL _containsLetters(NSString* string)
 - (NSString*)stringByReplacingLetterCharactersWithString:(NSString*)string
 {
    NSString* letterString = self.letterCharacterString;
-   return [self stringByReplacingOccurrencesOfString:letterString withString:string];
+   return (letterString && string) ? [self stringByReplacingOccurrencesOfString:letterString withString:string] : nil;
 }
 
 @end
