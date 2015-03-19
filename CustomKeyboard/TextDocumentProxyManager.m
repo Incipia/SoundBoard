@@ -39,6 +39,15 @@
 + (void)insertText:(NSString*)text;
 {
    [[[self class] sharedManager].proxy insertText:text];
+
+   // VERY HACKY! Fix later on...
+   if ([text isEqualToString:@"."] || [text isEqualToString:@"!"] || [text isEqualToString:@"?"] || [text isEqualToString:@","])
+   {
+      [[AutocorrectKeyManager sharedManager] triggerPrimaryKeyIfPossible];
+      [[self sharedManager].proxy deleteBackward];
+      [[self sharedManager].proxy insertText:text];
+   }
+
    if ([KeyboardModeManager currentShiftMode] == ShiftModeApplied)
       if (![text isEqualToString:@" "])
          [KeyboardModeManager updateKeyboardShiftMode:ShiftModeNotApplied];
