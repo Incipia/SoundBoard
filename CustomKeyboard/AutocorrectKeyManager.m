@@ -13,11 +13,6 @@
 #import "NSString+Additions.h"
 #import "SpellCorrectionResult.h"
 
-static NSString* _quotedString(NSString* string)
-{
-   return [NSString stringWithFormat:@"\"%@\"", string];
-}
-
 static NSString* _properCasing(NSString* string, BOOL uppercase)
 {
    NSString* retVal = string;
@@ -34,11 +29,58 @@ static NSString* _properCasing(NSString* string, BOOL uppercase)
  letters-symbols  --  e.g. "abcdefg??"
  symbols-letters  --  e.g. "??abcdefg"
  
- invalid examples: ??abcdefg??, ??abc?d?efg??
+ invalid examples: ??abcdefg??, ??abc?d?efg??, abcd??efg
  */
 static BOOL _isValidForCorrecting(NSString* string)
 {
-   return YES;
+   BOOL isValid = YES;
+   if (string.length > 0)
+   {
+      unichar firstCharacter = [string characterAtIndex:0];
+      if ([[NSCharacterSet letterCharacterSet] characterIsMember:firstCharacter])
+      {
+         NSInteger firstNonLetterCharacterIndex = -1;
+         NSInteger firstLetterCharacterIndexAfterNonLetterCharacter = -1;
+         for (NSUInteger charIndex = 0; charIndex < string.length; ++charIndex)
+         {
+            unichar currentChar = [string characterAtIndex:charIndex];
+            if (![[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstNonLetterCharacterIndex == -1)
+            {
+               firstNonLetterCharacterIndex = charIndex;
+            }
+            else if ([[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstNonLetterCharacterIndex > 0 && firstLetterCharacterIndexAfterNonLetterCharacter == -1)
+            {
+               firstLetterCharacterIndexAfterNonLetterCharacter = charIndex;
+            }
+         }
+         if (firstNonLetterCharacterIndex != -1 && firstLetterCharacterIndexAfterNonLetterCharacter != -1)
+         {
+            isValid = NO;
+         }
+      }
+      else
+      {
+         NSInteger firstLetterCharacterIndex = -1;
+         NSInteger firstNonLetterCharacterIndexAfterLetterCharacter = -1;
+         for (NSUInteger charIndex = 0; charIndex < string.length; ++charIndex)
+         {
+            unichar currentChar = [string characterAtIndex:charIndex];
+            if ([[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstLetterCharacterIndex == -1)
+            {
+               firstLetterCharacterIndex = charIndex;
+            }
+            else if (![[NSCharacterSet letterCharacterSet] characterIsMember:currentChar] && firstLetterCharacterIndex > 0 && firstNonLetterCharacterIndexAfterLetterCharacter == -1)
+            {
+               firstNonLetterCharacterIndexAfterLetterCharacter = charIndex;
+            }
+         }
+         if (firstLetterCharacterIndex != -1 && firstNonLetterCharacterIndexAfterLetterCharacter != -1)
+         {
+            isValid = NO;
+         }
+      }
+   }
+   return isValid;
 }
 
 @interface AutocorrectKeyManager ()
@@ -97,7 +139,7 @@ static BOOL _isValidForCorrecting(NSString* string)
 
       if (shouldUseGuess == NO && ![text isEqualToString:word])
       {
-         secondaryWord = _quotedString(text);
+         secondaryWord = text.quotedString;
       }
       [self.secondaryController updateText:secondaryWord];
 
@@ -105,13 +147,13 @@ static BOOL _isValidForCorrecting(NSString* string)
       [self.tertiaryController updateText:_properCasing(tertiaryWord, text.isUppercase)];
    }
 
-   [self.primaryController updateText:_quotedString(word)];
+   [self.primaryController updateText:word.quotedString];
    self.primaryControllerCanTrigger = YES;
 }
 
 - (void)updateControllersWithMisspelledWord:(NSString*)text corrections:(NSArray*)corrections
 {
-   [self.secondaryController updateText:_quotedString(text)];
+   [self.secondaryController updateText:text.quotedString];
 
    SpellCorrectionResult* firstResult = corrections[0];
    NSString* word = firstResult.word;
@@ -180,7 +222,7 @@ static BOOL _isValidForCorrecting(NSString* string)
          }
          else
          {
-            [self.primaryController updateText:text];
+            [self.primaryController updateText:text.quotedString];
             [self.secondaryController updateText:@""];
             [self.tertiaryController updateText:@""];
          }
