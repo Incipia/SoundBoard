@@ -14,4 +14,19 @@
 @property (nonatomic, readonly) NSString* titleCase;
 @property (nonatomic, readonly) NSString* quotedString;
 
+
+/*
+ Strings that are valid for correcting are in the following format:
+
+ letters-symbols  --  e.g. "abcdefg??"
+ symbols-letters  --  e.g. "??abcdefg"
+
+ invalid examples: ??abcdefg??, ??abc?d?efg??, abcd??efg
+ */
+@property (nonatomic, readonly) BOOL isValidForCorrecting;
+@property (nonatomic, readonly) NSString* letterCharacterString;
+@property (nonatomic, readonly) NSString* nonLetterCharacterString;
+
+- (NSString*)stringByReplacingLetterCharactersWithString:(NSString*)string;
+
 @end
